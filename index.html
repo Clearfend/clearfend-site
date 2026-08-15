@@ -8,7 +8,7 @@
 <meta property="og:title" content="ClearFend — How secure is your company, really? One honest number — and the ten fixes that matter">
 <meta property="og:description" content="Fixed-price, five-day, read-only posture assessment in plain English. One maturity level, the insurer-five, the top-10 fixes. Platform waitlist open.">
 <meta property="og:type" content="website">
-<!-- TODO before launch: set og:url to the real domain and add an og:image (1200x630 PNG) once the domain is registered. -->
+<!-- TODO before launch: add an og:image (1200x630 PNG). -->
 <meta property="og:url" content="https://clearfend.com/">
 <meta name="theme-color" content="#0A0E14">
 
@@ -16,60 +16,56 @@
      CTA WIRING (both CTAs ship as honest placeholders)
      ============================================================
      1) "Book a posture assessment" — currently a mailto: link to
-        admin@clearfend.com. To go live, EITHER:
-          a) replace every href="mailto:admin@clearfend.com?..."
-             with your real inbox, OR
-          b) swap the href for a Cal.com / SavvyCal booking link,
-             e.g. href="https://cal.com/clearfend/assessment-scoping"
+        admin@clearfend.com. To go live, EITHER keep the mailto or
+        swap the href for a Cal.com / SavvyCal booking link.
         Search this file for "BOOKING-CTA" to find all instances.
      2) "Join the waitlist" — the <form id="waitlist-form"> posts to a
-        placeholder endpoint. To go live, replace the action with:
-          - Formspree:  action="https://formspree.io/f/YOUR_FORM_ID"
-          - Tally:      or replace the whole form with a Tally embed
-          - Basin/Getform also work; any POST endpoint accepting
-            form-encoded fields (email, company_size, trigger).
-        Until then, a small script at the bottom of this file
-        intercepts submit and falls back to a pre-filled mailto so
-        the page is functional even from a file:// URL.
+        placeholder endpoint. Replace the action with a Formspree/Tally
+        endpoint. Until then, a script at the bottom intercepts submit
+        and falls back to a pre-filled mailto (search FORM_ID_PLACEHOLDER).
      ============================================================ -->
 
 <style>
   /* =========================================================
-     ClearFend marketing site — "Confidence Console" skin
-     Derived from 14-ui-design-direction.md:
-     opaque graphite elevation, hairline borders, color = meaning,
-     mono tabular figures on every number, motion rationed.
+     ClearFend marketing site — "Confidence Console" (v2)
+     Instrument-grade dark graphite. Color = meaning.
+     Motion earns its place: the blast-radius ignition and the
+     posture->proof fan are the two signatures; everything else
+     is a quiet reveal. Derived from 14-ui-design-direction.md.
      ========================================================= */
   :root{
     /* surfaces */
-    --canvas:#0A0E14;
-    --surface-1:#121821;
-    --surface-2:#1A2230;
-    --surface-3:#232D3D;
-    --border:#263140;
-    --border-strong:#33465C;
+    --canvas:#080B11;
+    --canvas-2:#0A0E15;
+    --surface-1:#111823;
+    --surface-2:#18212F;
+    --surface-3:#212C3D;
+    --border:#26303F;
+    --border-strong:#35495F;
     /* text */
-    --text:#E6EDF5;
+    --text:#EAF1F8;
     --muted:#9DB0C2;
-    --faint:#63748A;
+    --faint:#607386;
     /* accent + meaning */
-    --accent:#35C4D4;
-    --accent-weak:rgba(53,196,212,.12);
-    --accent-border:rgba(53,196,212,.35);
-    --pass:#3FB77E;
-    --partial:#E8C245;
-    --fail:#FF5964;
-    --ai:#E8A33D;
+    --accent:#38CEDE;
+    --accent-2:#4EA8FF;
+    --accent-weak:rgba(56,206,222,.12);
+    --accent-border:rgba(56,206,222,.34);
+    --pass:#3FCB86;
+    --partial:#EEC53E;
+    --fail:#FF5A65;
+    --ai:#F0A93E;
     /* type */
     --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
     /* geometry */
-    --radius:8px;
-    --radius-sm:6px;
-    --radius-xs:4px;
-    --maxw:1120px;
-    --shadow-1:0 1px 2px rgba(0,0,0,.4);
-    --shadow-2:0 8px 24px rgba(0,0,0,.5);
+    --radius:12px;
+    --radius-sm:8px;
+    --radius-xs:5px;
+    --maxw:1180px;
+    --shadow-1:0 1px 2px rgba(0,0,0,.5);
+    --shadow-2:0 14px 40px rgba(0,0,0,.55);
+    --shadow-glow:0 0 0 1px var(--accent-border), 0 18px 50px rgba(56,206,222,.10);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -77,394 +73,412 @@
     font-family:var(--font);
     background:var(--canvas);color:var(--text);
     line-height:1.65;font-size:16px;
-    -webkit-font-smoothing:antialiased;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    overflow-x:hidden;
   }
-  /* restrained atmosphere: a faint engineering grid + one quiet teal wash
-     at the top. This is the entire decoration budget. */
-  body::before{
-    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+
+  /* ---- layered atmosphere: mesh glows + drifting grid + fine grain ---- */
+  .bg{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+  .bg::before{
+    content:"";position:absolute;inset:-20%;
     background:
-      radial-gradient(52rem 30rem at 50% -8%, rgba(53,196,212,.07), transparent 62%),
-      linear-gradient(rgba(230,237,245,.022) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(230,237,245,.022) 1px, transparent 1px);
-    background-size:auto,48px 48px,48px 48px;
+      radial-gradient(38rem 26rem at 18% -6%, rgba(56,206,222,.13), transparent 60%),
+      radial-gradient(36rem 24rem at 92% 4%, rgba(78,168,255,.10), transparent 58%),
+      radial-gradient(44rem 30rem at 60% 42%, rgba(56,206,222,.045), transparent 62%),
+      radial-gradient(40rem 30rem at 8% 78%, rgba(240,169,62,.05), transparent 60%);
   }
+  .bg .grid{
+    position:absolute;inset:-2px;opacity:.5;
+    background-image:
+      linear-gradient(rgba(230,237,245,.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(230,237,245,.028) 1px, transparent 1px);
+    background-size:52px 52px;
+    -webkit-mask-image:radial-gradient(120% 90% at 50% 0%, #000 30%, transparent 78%);
+    mask-image:radial-gradient(120% 90% at 50% 0%, #000 30%, transparent 78%);
+    animation:drift 60s linear infinite;
+  }
+  @keyframes drift{to{background-position:52px 52px, 52px 52px}}
+  .bg .grain{
+    position:absolute;inset:0;opacity:.035;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
   img,svg{max-width:100%}
   a{color:var(--accent)}
   a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible{
     outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--radius-xs);
   }
-  ::selection{background:rgba(53,196,212,.30)}
+  ::selection{background:rgba(56,206,222,.30)}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 1.5rem}
   .skip{position:absolute;left:-999px;top:0;background:var(--accent);color:#04252b;padding:.5rem 1rem;z-index:99;font-weight:700}
   .skip:focus{left:0}
-
   .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  /* ---- reveal-on-scroll ---- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
 
   /* ---------- header ---------- */
   header.site{
-    background:rgba(10,14,20,.82);
-    border-bottom:1px solid var(--border);
     position:sticky;top:0;z-index:50;
-    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-    transition:box-shadow .2s ease;
+    background:rgba(8,11,17,.72);
+    border-bottom:1px solid transparent;
+    -webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);
+    transition:background-color .25s ease, border-color .25s ease, box-shadow .25s ease;
   }
-  header.site.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.45)}
-  /* the one brand cue: a hairline accent along the very top edge */
   header.site::before{
-    content:"";display:block;height:2px;
-    background:linear-gradient(90deg,transparent,var(--accent) 18%,var(--accent) 82%,transparent);
-    opacity:.85;
+    content:"";display:block;height:1.5px;
+    background:linear-gradient(90deg,transparent,var(--accent) 20%,var(--accent-2) 80%,transparent);
+    opacity:.8;
   }
-  .nav{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding:.85rem 1.5rem}
+  header.site.scrolled{background:rgba(8,11,17,.9);border-bottom-color:var(--border);box-shadow:0 10px 30px rgba(0,0,0,.4)}
+  .nav{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding:.8rem 1.5rem}
   .brand{
-    font-weight:800;font-size:1.2rem;letter-spacing:-.02em;
-    color:var(--text);text-decoration:none;display:inline-flex;align-items:center;gap:.55rem;
+    font-weight:800;font-size:1.22rem;letter-spacing:-.02em;
+    color:var(--text);text-decoration:none;display:inline-flex;align-items:center;gap:.6rem;
   }
-  .brand .mark{
-    width:1.35rem;height:1.35rem;flex-shrink:0;display:block;
-  }
+  .brand .mark{width:1.55rem;height:1.55rem;flex-shrink:0;display:block;filter:drop-shadow(0 0 6px rgba(56,206,222,.5))}
   .brand span{color:var(--accent)}
-  .nav-links{display:flex;gap:1.35rem;flex-wrap:wrap;margin-left:auto;align-items:center}
-  .nav-links a:not(.btn){color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:600}
+  .nav-links{display:flex;gap:1.5rem;flex-wrap:wrap;margin-left:auto;align-items:center}
+  .nav-links a:not(.btn){color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:600;position:relative}
+  .nav-links a:not(.btn)::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:1.5px;background:var(--accent);transition:right .25s ease}
   .nav-links a:not(.btn):hover{color:var(--text)}
+  .nav-links a:not(.btn):hover::after{right:0}
 
   /* ---------- buttons ---------- */
   .btn{
-    display:inline-block;text-decoration:none;cursor:pointer;
-    padding:.72rem 1.25rem;border-radius:var(--radius-sm);
-    font-weight:700;font-size:.95rem;font-family:var(--font);
-    background:var(--accent);color:#04252b;border:1px solid var(--accent);
-    transition:filter .15s ease, transform .15s ease, background-color .15s ease, border-color .15s ease;
+    display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;cursor:pointer;
+    padding:.75rem 1.3rem;border-radius:var(--radius-sm);
+    font-weight:700;font-size:.95rem;font-family:var(--font);white-space:nowrap;
+    color:#04252b;border:1px solid transparent;position:relative;overflow:hidden;
+    background:linear-gradient(180deg,#4ad8e7,var(--accent));
+    box-shadow:0 6px 18px rgba(56,206,222,.28), inset 0 1px 0 rgba(255,255,255,.35);
+    transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;
   }
-  .btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+  .btn::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.4) 50%,transparent 70%);transform:translateX(-120%);transition:transform .6s ease}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(56,206,222,.4), inset 0 1px 0 rgba(255,255,255,.4)}
+  .btn:hover::after{transform:translateX(120%)}
   .btn:active{transform:translateY(0)}
-  .btn.small{padding:.45rem .9rem;font-size:.85rem}
+  .btn.small{padding:.5rem 1rem;font-size:.85rem}
   .btn.ghost{
-    background:transparent;color:var(--text);border:1px solid var(--border-strong);
+    background:rgba(255,255,255,.02);color:var(--text);border:1px solid var(--border-strong);box-shadow:none;
   }
-  .btn.ghost:hover{border-color:var(--accent);color:var(--accent);filter:none;background:var(--accent-weak)}
+  .btn.ghost::after{display:none}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-weak);transform:translateY(-2px)}
 
   /* ---------- hero ---------- */
-  .hero{padding:4.5rem 0 3rem}
+  .hero{padding:5rem 0 3.5rem;position:relative}
   .hero-grid{display:grid;gap:3rem;grid-template-columns:1fr;align-items:center}
-  .eyebrow{
-    display:inline-block;font-family:var(--mono);font-size:.72rem;font-weight:600;
-    letter-spacing:.1em;text-transform:uppercase;color:var(--accent);
+  .status-chip{
+    display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.72rem;font-weight:600;
+    letter-spacing:.06em;text-transform:uppercase;color:var(--accent);
     background:var(--accent-weak);border:1px solid var(--accent-border);
-    border-radius:var(--radius-xs);padding:.3rem .7rem;margin-bottom:1.2rem;
+    border-radius:999px;padding:.35rem .8rem;margin-bottom:1.3rem;
   }
+  .status-chip .dot{width:.5rem;height:.5rem;border-radius:50%;background:var(--pass);box-shadow:0 0 0 0 rgba(63,203,134,.6);animation:live 2.4s ease-out infinite}
+  @keyframes live{0%{box-shadow:0 0 0 0 rgba(63,203,134,.55)}70%{box-shadow:0 0 0 7px rgba(63,203,134,0)}100%{box-shadow:0 0 0 0 rgba(63,203,134,0)}}
   h1{
-    font-size:clamp(2.1rem,5.5vw,3.3rem);line-height:1.08;
-    letter-spacing:-.028em;font-weight:800;color:#fff;
+    font-size:clamp(2.3rem,5.6vw,3.6rem);line-height:1.05;
+    letter-spacing:-.03em;font-weight:800;color:#fff;
   }
-  .hero p.lede{margin:1.3rem 0 1.8rem;font-size:1.12rem;color:var(--muted);max-width:36em}
-  .cta-row{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
-  .cta-note{font-size:.85rem;color:var(--faint);margin-top:.9rem}
-
-  /* honesty strip */
+  h1 .grad{background:linear-gradient(100deg,#7ee6f1,var(--accent) 45%,var(--accent-2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p.lede{margin:1.4rem 0 1.9rem;font-size:1.14rem;color:var(--muted);max-width:37em}
+  .cta-row{display:flex;gap:.85rem;flex-wrap:wrap;align-items:center}
+  .cta-note{font-size:.85rem;color:var(--faint);margin-top:1rem;display:flex;align-items:center;gap:.5rem}
+  .cta-note::before{content:"◆";color:var(--accent);font-size:.6rem}
   .honesty{
-    margin-top:2.1rem;border-left:3px solid var(--accent);
-    background:var(--surface-1);border-radius:0 var(--radius) var(--radius) 0;
-    border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);
-    padding:.95rem 1.15rem;font-size:.92rem;color:var(--muted);max-width:44em;
+    margin-top:2.2rem;border-left:2px solid var(--accent);
+    background:linear-gradient(90deg,var(--accent-weak),transparent);
+    border-radius:0 var(--radius) var(--radius) 0;
+    padding:.95rem 1.15rem;font-size:.92rem;color:var(--muted);max-width:45em;
   }
   .honesty strong{color:var(--text)}
 
-  /* ---------- sample report card: styled as the product console ---------- */
-  .report{
-    background:var(--surface-1);border:1px solid var(--border);border-radius:var(--radius);
-    box-shadow:var(--shadow-2);
-    max-width:30rem;overflow:hidden;
+  /* ---------- hero console (the living panel) ---------- */
+  .console{
+    background:linear-gradient(180deg,var(--surface-1),var(--canvas-2));
+    border:1px solid var(--border);border-radius:var(--radius);
+    box-shadow:var(--shadow-2);overflow:hidden;position:relative;
   }
-  .report .bar{
+  .console::before{content:"";position:absolute;inset:0;border-radius:var(--radius);padding:1px;background:linear-gradient(160deg,rgba(56,206,222,.35),transparent 40%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+  .console .bar{
     display:flex;align-items:center;gap:.6rem;
-    background:var(--surface-2);border-bottom:1px solid var(--border);
-    padding:.6rem .95rem;
+    background:rgba(255,255,255,.02);border-bottom:1px solid var(--border);padding:.65rem 1rem;
   }
-  .report .bar .dots{display:flex;gap:.35rem}
-  .report .bar .dots i{width:.55rem;height:.55rem;border-radius:50%;background:var(--border-strong);display:block}
-  .report .bar .fname{
-    font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.04em;
-    margin-left:.2rem;
+  .console .bar .dots{display:flex;gap:.4rem}
+  .console .bar .dots i{width:.6rem;height:.6rem;border-radius:50%;background:var(--border-strong);display:block}
+  .console .bar .fname{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.04em;margin-left:.2rem}
+  .console .bar .tag{
+    margin-left:auto;font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ai);background:rgba(240,169,62,.12);border:1px solid rgba(240,169,62,.4);
+    border-radius:var(--radius-xs);padding:.14rem .5rem;
   }
-  .report .bar .tag{
-    margin-left:auto;font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--ai);
-    background:rgba(232,163,61,.12);border:1px solid rgba(232,163,61,.4);
-    border-radius:var(--radius-xs);padding:.12rem .5rem;white-space:nowrap;
+
+  /* estate mini-graph in the console */
+  .graph-wrap{position:relative;padding:.4rem .4rem 0}
+  #estate-graph{display:block;width:100%;height:auto}
+  #estate-graph .edge{fill:none;stroke:var(--border-strong);stroke-width:1.4;opacity:.6;transition:stroke .5s ease,opacity .5s ease,stroke-width .5s ease}
+  #estate-graph .edge.lit{stroke:var(--fail);opacity:.95;stroke-width:2.2;filter:drop-shadow(0 0 5px rgba(255,90,101,.6))}
+  #estate-graph .node-shape{fill:var(--surface-2);stroke:var(--border-strong);stroke-width:1.5;transition:stroke .45s ease,fill .45s ease,opacity .45s ease}
+  #estate-graph .node-label{fill:var(--muted);font-family:var(--mono);font-size:9.5px;transition:fill .45s ease,opacity .45s ease}
+  #estate-graph .node.dim .node-shape,#estate-graph .node.dim .node-label{opacity:.22}
+  #estate-graph .node.reached .node-shape{fill:rgba(255,90,101,.16);stroke:var(--fail);filter:drop-shadow(0 0 6px rgba(255,90,101,.45))}
+  #estate-graph .node.reached .node-label{fill:#ffd7da}
+  #estate-graph .node.ai .node-shape{stroke:var(--ai)}
+  #estate-graph .node.crown .ring{stroke:var(--partial);stroke-width:1.3;fill:none;opacity:.75}
+  #estate-graph .node.source .node-shape{fill:rgba(255,90,101,.2);stroke:var(--fail);stroke-width:2.2}
+  #estate-graph .node.source .pulse{fill:none;stroke:var(--fail);stroke-width:2;opacity:0}
+  #estate-graph .node.source.firing .pulse{animation:ping 1.6s ease-out infinite}
+  @keyframes ping{0%{opacity:.6;r:14px}100%{opacity:0;r:30px}}
+  .graph-caption{
+    margin:.5rem .4rem 0;border-top:1px dashed var(--border);
+    padding:.8rem .7rem .95rem;min-height:3.2rem;
+    font-size:.85rem;color:var(--muted);opacity:0;transition:opacity .5s ease;
   }
-  .report .body{padding:1.25rem 1.25rem 1.15rem}
-  .level-chip{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;margin-bottom:.2rem}
-  .level-chip .big{
-    font-family:var(--mono);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;color:#fff;
-  }
-  .level-chip .big b{color:var(--fail);font-weight:700}
-  .level-chip .next{font-size:.82rem;color:var(--faint)}
-  .five{list-style:none;margin:.9rem 0;border-top:1px solid var(--border)}
-  .five li{
-    display:flex;justify-content:space-between;gap:1rem;align-items:center;
-    padding:.52rem 0;border-bottom:1px solid var(--border);font-size:.92rem;color:var(--text);
-  }
-  .pill{
-    font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
-    border-radius:var(--radius-xs);padding:.16rem .55rem;white-space:nowrap;border:1px solid transparent;
-  }
-  .pill.pass{color:var(--pass);background:rgba(63,183,126,.12);border-color:rgba(63,183,126,.4)}
-  .pill.partial{color:var(--partial);background:rgba(232,194,69,.12);border-color:rgba(232,194,69,.4)}
-  .pill.fail{color:var(--fail);background:rgba(255,89,100,.12);border-color:rgba(255,89,100,.4)}
-  .finding{
-    font-size:.88rem;color:var(--muted);background:var(--surface-2);border-radius:var(--radius-sm);
-    padding:.75rem .95rem;border:1px solid var(--border);
-  }
-  .finding em{font-style:normal;font-weight:700;color:var(--text)}
-  .report figcaption{font-size:.78rem;color:var(--faint);margin-top:.75rem}
+  .graph-caption.show{opacity:1}
+  .graph-caption b{color:var(--text)}
+  .graph-caption .money{font-family:var(--mono);font-variant-numeric:tabular-nums;color:#fff;font-weight:700}
+  .graph-caption .toxic{display:inline-block;font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fail);background:rgba(255,90,101,.13);border:1px solid rgba(255,90,101,.4);border-radius:var(--radius-xs);padding:.1rem .45rem;margin-right:.5rem}
+
+  /* verdict strip under the graph */
+  .verdict{padding:1rem 1.1rem 1.2rem;border-top:1px solid var(--border)}
+  .level-chip{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;margin-bottom:.7rem}
+  .level-chip .big{font-family:var(--mono);font-size:1.4rem;font-weight:700;color:#fff}
+  .level-chip .big b{color:var(--fail)}
+  .level-chip .next{font-size:.8rem;color:var(--faint)}
+  .meter{height:7px;border-radius:999px;background:var(--surface-2);overflow:hidden;border:1px solid var(--border);margin-bottom:.9rem}
+  .meter i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--fail),var(--partial));transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
+  .console.in .meter i{width:34%}
+  .five{list-style:none;display:grid;gap:.05rem}
+  .five li{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:.42rem 0;border-bottom:1px solid var(--border);font-size:.9rem;color:var(--text)}
+  .five li:last-child{border-bottom:none}
+  .pill{font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:var(--radius-xs);padding:.16rem .55rem;border:1px solid transparent}
+  .pill.pass{color:var(--pass);background:rgba(63,203,134,.12);border-color:rgba(63,203,134,.4)}
+  .pill.partial{color:var(--partial);background:rgba(238,197,62,.12);border-color:rgba(238,197,62,.4)}
+  .pill.fail{color:var(--fail);background:rgba(255,90,101,.12);border-color:rgba(255,90,101,.4)}
 
   /* ---------- sections ---------- */
-  section{padding:4rem 0}
-  section.alt{background:var(--surface-1);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-  .kicker{
-    font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.12em;
-    text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;
-  }
-  .kicker::before{content:"// ";color:var(--faint)}
-  h2{font-size:clamp(1.55rem,3.5vw,2.15rem);letter-spacing:-.022em;line-height:1.18;margin-bottom:.9rem;font-weight:800;color:#fff}
-  .sub{color:var(--muted);max-width:46em;margin-bottom:1.7rem}
-  h3{font-size:1.05rem;font-weight:700;margin-bottom:.4rem;letter-spacing:-.01em;color:var(--text)}
+  section{padding:4.5rem 0;position:relative}
+  section.alt{background:linear-gradient(180deg,var(--surface-1),var(--canvas-2));border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .kicker{font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem;display:inline-flex;align-items:center;gap:.5rem}
+  .kicker::before{content:"";width:1.6rem;height:1px;background:linear-gradient(90deg,var(--accent),transparent)}
+  h2{font-size:clamp(1.65rem,3.6vw,2.35rem);letter-spacing:-.025em;line-height:1.15;margin-bottom:.95rem;font-weight:800;color:#fff}
+  .sub{color:var(--muted);max-width:47em;margin-bottom:1.8rem;font-size:1.02rem}
+  h3{font-size:1.06rem;font-weight:700;margin-bottom:.4rem;letter-spacing:-.01em;color:var(--text)}
 
   /* stats */
-  .stats{display:grid;gap:1rem;grid-template-columns:1fr;margin:1.8rem 0}
-  .stat{
-    background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);
-    padding:1.25rem 1.3rem;box-shadow:var(--shadow-1);
-  }
-  .stat .n{
-    font-family:var(--mono);font-variant-numeric:tabular-nums;
-    font-size:2.1rem;font-weight:700;letter-spacing:-.02em;color:#fff;line-height:1.15;
-  }
-  .stat .d{font-size:.9rem;color:var(--muted);margin-top:.3rem}
-  .src{font-size:.76rem;color:var(--faint)}
-  .stat .src{margin-top:.55rem;display:block}
+  .stats{display:grid;gap:1rem;grid-template-columns:1fr;margin:1.9rem 0}
+  .stat{position:relative;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem 1.4rem 1.3rem;box-shadow:var(--shadow-1);overflow:hidden}
+  .stat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),transparent)}
+  .stat .n{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:2.3rem;font-weight:700;letter-spacing:-.03em;color:#fff;line-height:1.1}
+  .stat .d{font-size:.9rem;color:var(--muted);margin-top:.4rem}
+  .stat .src{font-size:.76rem;color:var(--faint);margin-top:.6rem;display:block}
 
   /* cards grid */
   .grid{display:grid;gap:1rem;grid-template-columns:1fr}
-  .card{
-    background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);
-    padding:1.3rem;box-shadow:var(--shadow-1);
-  }
-  section.alt .card{background:var(--surface-2)}
+  .card{position:relative;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-1);transition:transform .18s ease,border-color .18s ease}
+  .card:hover{transform:translateY(-3px);border-color:var(--border-strong)}
   .card p{font-size:.92rem;color:var(--muted)}
-  .num{
-    display:inline-flex;align-items:center;justify-content:center;
-    min-width:1.75rem;height:1.75rem;padding:0 .3rem;
-    border-radius:var(--radius-xs);border:1px solid var(--accent-border);
-    background:var(--accent-weak);color:var(--accent);
-    font-family:var(--mono);font-weight:700;font-size:.85rem;margin-bottom:.7rem;
-  }
+  .num{display:inline-flex;align-items:center;justify-content:center;min-width:1.85rem;height:1.85rem;padding:0 .35rem;border-radius:var(--radius-xs);border:1px solid var(--accent-border);background:var(--accent-weak);color:var(--accent);font-family:var(--mono);font-weight:700;font-size:.85rem;margin-bottom:.75rem}
 
   /* timeline table */
-  .tablewrap{
-    overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);
-    background:var(--surface-2);box-shadow:var(--shadow-1);
-  }
+  .tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-2);box-shadow:var(--shadow-1)}
   table{border-collapse:collapse;width:100%;min-width:420px;font-size:.92rem}
-  th,td{text-align:left;padding:.7rem 1rem;border-bottom:1px solid var(--border);color:var(--text)}
+  th,td{text-align:left;padding:.75rem 1rem;border-bottom:1px solid var(--border);color:var(--text)}
   td:first-child{font-family:var(--mono);color:var(--accent);font-weight:700}
-  th{
-    font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;
-    color:var(--faint);font-weight:600;
-  }
+  th{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);font-weight:600}
   tr:last-child td{border-bottom:none}
   caption{caption-side:top}
+  tbody tr{transition:background-color .15s ease}
+  tbody tr:hover{background:rgba(255,255,255,.02)}
 
   /* price cards */
-  .prices{display:grid;gap:1rem;grid-template-columns:1fr;margin-top:1.5rem}
-  .price{
-    background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);
-    padding:1.4rem;display:flex;flex-direction:column;gap:.4rem;box-shadow:var(--shadow-1);
-    transition:border-color .15s ease, transform .15s ease;
-  }
-  .price:hover{border-color:var(--border-strong);transform:translateY(-2px)}
-  .price.featured{border:1px solid var(--accent);box-shadow:0 0 0 1px var(--accent), 0 12px 32px rgba(53,196,212,.10)}
+  .prices{display:grid;gap:1rem;grid-template-columns:1fr;margin-top:1.6rem}
+  .price{position:relative;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;display:flex;flex-direction:column;gap:.45rem;box-shadow:var(--shadow-1);transition:transform .18s ease,border-color .18s ease}
+  .price:hover{transform:translateY(-3px);border-color:var(--border-strong)}
+  .price.featured{border-color:var(--accent);box-shadow:var(--shadow-glow)}
+  .price.featured::before{content:"Most chosen";position:absolute;top:-.7rem;left:1.5rem;font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#04252b;background:var(--accent);border-radius:999px;padding:.15rem .6rem}
   .price .tier{font-weight:800;font-size:1rem;color:var(--text)}
-  .price .amt{
-    font-family:var(--mono);font-variant-numeric:tabular-nums;
-    font-size:2rem;font-weight:700;letter-spacing:-.02em;color:#fff;
-  }
-  .price .amt small{font-size:.85rem;font-weight:500;color:var(--faint);font-family:var(--font)}
+  .price .amt{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:2.1rem;font-weight:700;letter-spacing:-.02em;color:#fff}
+  .price .amt small{font-size:.82rem;font-weight:500;color:var(--faint);font-family:var(--font)}
   .price .desc{font-size:.88rem;color:var(--muted)}
-  .badge{
-    align-self:flex-start;font-family:var(--mono);font-size:.62rem;font-weight:700;
-    letter-spacing:.1em;text-transform:uppercase;
-    border-radius:var(--radius-xs);padding:.16rem .5rem;margin-bottom:.35rem;border:1px solid transparent;
-  }
-  .badge.live{color:var(--pass);background:rgba(63,183,126,.12);border-color:rgba(63,183,126,.4)}
+  .badge{align-self:flex-start;font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:var(--radius-xs);padding:.16rem .5rem;margin-bottom:.35rem;border:1px solid transparent}
+  .badge.live{color:var(--pass);background:rgba(63,203,134,.12);border-color:rgba(63,203,134,.4)}
   .badge.future{color:var(--muted);background:var(--surface-3);border-color:var(--border-strong)}
 
-  /* ---------- maturity ladder — a climb with a hard honesty line ---------- */
-  .ladder{display:flex;flex-direction:column;gap:.6rem;margin:2rem 0 1.2rem}
-  .rung{display:grid;grid-template-columns:3.4rem 1fr;gap:.85rem;align-items:stretch}
-  .rung .lv{
-    font-family:var(--mono);font-weight:700;font-size:.85rem;
-    display:flex;align-items:center;justify-content:center;
-    background:var(--surface-3);color:var(--muted);
-    border:1px solid var(--border-strong);border-radius:var(--radius-sm);
-  }
-  .rung .bar{
-    border-radius:var(--radius-sm);padding:.6rem .95rem;min-height:2.8rem;
-    display:flex;flex-direction:column;justify-content:center;
-  }
+  /* ---------- maturity ladder ---------- */
+  .ladder{display:flex;flex-direction:column;gap:.6rem;margin:2.1rem 0 1.3rem}
+  .rung{display:grid;grid-template-columns:3.6rem 1fr;gap:.9rem;align-items:stretch;opacity:0;transform:translateX(-14px);transition:opacity .6s ease,transform .6s ease}
+  .ladder.in .rung{opacity:1;transform:none}
+  .ladder.in .rung:nth-child(1){transition-delay:.05s}
+  .ladder.in .rung:nth-child(2){transition-delay:.12s}
+  .ladder.in .rung:nth-child(3){transition-delay:.19s}
+  .ladder.in .rung:nth-child(4){transition-delay:.26s}
+  .ladder.in .rung:nth-child(5){transition-delay:.33s}
+  .ladder.in .rung:nth-child(6){transition-delay:.4s}
+  .rung .lv{font-family:var(--mono);font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;background:var(--surface-3);color:var(--muted);border:1px solid var(--border-strong);border-radius:var(--radius-sm)}
+  .rung .bar{border-radius:var(--radius-sm);padding:.65rem 1rem;min-height:2.9rem;display:flex;flex-direction:column;justify-content:center}
   .rung .bar b{font-size:.95rem;color:var(--text)}
   .rung .bar span{font-size:.82rem;color:var(--muted)}
-  /* achievable today: lit teal; platform-gated: locked, dashed */
-  .rung.solid .lv{background:var(--accent);color:#04252b;border-color:var(--accent)}
+  .rung.solid .lv{background:linear-gradient(180deg,#4ad8e7,var(--accent));color:#04252b;border-color:var(--accent);box-shadow:0 0 14px rgba(56,206,222,.4)}
   .rung.solid .bar{background:var(--accent-weak);border:1px solid var(--accent-border)}
-  .rung.gated .bar{background:transparent;border:1px dashed var(--border-strong)}
-  .rung.gated .bar b::after{
-    content:" 🔒";font-size:.75rem;
-  }
-  .r5 .bar{width:100%}
-  .r4 .bar{width:90%}
-  .r3 .bar{width:78%}
-  .r2 .bar{width:66%}
-  .r1 .bar{width:54%}
-  .capline{display:flex;align-items:center;gap:.8rem;margin:.4rem 0}
-  .capline .rule{flex:1;border-top:2px solid var(--accent)}
-  .capline .lbl{
-    font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--accent);background:var(--accent-weak);border:1px solid var(--accent-border);
-    border-radius:var(--radius-xs);padding:.22rem .7rem;white-space:nowrap;
-  }
-  @media (max-width:560px){
-    .r1 .bar,.r2 .bar,.r3 .bar,.r4 .bar,.r5 .bar{width:100%}
-    .capline .lbl{white-space:normal;text-align:center}
-  }
+  .rung.gated .bar{background:rgba(255,255,255,.015);border:1px dashed var(--border-strong)}
+  .rung.gated .bar b::after{content:" 🔒";font-size:.72rem}
+  .r5 .bar{width:100%}.r4 .bar{width:90%}.r3 .bar{width:78%}.r2 .bar{width:66%}.r1 .bar{width:54%}
+  .capline{display:flex;align-items:center;gap:.85rem;margin:.45rem 0}
+  .capline .rule{flex:1;border-top:1.5px solid var(--accent);opacity:.6}
+  .capline .lbl{font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-weak);border:1px solid var(--accent-border);border-radius:var(--radius-xs);padding:.24rem .7rem;white-space:nowrap}
+  @media (max-width:560px){.r1 .bar,.r2 .bar,.r3 .bar,.r4 .bar,.r5 .bar{width:100%}.capline .lbl{white-space:normal;text-align:center}}
 
-  /* insurer five */
-  .fivegrid{display:grid;gap:1rem;grid-template-columns:1fr}
-  .fivegrid .card b{display:block;margin-bottom:.3rem;color:var(--text)}
-  .fivegrid .card b i{
-    font-style:normal;font-family:var(--mono);color:var(--accent);margin-right:.4rem;font-weight:700;
-  }
+  /* ---------- insurer-five: gauge + explainer ---------- */
+  .insurer-grid{display:grid;gap:2rem;grid-template-columns:1fr;align-items:center}
+  .gauge-card{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem;box-shadow:var(--shadow-1);text-align:center}
+  .gauge-wrap{position:relative;width:220px;max-width:100%;margin:0 auto}
+  #gauge{display:block;width:100%;height:auto}
+  #gauge .seg{fill:none;stroke-width:14;stroke-linecap:round;opacity:.25;transition:opacity .6s ease,stroke .6s ease}
+  #gauge .seg.track{stroke:var(--surface-3);opacity:1}
+  #gauge .seg.pass{stroke:var(--pass)}
+  #gauge .seg.partial{stroke:var(--partial)}
+  #gauge .seg.fail{stroke:var(--fail)}
+  .insurer-grid.in #gauge .seg:not(.track){opacity:1;animation:segdraw .9s ease both}
+  @keyframes segdraw{from{stroke-dasharray:0 200}}
+  .gauge-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .gauge-center .g-num{font-family:var(--mono);font-size:2rem;font-weight:700;color:#fff;line-height:1}
+  .gauge-center .g-lab{font-size:.72rem;color:var(--faint);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-top:.2rem}
+  .gauge-verdict{margin-top:1.1rem;font-size:.9rem;color:var(--muted)}
+  .gauge-verdict b{color:var(--text)}
+  .fivegrid{display:grid;gap:.9rem;grid-template-columns:1fr}
+  .fivegrid .card{padding:1.1rem}
+  .fivegrid .card b{display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem;color:var(--text)}
+  .fivegrid .card b i{font-style:normal;font-family:var(--mono);color:#04252b;background:var(--accent);border-radius:var(--radius-xs);min-width:1.4rem;height:1.4rem;display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700}
+
+  /* ---------- posture->proof fan ---------- */
+  .loop-card{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem;box-shadow:var(--shadow-1);margin-top:1.7rem}
+  .loop-svg{display:block;width:100%;max-width:640px;height:auto;margin:0 auto}
+  .loop-svg .lp{fill:none;stroke:var(--accent);stroke-width:2;opacity:.5;stroke-dasharray:220;stroke-dashoffset:220;transition:stroke-dashoffset 1s ease}
+  .loop-card.in .loop-svg .lp{stroke-dashoffset:0}
+  .loop-svg .box{fill:var(--surface-3);stroke:var(--border-strong);stroke-width:1.4}
+  .loop-svg .box.src{stroke:var(--accent)}
+  .loop-svg .box.pass{stroke:var(--pass)}
+  .loop-svg .box.ai{stroke:var(--ai)}
+  .loop-svg .t{font-family:var(--mono);font-size:11px;fill:var(--text)}
+  .loop-svg .t.sm{font-size:9.5px;fill:var(--muted)}
+  .loop-svg .chip{opacity:0;transition:opacity .5s ease}
+  .loop-card.in .loop-svg .chip{opacity:1}
+  .loop-card.in .loop-svg .chip:nth-of-type(1){transition-delay:.7s}
+  .loop-card.in .loop-svg .chip:nth-of-type(2){transition-delay:.9s}
+  .loop-card.in .loop-svg .chip:nth-of-type(3){transition-delay:1.1s}
 
   /* ---------- roadmap ---------- */
-  .roadmap{display:grid;gap:1rem;grid-template-columns:1fr;margin-top:1.7rem}
-  .stage{
-    background:var(--surface-2);border:1px solid var(--border);
-    border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-1);
-  }
-  .stage .when{
-    font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-    border-radius:var(--radius-xs);padding:.18rem .55rem;display:inline-block;margin-bottom:.75rem;
-    border:1px solid transparent;
-  }
-  .stage .when.now{color:var(--pass);background:rgba(63,183,126,.12);border-color:rgba(63,183,126,.4)}
-  .stage .when.build{color:var(--partial);background:rgba(232,194,69,.10);border-color:rgba(232,194,69,.4)}
+  .roadmap{display:grid;gap:1rem;grid-template-columns:1fr;margin-top:1.8rem}
+  .stage{position:relative;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow-1)}
+  .stage .when{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:var(--radius-xs);padding:.18rem .55rem;display:inline-block;margin-bottom:.8rem;border:1px solid transparent}
+  .stage .when.now{color:var(--pass);background:rgba(63,203,134,.12);border-color:rgba(63,203,134,.4)}
+  .stage .when.build{color:var(--partial);background:rgba(238,197,62,.1);border-color:rgba(238,197,62,.4)}
   .stage .when.later{color:var(--muted);background:var(--surface-3);border-color:var(--border-strong)}
   .stage p{font-size:.92rem;color:var(--muted)}
   .stage ul{margin:.6rem 0 0 1.1rem;font-size:.9rem;color:var(--muted)}
   .stage li{margin-bottom:.3rem}
-  .finePrint{color:var(--faint);font-size:.82rem;margin-top:1.5rem;max-width:52em}
+  .finePrint{color:var(--faint);font-size:.82rem;margin-top:1.6rem;max-width:53em}
 
-  /* platform pricing commitments */
-  .commit{list-style:none;margin-top:1.7rem;display:grid;gap:.6rem}
-  .commit li{
-    background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);
-    padding:.78rem 1rem;font-size:.92rem;color:var(--muted);display:flex;gap:.6rem;align-items:flex-start;
-  }
+  .commit{list-style:none;margin-top:1.8rem;display:grid;gap:.6rem}
+  .commit li{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.8rem 1rem;font-size:.92rem;color:var(--muted);display:flex;gap:.65rem;align-items:flex-start}
   .commit li::before{content:"✓";font-weight:800;color:var(--pass);font-family:var(--mono)}
 
-  /* microsoft strip */
-  .ms .wrap{display:grid;gap:1.4rem;grid-template-columns:1fr}
+  .ms .wrap{display:grid;gap:1.5rem;grid-template-columns:1fr}
 
-  /* waitlist form */
+  /* forms */
   form{display:grid;gap:1rem;max-width:34rem}
   label{font-size:.85rem;font-weight:700;display:block;margin-bottom:.35rem;color:var(--text)}
-  input,select{
-    width:100%;padding:.72rem .85rem;border:1px solid var(--border-strong);border-radius:var(--radius-sm);
-    font-size:1rem;font-family:inherit;background:var(--surface-2);color:var(--text);
-  }
+  input,select{width:100%;padding:.75rem .85rem;border:1px solid var(--border-strong);border-radius:var(--radius-sm);font-size:1rem;font-family:inherit;background:var(--surface-2);color:var(--text);transition:border-color .15s ease,box-shadow .15s ease}
+  input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak);outline:none}
   input::placeholder{color:var(--faint)}
   select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 18px) 55%,calc(100% - 13px) 55%;background-size:5px 5px;background-repeat:no-repeat}
   .form-note{font-size:.82rem;color:var(--faint)}
 
   /* FAQ */
-  details{
-    background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);
-    padding:1rem 1.2rem;margin-bottom:.7rem;box-shadow:var(--shadow-1);
-    transition:border-color .15s ease;
-  }
+  details{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:.7rem;box-shadow:var(--shadow-1);transition:border-color .15s ease}
   details[open]{border-color:var(--border-strong)}
-  summary{
-    cursor:pointer;font-weight:700;font-size:.97rem;list-style:none;
-    display:flex;justify-content:space-between;gap:1rem;align-items:center;color:var(--text);
-  }
+  summary{cursor:pointer;font-weight:700;font-size:.97rem;list-style:none;display:flex;justify-content:space-between;gap:1rem;align-items:center;color:var(--text)}
   summary::-webkit-details-marker{display:none}
-  summary::after{content:"+";font-family:var(--mono);font-size:1.25rem;font-weight:400;color:var(--faint);flex-shrink:0}
+  summary::after{content:"+";font-family:var(--mono);font-size:1.3rem;font-weight:400;color:var(--faint);flex-shrink:0;transition:transform .2s ease}
   details[open] summary::after{content:"–";color:var(--accent)}
-  details p{margin-top:.7rem;font-size:.92rem;color:var(--muted)}
+  details p{margin-top:.75rem;font-size:.92rem;color:var(--muted)}
   details p + p{margin-top:.5rem}
 
+  /* final cta */
+  .finalcta{text-align:center;position:relative}
+  .finalcta .halo{position:absolute;inset:-30% 0 auto 0;height:60%;margin:auto;background:radial-gradient(40rem 16rem at 50% 30%,rgba(56,206,222,.16),transparent 70%);pointer-events:none;z-index:-1}
+
   /* footer */
-  footer{background:var(--surface-1);border-top:1px solid var(--border);color:var(--muted);padding:3rem 0 2.5rem;font-size:.88rem}
-  footer .brand{color:#fff;display:inline-flex;margin-bottom:.6rem}
-  footer .tagline{color:var(--faint);margin-bottom:1.4rem}
-  footer nav a{color:var(--muted)}
+  footer{background:linear-gradient(180deg,var(--surface-1),var(--canvas));border-top:1px solid var(--border);color:var(--muted);padding:3.2rem 0 2.6rem;font-size:.88rem}
+  footer .brand{color:#fff;display:inline-flex;margin-bottom:.7rem}
+  footer .tagline{color:var(--faint);margin-bottom:1.5rem}
+  footer nav a{color:var(--muted);text-decoration:none}
   footer nav a:hover{color:var(--accent)}
-  footer .legal{font-size:.78rem;color:var(--faint);max-width:56em;margin-top:1.4rem;border-top:1px solid var(--border);padding-top:1.2rem}
+  footer .legal{font-size:.78rem;color:var(--faint);max-width:57em;margin-top:1.5rem;border-top:1px solid var(--border);padding-top:1.3rem}
 
   /* responsive */
-  @media (min-width:720px){
-    .hero-grid{grid-template-columns:1.12fr .88fr}
+  @media (min-width:820px){
+    .hero-grid{grid-template-columns:1.08fr .92fr}
     .stats{grid-template-columns:repeat(3,1fr)}
     .grid.cols-3{grid-template-columns:repeat(3,1fr)}
     .grid.cols-2{grid-template-columns:repeat(2,1fr)}
     .prices{grid-template-columns:repeat(3,1fr)}
-    .fivegrid{grid-template-columns:repeat(5,1fr)}
+    .fivegrid{grid-template-columns:1fr 1fr}
+    .insurer-grid{grid-template-columns:.85fr 1.15fr}
     .roadmap{grid-template-columns:repeat(3,1fr)}
     .ms .wrap{grid-template-columns:1.2fr .8fr;align-items:center}
   }
-  @media (max-width:719px){
-    .fivegrid{grid-template-columns:repeat(2,1fr)}
-    .fivegrid .card:last-child{grid-column:1/-1}
-  }
-  /* compact sticky header on small screens: brand + CTA only
-     (all nav targets remain reachable by scrolling; footer repeats them) */
   @media (max-width:679px){
     .nav-links a:not(.btn){display:none}
-    .nav{flex-wrap:nowrap;justify-content:space-between}
-    .nav .btn.small{white-space:nowrap;padding:.42rem .7rem;font-size:.78rem}
+    .nav{flex-wrap:nowrap;justify-content:space-between;gap:.6rem}
+    .nav .btn.small{padding:.45rem .8rem;font-size:.8rem}
+    .brand{font-size:1.06rem}
+    .cta-long{display:none}
+    .hero{padding:3rem 0 2.5rem}
   }
 
   /* motion restraint */
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
-    .btn,.price,header.site,details{transition:none}
-    .btn:hover,.price:hover{transform:none}
+    .reveal{opacity:1;transform:none;transition:none}
+    .bg .grid{animation:none}
+    .status-chip .dot{animation:none}
+    .btn,.card,.price,header.site,details{transition:none}
+    .btn:hover,.card:hover,.price:hover{transform:none}
+    #estate-graph .node.source.firing .pulse{animation:none}
+    .ladder .rung{opacity:1;transform:none}
   }
 </style>
+<noscript><style>
+  /* no-JS: never leave content hidden behind the reveal animation */
+  .reveal{opacity:1 !important;transform:none !important}
+  .ladder .rung{opacity:1 !important;transform:none !important}
+</style></noscript>
 </head>
 <body>
+<div class="bg" aria-hidden="true"><div class="grid"></div><div class="grain"></div></div>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="site">
   <div class="wrap nav">
     <a class="brand" href="#top">
-      <!-- shield mark: hairline shield with a check, teal on graphite -->
       <svg class="mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.3 7.5 9.9 4.3-1.6 7.5-5.3 7.5-9.9v-6L12 2.5Z" stroke="#35C4D4" stroke-width="1.6" stroke-linejoin="round"/>
-        <path d="m8.6 11.8 2.3 2.4 4.5-4.8" stroke="#E6EDF5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.3 7.5 9.9 4.3-1.6 7.5-5.3 7.5-9.9v-6L12 2.5Z" stroke="#38CEDE" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="m8.6 11.8 2.3 2.4 4.5-4.8" stroke="#EAF1F8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       Clear<span>Fend</span>
     </a>
     <nav class="nav-links" aria-label="Main">
       <a href="#assessment">The assessment</a>
+      <a href="#estate">Blast radius</a>
       <a href="#ladder">The ladder</a>
       <a href="#platform">Platform</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
       <!-- BOOKING-CTA -->
-      <a class="btn small" href="mailto:admin@clearfend.com?subject=Posture%20Assessment%20%E2%80%94%20booking%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20to%20scope%20a%20posture%20assessment.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20accounts%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%20(SOC%202%20request%20%2F%20insurance%20%2F%20board)%3A">Book a posture assessment</a>
+      <a class="btn small" href="mailto:admin@clearfend.com?subject=Posture%20Assessment%20%E2%80%94%20booking%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20to%20scope%20a%20posture%20assessment.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20accounts%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%20(SOC%202%20request%20%2F%20insurance%20%2F%20board)%3A">Book<span class="cta-long"> a posture</span> assessment</a>
     </nav>
   </div>
 </header>
@@ -474,9 +488,9 @@
 <!-- ================= HERO ================= -->
 <section class="hero" id="top">
   <div class="wrap hero-grid">
-    <div>
-      <span class="eyebrow">Security &amp; compliance for companies without a security team</span>
-      <h1>How secure is your company, really? Get one honest number — and the ten fixes that matter.</h1>
+    <div class="reveal">
+      <span class="status-chip"><span class="dot"></span>Assessment pipeline · live today</span>
+      <h1>How secure is your company, <span class="grad">really?</span> Get one honest number — and the ten fixes that matter.</h1>
       <p class="lede">
         A customer just asked for SOC&nbsp;2. Your insurer just sent the questionnaire. The board just asked
         &ldquo;are we OK?&rdquo; ClearFend&rsquo;s fixed-price, read-only posture assessment answers with one honest
@@ -497,17 +511,65 @@
       </div>
     </div>
 
-    <figure class="report" aria-label="Sample excerpt from a ClearFend assessment report">
-      <div class="bar" aria-hidden="true">
+    <figure class="console reveal" aria-label="Sample ClearFend assessment: an estate graph with blast radius, and the maturity verdict">
+      <div class="bar">
         <span class="dots"><i></i><i></i><i></i></span>
-        <span class="fname">posture-report.pdf</span>
-        <span class="tag">Sample — illustrative</span>
+        <span class="fname">pinebrook · posture.clearfend</span>
+        <span class="tag">Sample · illustrative</span>
       </div>
-      <div class="body">
+
+      <div class="graph-wrap">
+        <svg id="estate-graph" viewBox="0 0 560 300" role="img" aria-label="Estate security graph. From the CI/CD key, an attacker reaches four systems in two hops, including the customer database and offline backups — $655,000 of illustrative exposure.">
+          <!-- edges -->
+          <path class="edge" data-edge="m365-admin" d="M110 66 Q200 55 250 60"/>
+          <path class="edge" data-edge="admin-db" d="M310 60 Q400 78 450 100"/>
+          <path class="edge" data-edge="vpn-stg"   d="M110 250 Q200 230 250 190"/>
+          <path class="edge" data-edge="ai-db"     d="M310 250 Q400 180 450 110"/>
+          <path class="edge" data-edge="ci-stg"    d="M110 158 Q190 175 250 185"/>
+          <path class="edge" data-edge="stg-prod"  d="M310 190 Q400 240 450 258"/>
+          <path class="edge" data-edge="stg-db"    d="M312 182 Q400 140 448 108"/>
+          <path class="edge" data-edge="stg-s3"    d="M312 190 Q400 200 450 200"/>
+
+          <!-- ways in -->
+          <g class="node" data-node="m365"><rect class="node-shape" x="66" y="52" width="52" height="28" rx="6"/><text class="node-label" x="92" y="70" text-anchor="middle">M365</text></g>
+          <g class="node source" data-node="ci">
+            <circle class="pulse" cx="92" cy="158" r="14"/>
+            <rect class="node-shape" x="60" y="144" width="64" height="28" rx="6"/>
+            <text class="node-label" x="92" y="162" text-anchor="middle">CI/CD key</text>
+          </g>
+          <g class="node" data-node="vpn"><rect class="node-shape" x="66" y="236" width="52" height="28" rx="6"/><text class="node-label" x="92" y="254" text-anchor="middle">VPN</text></g>
+
+          <!-- what they reach -->
+          <g class="node" data-node="admin"><rect class="node-shape" x="252" y="46" width="58" height="28" rx="6"/><text class="node-label" x="281" y="64" text-anchor="middle">Admin</text></g>
+          <g class="node" data-node="stg"><rect class="node-shape" x="250" y="176" width="62" height="28" rx="6"/><text class="node-label" x="281" y="194" text-anchor="middle">AWS stg</text></g>
+          <g class="node ai" data-node="ai">
+            <polygon class="node-shape" points="281,236 305,250 305,272 281,286 257,272 257,250"/>
+            <text class="node-label" x="281" y="264" text-anchor="middle">AI agent</text>
+          </g>
+
+          <!-- crown jewels -->
+          <g class="node crown" data-node="db">
+            <circle class="ring" cx="479" cy="100" r="21"/>
+            <rect class="node-shape" x="448" y="86" width="62" height="28" rx="6"/>
+            <text class="node-label" x="479" y="104" text-anchor="middle">Cust DB</text>
+          </g>
+          <g class="node" data-node="s3"><rect class="node-shape" x="450" y="186" width="60" height="28" rx="6"/><text class="node-label" x="480" y="204" text-anchor="middle">Backups</text></g>
+          <g class="node" data-node="prod"><rect class="node-shape" x="450" y="244" width="60" height="28" rx="6"/><text class="node-label" x="480" y="262" text-anchor="middle">AWS prod</text></g>
+        </svg>
+        <div class="graph-caption" id="graph-caption">
+          <span class="toxic">Toxic path</span>
+          From the <b>CI/CD key</b>, an attacker reaches <b>4 systems in 2 hops</b> — including your
+          <b>customer database</b> and <b>offline backups</b> — <span class="money" id="blast-money">$0</span>
+          of illustrative exposure. <b>Fix:</b> scope this key down (~60&nbsp;min).
+        </div>
+      </div>
+
+      <div class="verdict">
         <div class="level-chip">
           <span class="big">Level <b>1</b> — Exposed</span>
           <span class="next">next gate: Level 2 Covered</span>
         </div>
+        <div class="meter"><i></i></div>
         <ul class="five">
           <li>MFA everywhere <span class="pill fail">Fail</span></li>
           <li>EDR / monitoring present <span class="pill partial">Partial</span></li>
@@ -515,9 +577,6 @@
           <li>Patching cadence <span class="pill pass">Pass</span></li>
           <li>Security awareness training <span class="pill partial">Partial</span></li>
         </ul>
-        <p class="finding"><em>Finding #1 of 10:</em> 2 admin accounts have no MFA — anyone who guesses one
-          password can read all company email. <em>Fix:</em> enforce MFA on both accounts (about 20 minutes).</p>
-        <figcaption>This is the register every finding is written in — business consequence, then the fix.</figcaption>
       </div>
     </figure>
   </div>
@@ -526,31 +585,31 @@
 <!-- ================= PROBLEM ================= -->
 <section class="alt" id="problem">
   <div class="wrap">
-    <p class="kicker">The problem</p>
-    <h2>You bought tools. Nobody can tell you if you&rsquo;re actually OK.</h2>
-    <p class="sub">
+    <p class="kicker reveal">The problem</p>
+    <h2 class="reveal">You bought tools. Nobody can tell you if you&rsquo;re actually OK.</h2>
+    <p class="sub reveal">
       The typical company our size runs 8–12 disconnected security tools — and still can&rsquo;t answer the only
       question the board, the customer, and the insurer are asking: <em>how good is our security, really, and
       what should we fix first?</em>
     </p>
     <div class="stats">
-      <div class="stat">
-        <div class="n">88%</div>
+      <div class="stat reveal">
+        <div class="n"><span data-count="88" data-suffix="%">0%</span></div>
         <div class="d">of breaches at small and mid-sized businesses involved ransomware</div>
         <span class="src">Verizon Data Breach Investigations Report, 2025</span>
       </div>
-      <div class="stat">
-        <div class="n">~$115K</div>
+      <div class="stat reveal">
+        <div class="n"><span data-count="115" data-prefix="~$" data-suffix="K">~$0K</span></div>
         <div class="d">median ransom payment, among victims that paid</div>
         <span class="src">Verizon Data Breach Investigations Report, 2025</span>
       </div>
-      <div class="stat">
+      <div class="stat reveal">
         <div class="n">8–12</div>
         <div class="d">disconnected tools in a typical SMB security stack — none of them showing the whole picture</div>
         <span class="src">Industry surveys of SMB security stacks</span>
       </div>
     </div>
-    <p class="sub" style="margin-bottom:0">
+    <p class="sub reveal" style="margin-bottom:0">
       You don&rsquo;t need a thirteenth tool yet — least of all another one sold behind a quote wall, with a
       30–50% renewal hike waiting at month 13. You need to know where you stand, what carriers and auditors
       will actually look at, and what to fix in what order. That&rsquo;s the assessment.
@@ -561,37 +620,37 @@
 <!-- ================= THE ASSESSMENT ================= -->
 <section id="assessment">
   <div class="wrap">
-    <p class="kicker">Available today · fixed price · five business days</p>
-    <h2>The ClearFend Security &amp; Compliance Posture Assessment</h2>
-    <p class="sub">
+    <p class="kicker reveal">Available today · fixed price · five business days</p>
+    <h2 class="reveal">The ClearFend Security &amp; Compliance Posture Assessment</h2>
+    <p class="sub reveal">
       A read-only assessment of your Microsoft 365 or Google Workspace estate — plus Okta and AWS/Azure/GCP —
       scored on a five-level maturity ladder and mapped to the five controls your cyber-insurance carrier
       prices on. Delivered in plain English, in five business days.
     </p>
 
     <div class="grid cols-3">
-      <div class="card"><span class="num">01</span><h3>Your maturity level</h3>
+      <div class="card reveal"><span class="num">01</span><h3>Your maturity level</h3>
         <p>One number on a five-level ladder, with the specific blockers gating the next level. Levels are
         gates, not averages: you are the level whose requirements you fully meet.
         &ldquo;You&rsquo;re a Level&nbsp;X; here&rsquo;s what gets you to the next level.&rdquo;</p></div>
-      <div class="card"><span class="num">02</span><h3>Insurer-five status</h3>
+      <div class="card reveal"><span class="num">02</span><h3>Insurer-five status</h3>
         <p>Pass / partial / fail on the five controls carriers price on: MFA everywhere, EDR/monitoring,
         tested offline backups, patching cadence, and security awareness training. Your next renewal
         questionnaire is built from this list.</p></div>
-      <div class="card"><span class="num">03</span><h3>Top-10 fixes, in business language</h3>
+      <div class="card reveal"><span class="num">03</span><h3>Top-10 fixes, in business language</h3>
         <p>Every finding translated into what happens to your business — not scanner jargon — ranked by blast
         radius, exploitability, and business impact, each with a one-sentence fix and an effort hint.</p></div>
-      <div class="card"><span class="num">04</span><h3>Framework gap view</h3>
+      <div class="card reveal"><span class="num">04</span><h3>Framework gap view</h3>
         <p>Where your configuration stands against the SOC&nbsp;2 CC-series (HIPAA basics on request) — a gap
         indication, clearly labeled, before you pay an auditor to tell you the same thing.</p></div>
-      <div class="card"><span class="num">05</span><h3>Executive one-pager</h3>
+      <div class="card reveal"><span class="num">05</span><h3>Executive one-pager</h3>
         <p>The level, the five, the top three fixes — board-ready, shareable, one page.</p></div>
-      <div class="card"><span class="num">06</span><h3>45-minute delivery call</h3>
+      <div class="card reveal"><span class="num">06</span><h3>45-minute delivery call</h3>
         <p>We walk your team through the report and the fix order, and answer everything.</p></div>
     </div>
 
     <div class="grid cols-2" style="margin-top:2rem">
-      <div>
+      <div class="reveal">
         <h3>How it works — read-only, no installs</h3>
         <p class="sub" style="margin-bottom:1rem;font-size:.93rem">
           You grant time-boxed read-only access; we run vetted open-source posture scanners — CISA SCuBA
@@ -601,7 +660,7 @@
           your environment. Access is revoked the day we deliver.</strong>
         </p>
       </div>
-      <div class="tablewrap">
+      <div class="tablewrap reveal">
         <table>
           <caption class="src" style="text-align:left;padding:.7rem 1rem 0">Timeline: five business days (scoping questionnaire and signed authorization letter happen before Day 1)</caption>
           <thead><tr><th scope="col">Day</th><th scope="col">What happens</th></tr></thead>
@@ -616,41 +675,67 @@
       </div>
     </div>
 
-    <h3 style="margin-top:2.2rem">Price — fixed, published, no quote games</h3>
+    <h3 class="reveal" style="margin-top:2.4rem">Price — fixed, published, no quote games</h3>
     <div class="prices">
-      <div class="price">
+      <div class="price reveal">
         <span class="badge live">Available now</span>
         <span class="tier">Core</span>
         <span class="amt">$1,500 <small>fixed</small></span>
         <span class="desc">Up to ~25 people; one identity platform (M365 <em>or</em> Google Workspace); up to 1 cloud account.</span>
       </div>
-      <div class="price featured">
+      <div class="price featured reveal">
         <span class="badge live">Available now</span>
         <span class="tier">Standard</span>
         <span class="amt">$3,000 <small>fixed</small></span>
         <span class="desc">~26–100 people; identity platform + Okta and/or one cloud provider (up to 3 accounts/subscriptions/projects).</span>
       </div>
-      <div class="price">
+      <div class="price reveal">
         <span class="badge live">Available now</span>
         <span class="tier">Extended</span>
         <span class="amt">$5,000 <small>fixed</small></span>
         <span class="desc">~101–250 people, or multi-cloud / multiple tenants (up to 10 accounts).</span>
       </div>
     </div>
-    <p class="cta-note">One price, one invoice, no upsell inside the engagement. Larger or unusual estates: we&rsquo;ll tell you the price before you sign, in writing.</p>
-    <div class="cta-row" style="margin-top:1rem">
+    <p class="cta-note reveal">One price, one invoice, no upsell inside the engagement. Larger or unusual estates: we&rsquo;ll tell you the price before you sign, in writing.</p>
+    <div class="cta-row reveal" style="margin-top:1rem">
       <!-- BOOKING-CTA -->
       <a class="btn" href="mailto:admin@clearfend.com?subject=Posture%20Assessment%20%E2%80%94%20booking%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20to%20scope%20a%20posture%20assessment.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20accounts%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%20(SOC%202%20request%20%2F%20insurance%20%2F%20board)%3A">Book a posture assessment</a>
     </div>
   </div>
 </section>
 
-<!-- ================= MATURITY LADDER ================= -->
-<section class="alt" id="ladder">
+<!-- ================= ESTATE / BLAST RADIUS ================= -->
+<section class="alt" id="estate">
   <div class="wrap">
-    <p class="kicker">The one honest number</p>
-    <h2>The ClearFend maturity ladder</h2>
-    <p class="sub">
+    <p class="kicker reveal">What one weak key really costs</p>
+    <h2 class="reveal">Every finding, priced in dollars — not jargon</h2>
+    <p class="sub reveal">
+      The report ranks your fixes by <strong style="color:var(--text)">blast radius</strong>: if one thing is
+      compromised, what can an attacker reach, and what does it cost you? The console at the top of this page
+      shows the idea live — a single over-scoped CI/CD key opening a path to your customer database and
+      backups. That&rsquo;s how every finding is ranked: consequence first, then the fix.
+      <em>(Illustrative — your report is built from your own estate.)</em>
+    </p>
+    <div class="grid cols-3">
+      <div class="card reveal"><span class="num">→</span><h3>Ways in</h3>
+        <p>Identity, CI/CD keys, VPNs, exposed apps — every place an attacker can start. We map them from your
+        read-only estate, no agents installed.</p></div>
+      <div class="card reveal"><span class="num">↳</span><h3>What they reach</h3>
+        <p>The systems each entry point can pivot to, hop by hop. Over-privileged service accounts and AI agents
+        are first-class citizens here — the paths most tools never draw.</p></div>
+      <div class="card reveal"><span class="num">$</span><h3>Crown jewels</h3>
+        <p>Your customer data, backups, and production — with a dollar figure on what&rsquo;s exposed if the
+        path is left open. CFO-legible, so the fix order defends itself.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MATURITY LADDER ================= -->
+<section id="ladder">
+  <div class="wrap">
+    <p class="kicker reveal">The one honest number</p>
+    <h2 class="reveal">The ClearFend maturity ladder</h2>
+    <p class="sub reveal">
       Five levels, in plain business language. Levels are <strong style="color:var(--text)">gates, not
       averages</strong> — world-class detection with untested backups isn&rsquo;t &ldquo;Level 4 on
       average,&rdquo; it&rsquo;s Level 2 with a fatal gap. Your report says which level you fully meet, and
@@ -666,7 +751,7 @@
       <div class="rung solid r1"><span class="lv">L1</span><div class="bar"><b>Exposed</b><span>Basic gaps are open and no one is watching</span></div></div>
     </div>
 
-    <p class="sub" style="margin-bottom:0">
+    <p class="sub reveal" style="margin-bottom:0">
       Why the cap? Level 3 means controls proven <em>continuously</em> — and no snapshot can honestly claim
       that. Your report is 90 days stale the day we email it. Continuous monitoring keeps it true: that&rsquo;s
       exactly what ClearFend Starter will do when the platform launches, and it&rsquo;s the only honest path to
@@ -677,44 +762,100 @@
 </section>
 
 <!-- ================= INSURER FIVE ================= -->
-<section id="insurer-five">
+<section class="alt" id="insurer-five">
   <div class="wrap">
-    <p class="kicker">The insurance lens</p>
-    <h2>The five controls your carrier actually prices on</h2>
-    <p class="sub">
+    <p class="kicker reveal">The insurance lens</p>
+    <h2 class="reveal">The five controls your carrier actually prices on</h2>
+    <p class="sub reveal">
       Cyber-insurance premiums, renewals, and even insurability come down to five things. Every relevant
       finding in your report is mapped to them — so the report doubles as your renewal-questionnaire prep.
     </p>
-    <div class="fivegrid">
-      <div class="card"><b><i>01</i>MFA everywhere</b><p>Especially admin accounts and email.</p></div>
-      <div class="card"><b><i>02</i>EDR / monitoring</b><p>Something watching endpoints — and someone watching it.</p></div>
-      <div class="card"><b><i>03</i>Tested backups</b><p>Offline, and actually restored at least once.</p></div>
-      <div class="card"><b><i>04</i>Patching cadence</b><p>Known holes closed on a schedule, not &ldquo;eventually.&rdquo;</p></div>
-      <div class="card"><b><i>05</i>Awareness training</b><p>Staff who can spot the phish that starts it all.</p></div>
+
+    <div class="insurer-grid reveal">
+      <div class="gauge-card">
+        <div class="gauge-wrap">
+          <svg id="gauge" viewBox="0 0 200 200" role="img" aria-label="Insurer-five gauge for the sample estate: one control passing, two partial, two failing.">
+            <!-- 5 segments around a ring, 72deg each with gaps -->
+            <circle class="seg track" cx="100" cy="100" r="78" stroke-dasharray="86 12" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+            <!-- pass (patching) -->
+            <circle class="seg pass"    cx="100" cy="100" r="78" stroke-dasharray="86 404" stroke-dashoffset="-294" transform="rotate(-90 100 100)"/>
+            <!-- partial (edr) -->
+            <circle class="seg partial" cx="100" cy="100" r="78" stroke-dasharray="86 404" stroke-dashoffset="-98" transform="rotate(-90 100 100)"/>
+            <!-- partial (training) -->
+            <circle class="seg partial" cx="100" cy="100" r="78" stroke-dasharray="86 404" stroke-dashoffset="-392" transform="rotate(-90 100 100)"/>
+            <!-- fail (mfa) -->
+            <circle class="seg fail"    cx="100" cy="100" r="78" stroke-dasharray="86 404" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+            <!-- fail (backups) -->
+            <circle class="seg fail"    cx="100" cy="100" r="78" stroke-dasharray="86 404" stroke-dashoffset="-196" transform="rotate(-90 100 100)"/>
+          </svg>
+          <div class="gauge-center">
+            <span class="g-num">1<span style="color:var(--faint);font-size:1.1rem"> / 5</span></span>
+            <span class="g-lab">passing</span>
+          </div>
+        </div>
+        <p class="gauge-verdict"><b>Not yet insurable</b> — MFA and tested backups are the gaps your carrier will flag first. <em>(Sample estate.)</em></p>
+      </div>
+
+      <div class="fivegrid">
+        <div class="card"><b><i>1</i>MFA everywhere</b><p>Especially admin accounts and email.</p></div>
+        <div class="card"><b><i>2</i>EDR / monitoring</b><p>Something watching endpoints — and someone watching it.</p></div>
+        <div class="card"><b><i>3</i>Tested backups</b><p>Offline, and actually restored at least once.</p></div>
+        <div class="card"><b><i>4</i>Patching cadence</b><p>Known holes closed on a schedule, not &ldquo;eventually.&rdquo;</p></div>
+        <div class="card"><b><i>5</i>Awareness training</b><p>Staff who can spot the phish that starts it all.</p></div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ================= PLATFORM ROADMAP ================= -->
-<section class="alt" id="platform">
+<section id="platform">
   <div class="wrap">
-    <p class="kicker">Roadmap — labeled honestly</p>
-    <h2>What we&rsquo;re building: the whole security lifecycle in one product</h2>
-    <p class="sub">
+    <p class="kicker reveal">Roadmap — labeled honestly</p>
+    <h2 class="reveal">What we&rsquo;re building: the whole security lifecycle in one product</h2>
+    <p class="sub reveal">
       Posture to proof, one graph, one meter. The signature move: <strong style="color:#fff">one click fixes a
       real misconfiguration — and it simultaneously becomes a closed finding, a passing SOC&nbsp;2 control, and
       a line in your insurance evidence pack.</strong> Fix once, prove three ways. Nothing below is on sale
       today, and we won&rsquo;t pretend otherwise.
     </p>
+
+    <div class="loop-card reveal" aria-label="One fix fans out into three artifacts: a closed finding, a passing SOC 2 control, and an insurer evidence line.">
+      <svg class="loop-svg" viewBox="0 0 640 210" role="img" aria-label="Diagram: fixing 'Enforce MFA on Okta admins' simultaneously closes a finding, turns SOC 2 CC6.1 green, and adds an insurer evidence line.">
+        <rect class="box src" x="220" y="16" width="200" height="46" rx="8"/>
+        <text class="t" x="320" y="38" text-anchor="middle">✓ Fix verified</text>
+        <text class="t sm" x="320" y="53" text-anchor="middle">Enforce MFA on Okta admins</text>
+
+        <path class="lp" d="M320 62 C320 90 160 96 130 128"/>
+        <path class="lp" d="M320 62 C320 100 320 100 320 128"/>
+        <path class="lp" d="M320 62 C320 90 480 96 510 128"/>
+
+        <g class="chip">
+          <rect class="box pass" x="40" y="130" width="180" height="56" rx="8"/>
+          <text class="t" x="130" y="153" text-anchor="middle">Finding CLOSED</text>
+          <text class="t sm" x="130" y="170" text-anchor="middle">MFA-admin-002</text>
+        </g>
+        <g class="chip">
+          <rect class="box pass" x="230" y="130" width="180" height="56" rx="8"/>
+          <text class="t" x="320" y="153" text-anchor="middle">SOC 2 CC6.1 PASS</text>
+          <text class="t sm" x="320" y="170" text-anchor="middle">control turns green</text>
+        </g>
+        <g class="chip">
+          <rect class="box ai" x="420" y="130" width="180" height="56" rx="8"/>
+          <text class="t" x="510" y="153" text-anchor="middle">Insurer pack +1</text>
+          <text class="t sm" x="510" y="170" text-anchor="middle">MFA evidence line</text>
+        </g>
+      </svg>
+    </div>
+
     <div class="roadmap">
-      <div class="stage">
+      <div class="stage reveal">
         <span class="when now">Live now</span>
         <h3>The concierge assessment</h3>
         <p>The fixed-price, five-day posture assessment on this page. Real scans, real analyst, real report.
         Every assessment sharpens the maturity model and the plain-English findings library the platform is
         built on.</p>
       </div>
-      <div class="stage">
+      <div class="stage reveal">
         <span class="when build">In development — not available today</span>
         <h3>Agentless continuous monitoring</h3>
         <p>Connect Microsoft 365, Google Workspace, and Okta in about 30 minutes — no installs, no agents.
@@ -724,14 +865,14 @@
           <li>Assessment customers get first access as design partners</li>
         </ul>
       </div>
-      <div class="stage">
+      <div class="stage reveal">
         <span class="when later">Next — the full loop</span>
         <h3>Endpoint agent + AI SOC</h3>
         <p>The endpoint agent, an AI-run security operations layer with human escalation included, and the
         insurer evidence pack — the posture-to-proof loop closed end to end, on one graph and one price meter.</p>
       </div>
     </div>
-    <p class="finePrint">
+    <p class="finePrint reveal">
       Further out (and labeled as vision, not product): governing your AI estate — agents, MCP servers,
       non-human identities — on the same graph, by a vendor that governs its own the same way. We&rsquo;ll ship
       it when it&rsquo;s real, not before.
@@ -740,31 +881,31 @@
 </section>
 
 <!-- ================= PLATFORM PRICING ================= -->
-<section id="pricing">
+<section class="alt" id="pricing">
   <div class="wrap">
-    <p class="kicker">Published in advance, on purpose</p>
-    <h2>Platform pricing — every number public before launch</h2>
-    <p class="sub">
+    <p class="kicker reveal">Published in advance, on purpose</p>
+    <h2 class="reveal">Platform pricing — every number public before launch</h2>
+    <p class="sub reveal">
       This industry hides prices behind quote walls, then hikes renewals 30–50%. We&rsquo;re publishing the
       whole price list before the product launches, with the commitments that keep it honest. These prices
       take effect at platform launch; the assessment above is what you can buy today.
     </p>
     <div class="prices">
-      <div class="price">
+      <div class="price reveal">
         <span class="badge future">At platform launch</span>
         <span class="tier">Free</span>
         <span class="amt">$0</span>
         <span class="desc">Full posture assessment, <strong style="color:var(--text)">unlimited</strong> one-click fixes (not a capped teaser),
         and your maturity score — awardable to Level 2. Genuinely useful, forever free.</span>
       </div>
-      <div class="price">
+      <div class="price reveal">
         <span class="badge future">At platform launch</span>
         <span class="tier">Starter</span>
         <span class="amt">$9 <small>/user/mo</small></span>
         <span class="desc">Agentless continuous monitoring and the evidence vault — the report, alive, and the
         only honest path to Level 3 Audit-Ready.</span>
       </div>
-      <div class="price">
+      <div class="price reveal">
         <span class="badge future">At platform launch</span>
         <span class="tier">Complete</span>
         <span class="amt">$17 <small>/user/mo list</small></span>
@@ -773,20 +914,20 @@
       </div>
     </div>
     <ul class="commit">
-      <li>No quote wall below 500 users — every price self-serve and published, volume discounts included.</li>
-      <li>Renewal increases capped at the lesser of CPI or 7% per year — it will be written into every contract and enforced in the billing system from day one, not left as a marketing promise.</li>
-      <li>Your per-user rate is locked for the term — 24 months on a first paid contract.</li>
-      <li>One human = one seat, however many devices. Endpoints are never metered separately.</li>
+      <li class="reveal">No quote wall below 500 users — every price self-serve and published, volume discounts included.</li>
+      <li class="reveal">Renewal increases capped at the lesser of CPI or 7% per year — it will be written into every contract and enforced in the billing system from day one, not left as a marketing promise.</li>
+      <li class="reveal">Your per-user rate is locked for the term — 24 months on a first paid contract.</li>
+      <li class="reveal">One human = one seat, however many devices. Endpoints are never metered separately.</li>
     </ul>
   </div>
 </section>
 
 <!-- ================= MICROSOFT STRIP ================= -->
-<section class="alt ms" id="microsoft">
+<section class="ms" id="microsoft">
   <div class="wrap">
-    <div>
+    <div class="reveal">
       <p class="kicker">The Microsoft question, answered straight</p>
-      <h2 style="font-size:1.5rem">Already pay for Microsoft 365 Business Premium? Keep it.</h2>
+      <h2 style="font-size:1.55rem">Already pay for Microsoft 365 Business Premium? Keep it.</h2>
       <p class="sub" style="margin-bottom:0">
         Microsoft gives you good tools — shipped with weak defaults. That&rsquo;s why CISA publishes hardening
         baselines for M365 in the first place. ClearFend is the layer on top: we harden your tenant to those
@@ -795,7 +936,7 @@
         Microsoft slice.
       </p>
     </div>
-    <div class="card">
+    <div class="card reveal">
       <h3>The three-sentence version</h3>
       <p>Keep what you&rsquo;ve paid for. We make it actually protect you. Then we prove it — to your auditor,
       your insurer, and your board.</p>
@@ -806,19 +947,17 @@
 <!-- ================= WAITLIST ================= -->
 <section id="waitlist">
   <div class="wrap">
-    <p class="kicker">The platform waitlist</p>
-    <h2>Be first when continuous monitoring goes live</h2>
-    <p class="sub">
+    <p class="kicker reveal">The platform waitlist</p>
+    <h2 class="reveal">Be first when continuous monitoring goes live</h2>
+    <p class="sub reveal">
       Waitlist members get launch pricing exactly as published above (that&rsquo;s the point of publishing it)
       and early access in signup order. Assessment customers skip the line as design partners.
     </p>
 
-    <!-- WAITLIST FORM — placeholder endpoint.
-         Replace action with your Formspree endpoint (https://formspree.io/f/YOUR_FORM_ID)
-         or swap this <form> for a Tally embed. Until replaced, the script at the bottom
-         of this page intercepts submit and opens a pre-filled email instead, so the page
-         works even served from a file:// URL. -->
-    <form id="waitlist-form" action="https://formspree.io/f/FORM_ID_PLACEHOLDER" method="POST">
+    <!-- WAITLIST FORM — placeholder endpoint. Replace action with a Formspree endpoint
+         (https://formspree.io/f/YOUR_FORM_ID) or a Tally embed. Until replaced, the script
+         at the bottom intercepts submit and opens a pre-filled email. -->
+    <form id="waitlist-form" class="reveal" action="https://formspree.io/f/FORM_ID_PLACEHOLDER" method="POST">
       <div>
         <label for="wl-email">Work email</label>
         <input id="wl-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com">
@@ -856,10 +995,10 @@
 <!-- ================= FAQ ================= -->
 <section class="alt" id="faq">
   <div class="wrap">
-    <p class="kicker">Straight answers</p>
-    <h2>Questions a skeptic would ask</h2>
+    <p class="kicker reveal">Straight answers</p>
+    <h2 class="reveal">Questions a skeptic would ask</h2>
 
-    <details>
+    <details class="reveal">
       <summary>How new are you, really? Do you have customers?</summary>
       <p>We&rsquo;re at the start, and we won&rsquo;t pretend otherwise. The assessment pipeline — the scanners,
       the translation layer, the report — is built and running today. The platform is in development, and this
@@ -869,7 +1008,7 @@
       product, and design-partner priority when continuous monitoring ships.</p>
     </details>
 
-    <details>
+    <details class="reveal">
       <summary>Is the assessment an audit, a pentest, or a certification?</summary>
       <p>No, no, and no — and we put that in the report, on this page, and on the delivery call. It&rsquo;s a
       point-in-time posture assessment: findings are configuration-based, from read-only access only. It tells
@@ -877,7 +1016,7 @@
       either.</p>
     </details>
 
-    <details>
+    <details class="reveal">
       <summary>Why can the assessment only award Level 2?</summary>
       <p>Because Level 3 — Audit-Ready — means controls proven <em>continuously</em>, and no snapshot can
       honestly claim that. An assessor who awards &ldquo;audit-ready&rdquo; off a one-day scan is selling you a
@@ -886,7 +1025,7 @@
       telling you the incentive out loud so you can judge the reasoning on its merits.</p>
     </details>
 
-    <details>
+    <details class="reveal">
       <summary>What access do you need, and what happens to it?</summary>
       <p>Time-boxed, read-only access that you create with us on a 30-minute call — we never ask for your
       passwords and we never change anything in your environment. The scanners are vetted open-source tools
@@ -894,7 +1033,7 @@
       report notes it.</p>
     </details>
 
-    <details>
+    <details class="reveal">
       <summary>Why not just use Vanta or Drata?</summary>
       <p>If checkbox-compliance automation is all you&rsquo;ll ever need, they&rsquo;re competent products.
       But they only work the paperwork side — they don&rsquo;t harden your systems, run your security
@@ -904,7 +1043,7 @@
       you commit to anyone — including us.</p>
     </details>
 
-    <details>
+    <details class="reveal">
       <summary>Why not Huntress, or a bundle like Coro?</summary>
       <p>Huntress is genuinely great at managed detection — if that&rsquo;s your only gap, buy it with our
       blessing. It meters per endpoint (three devices, three charges) and doesn&rsquo;t close the compliance or
@@ -913,7 +1052,7 @@
       not the bundle. Judge us on it when the platform ships; judge the assessment on its own merits today.</p>
     </details>
 
-    <details>
+    <details class="reveal">
       <summary>Isn&rsquo;t Microsoft enough? I already pay for Business Premium.</summary>
       <p>Keep it — seriously. Business Premium includes strong tools, but the tenant ships insecure-by-default
       (CISA&rsquo;s SCuBA hardening baselines exist precisely because of this), nobody triages the alerts, and
@@ -922,7 +1061,7 @@
       first-class engine, not a duplicate you pay for twice. Complement, not rip-and-replace.</p>
     </details>
 
-    <details>
+    <details class="reveal">
       <summary>Who is the assessment for?</summary>
       <p>Companies of roughly 25–250 people running Microsoft 365 or Google Workspace (plus Okta and/or
       AWS/Azure/GCP) with a live trigger: a SOC&nbsp;2 request from a customer, a cyber-insurance renewal or
@@ -930,7 +1069,7 @@
       priced to pay for itself in audit-prep hours alone.</p>
     </details>
 
-    <details>
+    <details class="reveal">
       <summary>What happens after the report?</summary>
       <p>You fix things — the report is ordered so the first hour of work buys the most safety, and many fixes
       are 20-minute settings changes. And honestly: your report is 90 days stale the day we email it.
@@ -942,8 +1081,9 @@
 </section>
 
 <!-- ================= FINAL CTA ================= -->
-<section id="book">
-  <div class="wrap" style="text-align:center">
+<section id="book" class="finalcta">
+  <div class="halo" aria-hidden="true"></div>
+  <div class="wrap reveal">
     <h2>One honest number, five days from now.</h2>
     <p class="sub" style="margin-left:auto;margin-right:auto">
       Fixed price. Read-only. Plain English. And an exact list of what to fix first.
@@ -962,14 +1102,15 @@
   <div class="wrap">
     <a class="brand" href="#top">
       <svg class="mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.3 7.5 9.9 4.3-1.6 7.5-5.3 7.5-9.9v-6L12 2.5Z" stroke="#35C4D4" stroke-width="1.6" stroke-linejoin="round"/>
-        <path d="m8.6 11.8 2.3 2.4 4.5-4.8" stroke="#E6EDF5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.3 7.5 9.9 4.3-1.6 7.5-5.3 7.5-9.9v-6L12 2.5Z" stroke="#38CEDE" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="m8.6 11.8 2.3 2.4 4.5-4.8" stroke="#EAF1F8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       Clear<span style="color:var(--accent)">Fend</span>
     </a>
     <p class="tagline">Security and compliance for companies without a security team.<br>Read-only. Fixed price. Plain English.</p>
     <nav aria-label="Footer">
       <a href="#assessment">The assessment</a> ·
+      <a href="#estate">Blast radius</a> ·
       <a href="#ladder">The maturity ladder</a> ·
       <a href="#platform">Platform roadmap</a> ·
       <a href="#pricing">Pricing</a> ·
@@ -988,14 +1129,136 @@
 </footer>
 
 <script>
-  /* Waitlist fallback: while the form action is still the placeholder,
-     intercept submit and open a pre-filled email instead — so the page
-     is functional before any form backend is connected. Remove this
-     block (or leave it; it self-disables) once a real endpoint is set. */
-  (function () {
+(function(){
+  var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- reveal on scroll ---- */
+  var reveals = document.querySelectorAll('.reveal');
+  if (RM || !('IntersectionObserver' in window)) {
+    reveals.forEach(function(e){ e.classList.add('in'); });
+  } else {
+    var ro = new IntersectionObserver(function(ents){
+      ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); ro.unobserve(en.target); } });
+    }, {threshold:.12, rootMargin:'0px 0px -6% 0px'});
+    reveals.forEach(function(e){ ro.observe(e); });
+  }
+
+  /* ---- generic "add .in when visible" for ladder / gauge / loop / console ---- */
+  var groups = document.querySelectorAll('.ladder, .insurer-grid, .loop-card, .console');
+  if (RM || !('IntersectionObserver' in window)) {
+    groups.forEach(function(e){ e.classList.add('in'); });
+  } else {
+    var go = new IntersectionObserver(function(ents){
+      ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); go.unobserve(en.target); } });
+    }, {threshold:.2});
+    groups.forEach(function(e){ go.observe(e); });
+  }
+
+  /* ---- number counters ---- */
+  function runCount(el){
+    var target = parseFloat(el.getAttribute('data-count'));
+    var pre = el.getAttribute('data-prefix') || '';
+    var suf = el.getAttribute('data-suffix') || '';
+    if (RM){ el.textContent = pre + target + suf; return; }
+    var start = null, dur = 1100;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts - start)/dur, 1);
+      var eased = 1 - Math.pow(1-p, 3);
+      el.textContent = pre + Math.round(target*eased) + suf;
+      if(p < 1) requestAnimationFrame(step);
+      else el.textContent = pre + target + suf;
+    }
+    requestAnimationFrame(step);
+  }
+  var counters = document.querySelectorAll('[data-count]');
+  if (RM || !('IntersectionObserver' in window)) {
+    counters.forEach(function(el){ el.textContent = (el.getAttribute('data-prefix')||'') + el.getAttribute('data-count') + (el.getAttribute('data-suffix')||''); });
+  } else {
+    var co = new IntersectionObserver(function(ents){
+      ents.forEach(function(en){ if(en.isIntersecting){ runCount(en.target); co.unobserve(en.target); } });
+    }, {threshold:.6});
+    counters.forEach(function(el){ co.observe(el); });
+  }
+
+  /* ---- estate graph: blast-radius ignition on a loop ---- */
+  (function(){
+    var svg = document.getElementById('estate-graph');
+    var cap = document.getElementById('graph-caption');
+    var money = document.getElementById('blast-money');
+    if(!svg) return;
+    var nodeOf = {};
+    svg.querySelectorAll('.node').forEach(function(n){ nodeOf[n.getAttribute('data-node')] = n; });
+    var edgeOf = {};
+    svg.querySelectorAll('.edge').forEach(function(e){ edgeOf[e.getAttribute('data-edge')] = e; });
+    var reachable = ['stg','db','s3','prod'];
+    var dimNodes = ['m365','admin','vpn','ai'];
+    var dimEdges = ['m365-admin','admin-db','vpn-stg','ai-db'];
+    var hop1 = ['ci-stg'], hop2 = ['stg-prod','stg-db','stg-s3'];
+
+    function fmt(v){ return '$' + v.toLocaleString('en-US'); }
+    function reset(){
+      Object.keys(nodeOf).forEach(function(k){ nodeOf[k].classList.remove('reached','dim'); });
+      Object.keys(edgeOf).forEach(function(k){ edgeOf[k].classList.remove('lit'); });
+      nodeOf['ci'].classList.remove('firing');
+      cap.classList.remove('show');
+    }
+    function countMoney(){
+      if(RM){ money.textContent = fmt(655000); return; }
+      var start=null,dur=900,tgt=655000;
+      function s(ts){ if(!start)start=ts; var p=Math.min((ts-start)/dur,1); var e=1-Math.pow(1-p,3); money.textContent=fmt(Math.round(tgt*e/1000)*1000); if(p<1)requestAnimationFrame(s); else money.textContent=fmt(tgt); }
+      requestAnimationFrame(s);
+    }
+    function ignite(){
+      reset();
+      nodeOf['ci'].classList.add('firing');
+      setTimeout(function(){ dimNodes.forEach(function(k){nodeOf[k].classList.add('dim');}); dimEdges.forEach(function(k){edgeOf[k].classList.add('dim');}); }, 200);
+      setTimeout(function(){ hop1.forEach(function(k){edgeOf[k].classList.add('lit');}); nodeOf['stg'].classList.add('reached'); }, 700);
+      setTimeout(function(){ hop2.forEach(function(k){edgeOf[k].classList.add('lit');}); nodeOf['db'].classList.add('reached'); nodeOf['s3'].classList.add('reached'); nodeOf['prod'].classList.add('reached'); }, 1400);
+      setTimeout(function(){ cap.classList.add('show'); countMoney(); }, 1900);
+    }
+    if (RM){
+      nodeOf['ci'].classList.add('firing');
+      ['stg','db','s3','prod'].forEach(function(k){nodeOf[k].classList.add('reached');});
+      hop1.concat(hop2).forEach(function(k){edgeOf[k].classList.add('lit');});
+      cap.classList.add('show'); money.textContent = fmt(655000);
+      return;
+    }
+    // start when the console scrolls into view, then loop
+    var started = false;
+    var io = new IntersectionObserver(function(ents){
+      ents.forEach(function(en){
+        if(en.isIntersecting && !started){ started = true; setTimeout(ignite, 600); setInterval(ignite, 8200); }
+      });
+    }, {threshold:.4});
+    io.observe(svg);
+  })();
+
+  /* ---- header shadow on scroll ---- */
+  (function(){
+    var header = document.querySelector('header.site');
+    if(!header) return;
+    var update = function(){ header.classList.toggle('scrolled', window.scrollY > 8); };
+    window.addEventListener('scroll', update, {passive:true});
+    update();
+  })();
+
+  /* ---- FAQ: one open at a time ---- */
+  (function(){
+    var items = document.querySelectorAll('#faq details');
+    items.forEach(function(d){
+      d.addEventListener('toggle', function(){
+        if(!d.open) return;
+        items.forEach(function(o){ if(o!==d) o.open = false; });
+      });
+    });
+  })();
+
+  /* ---- waitlist fallback (placeholder endpoint -> pre-filled email) ---- */
+  (function(){
     var form = document.getElementById('waitlist-form');
-    if (!form || form.action.indexOf('FORM_ID_PLACEHOLDER') === -1) return;
-    form.addEventListener('submit', function (e) {
+    if(!form || form.action.indexOf('FORM_ID_PLACEHOLDER') === -1) return;
+    form.addEventListener('submit', function(e){
       e.preventDefault();
       var email = document.getElementById('wl-email').value;
       var size = document.getElementById('wl-size').value;
@@ -1007,28 +1270,7 @@
         '&body=' + encodeURIComponent(body);
     });
   })();
-
-  /* FAQ: open one at a time (progressive enhancement; <details> works without JS). */
-  (function () {
-    var items = document.querySelectorAll('#faq details');
-    items.forEach(function (d) {
-      d.addEventListener('toggle', function () {
-        if (!d.open) return;
-        items.forEach(function (other) { if (other !== d) other.open = false; });
-      });
-    });
-  })();
-
-  /* Header: add a shadow once the page scrolls. Style-only enhancement. */
-  (function () {
-    var header = document.querySelector('header.site');
-    if (!header) return;
-    var update = function () {
-      header.classList.toggle('scrolled', window.scrollY > 8);
-    };
-    window.addEventListener('scroll', update, { passive: true });
-    update();
-  })();
+})();
 </script>
 </body>
 </html>
