@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClearFend — How secure is your company, really? One honest number — and the ten fixes that matter</title>
+<meta name="description" content="A fixed-price, five-day, read-only security posture assessment for companies of 25–250 people: one honest maturity level, your status on the five controls insurers price on, and the ten fixes that matter — in plain English. The all-in-one platform is next; join the waitlist.">
+<meta property="og:title" content="ClearFend — How secure is your company, really? One honest number — and the ten fixes that matter">
+<meta property="og:description" content="Fixed-price, five-day, read-only posture assessment in plain English. One maturity level, the insurer-five, the top-10 fixes. Platform waitlist open.">
+<meta property="og:type" content="website">
+<!-- TODO before launch: set og:url to the real domain and add an og:image (1200x630 PNG) once the domain is registered. -->
+<meta property="og:url" content="https://clearfend.com/">
+<meta name="theme-color" content="#0A0E14">
+
+<!-- ============================================================
+     CTA WIRING (both CTAs ship as honest placeholders)
+     ============================================================
+     1) "Book a posture assessment" — currently a mailto: link to
+        hello@clearfend.com. To go live, EITHER:
+          a) replace every href="mailto:hello@clearfend.com?..."
+             with your real inbox, OR
+          b) swap the href for a Cal.com / SavvyCal booking link,
+             e.g. href="https://cal.com/clearfend/assessment-scoping"
+        Search this file for "BOOKING-CTA" to find all instances.
+     2) "Join the waitlist" — the <form id="waitlist-form"> posts to a
+        placeholder endpoint. To go live, replace the action with:
+          - Formspree:  action="https://formspree.io/f/YOUR_FORM_ID"
+          - Tally:      or replace the whole form with a Tally embed
+          - Basin/Getform also work; any POST endpoint accepting
+            form-encoded fields (email, company_size, trigger).
+        Until then, a small script at the bottom of this file
+        intercepts submit and falls back to a pre-filled mailto so
+        the page is functional even from a file:// URL.
+     ============================================================ -->
+
+<style>
+  /* =========================================================
+     ClearFend marketing site — "Confidence Console" skin
+     Derived from 14-ui-design-direction.md:
+     opaque graphite elevation, hairline borders, color = meaning,
+     mono tabular figures on every number, motion rationed.
+     ========================================================= */
+  :root{
+    /* surfaces */
+    --canvas:#0A0E14;
+    --surface-1:#121821;
+    --surface-2:#1A2230;
+    --surface-3:#232D3D;
+    --border:#263140;
+    --border-strong:#33465C;
+    /* text */
+    --text:#E6EDF5;
+    --muted:#9DB0C2;
+    --faint:#63748A;
+    /* accent + meaning */
+    --accent:#35C4D4;
+    --accent-weak:rgba(53,196,212,.12);
+    --accent-border:rgba(53,196,212,.35);
+    --pass:#3FB77E;
+    --partial:#E8C245;
+    --fail:#FF5964;
+    --ai:#E8A33D;
+    /* type */
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    /* geometry */
+    --radius:8px;
+    --radius-sm:6px;
+    --radius-xs:4px;
+    --maxw:1120px;
+    --shadow-1:0 1px 2px rgba(0,0,0,.4);
+    --shadow-2:0 8px 24px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--font);
+    background:var(--canvas);color:var(--text);
+    line-height:1.65;font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* restrained atmosphere: a faint engineering grid + one quiet teal wash
+     at the top. This is the entire decoration budget. */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(52rem 30rem at 50% -8%, rgba(53,196,212,.07), transparent 62%),
+      linear-gradient(rgba(230,237,245,.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(230,237,245,.022) 1px, transparent 1px);
+    background-size:auto,48px 48px,48px 48px;
+  }
+  img,svg{max-width:100%}
+  a{color:var(--accent)}
+  a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible{
+    outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--radius-xs);
+  }
+  ::selection{background:rgba(53,196,212,.30)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 1.5rem}
+  .skip{position:absolute;left:-999px;top:0;background:var(--accent);color:#04252b;padding:.5rem 1rem;z-index:99;font-weight:700}
+  .skip:focus{left:0}
+
+  .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  /* ---------- header ---------- */
+  header.site{
+    background:rgba(10,14,20,.82);
+    border-bottom:1px solid var(--border);
+    position:sticky;top:0;z-index:50;
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    transition:box-shadow .2s ease;
+  }
+  header.site.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.45)}
+  /* the one brand cue: a hairline accent along the very top edge */
+  header.site::before{
+    content:"";display:block;height:2px;
+    background:linear-gradient(90deg,transparent,var(--accent) 18%,var(--accent) 82%,transparent);
+    opacity:.85;
+  }
+  .nav{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding:.85rem 1.5rem}
+  .brand{
+    font-weight:800;font-size:1.2rem;letter-spacing:-.02em;
+    color:var(--text);text-decoration:none;display:inline-flex;align-items:center;gap:.55rem;
+  }
+  .brand .mark{
+    width:1.35rem;height:1.35rem;flex-shrink:0;display:block;
+  }
+  .brand span{color:var(--accent)}
+  .nav-links{display:flex;gap:1.35rem;flex-wrap:wrap;margin-left:auto;align-items:center}
+  .nav-links a:not(.btn){color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:600}
+  .nav-links a:not(.btn):hover{color:var(--text)}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-block;text-decoration:none;cursor:pointer;
+    padding:.72rem 1.25rem;border-radius:var(--radius-sm);
+    font-weight:700;font-size:.95rem;font-family:var(--font);
+    background:var(--accent);color:#04252b;border:1px solid var(--accent);
+    transition:filter .15s ease, transform .15s ease, background-color .15s ease, border-color .15s ease;
+  }
+  .btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+  .btn:active{transform:translateY(0)}
+  .btn.small{padding:.45rem .9rem;font-size:.85rem}
+  .btn.ghost{
+    background:transparent;color:var(--text);border:1px solid var(--border-strong);
+  }
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent);filter:none;background:var(--accent-weak)}
+
+  /* ---------- hero ---------- */
+  .hero{padding:4.5rem 0 3rem}
+  .hero-grid{display:grid;gap:3rem;grid-template-columns:1fr;align-items:center}
+  .eyebrow{
+    display:inline-block;font-family:var(--mono);font-size:.72rem;font-weight:600;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--accent);
+    background:var(--accent-weak);border:1px solid var(--accent-border);
+    border-radius:var(--radius-xs);padding:.3rem .7rem;margin-bottom:1.2rem;
+  }
+  h1{
+    font-size:clamp(2.1rem,5.5vw,3.3rem);line-height:1.08;
+    letter-spacing:-.028em;font-weight:800;color:#fff;
+  }
+  .hero p.lede{margin:1.3rem 0 1.8rem;font-size:1.12rem;color:var(--muted);max-width:36em}
+  .cta-row{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
+  .cta-note{font-size:.85rem;color:var(--faint);margin-top:.9rem}
+
+  /* honesty strip */
+  .honesty{
+    margin-top:2.1rem;border-left:3px solid var(--accent);
+    background:var(--surface-1);border-radius:0 var(--radius) var(--radius) 0;
+    border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+    padding:.95rem 1.15rem;font-size:.92rem;color:var(--muted);max-width:44em;
+  }
+  .honesty strong{color:var(--text)}
+
+  /* ---------- sample report card: styled as the product console ---------- */
+  .report{
+    background:var(--surface-1);border:1px solid var(--border);border-radius:var(--radius);
+    box-shadow:var(--shadow-2);
+    max-width:30rem;overflow:hidden;
+  }
+  .report .bar{
+    display:flex;align-items:center;gap:.6rem;
+    background:var(--surface-2);border-bottom:1px solid var(--border);
+    padding:.6rem .95rem;
+  }
+  .report .bar .dots{display:flex;gap:.35rem}
+  .report .bar .dots i{width:.55rem;height:.55rem;border-radius:50%;background:var(--border-strong);display:block}
+  .report .bar .fname{
+    font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.04em;
+    margin-left:.2rem;
+  }
+  .report .bar .tag{
+    margin-left:auto;font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ai);
+    background:rgba(232,163,61,.12);border:1px solid rgba(232,163,61,.4);
+    border-radius:var(--radius-xs);padding:.12rem .5rem;white-space:nowrap;
+  }
+  .report .body{padding:1.25rem 1.25rem 1.15rem}
+  .level-chip{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;margin-bottom:.2rem}
+  .level-chip .big{
+    font-family:var(--mono);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;color:#fff;
+  }
+  .level-chip .big b{color:var(--fail);font-weight:700}
+  .level-chip .next{font-size:.82rem;color:var(--faint)}
+  .five{list-style:none;margin:.9rem 0;border-top:1px solid var(--border)}
+  .five li{
+    display:flex;justify-content:space-between;gap:1rem;align-items:center;
+    padding:.52rem 0;border-bottom:1px solid var(--border);font-size:.92rem;color:var(--text);
+  }
+  .pill{
+    font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+    border-radius:var(--radius-xs);padding:.16rem .55rem;white-space:nowrap;border:1px solid transparent;
+  }
+  .pill.pass{color:var(--pass);background:rgba(63,183,126,.12);border-color:rgba(63,183,126,.4)}
+  .pill.partial{color:var(--partial);background:rgba(232,194,69,.12);border-color:rgba(232,194,69,.4)}
+  .pill.fail{color:var(--fail);background:rgba(255,89,100,.12);border-color:rgba(255,89,100,.4)}
+  .finding{
+    font-size:.88rem;color:var(--muted);background:var(--surface-2);border-radius:var(--radius-sm);
+    padding:.75rem .95rem;border:1px solid var(--border);
+  }
+  .finding em{font-style:normal;font-weight:700;color:var(--text)}
+  .report figcaption{font-size:.78rem;color:var(--faint);margin-top:.75rem}
+
+  /* ---------- sections ---------- */
+  section{padding:4rem 0}
+  section.alt{background:var(--surface-1);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .kicker{
+    font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;
+  }
+  .kicker::before{content:"// ";color:var(--faint)}
+  h2{font-size:clamp(1.55rem,3.5vw,2.15rem);letter-spacing:-.022em;line-height:1.18;margin-bottom:.9rem;font-weight:800;color:#fff}
+  .sub{color:var(--muted);max-width:46em;margin-bottom:1.7rem}
+  h3{font-size:1.05rem;font-weight:700;margin-bottom:.4rem;letter-spacing:-.01em;color:var(--text)}
+
+  /* stats */
+  .stats{display:grid;gap:1rem;grid-template-columns:1fr;margin:1.8rem 0}
+  .stat{
+    background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);
+    padding:1.25rem 1.3rem;box-shadow:var(--shadow-1);
+  }
+  .stat .n{
+    font-family:var(--mono);font-variant-numeric:tabular-nums;
+    font-size:2.1rem;font-weight:700;letter-spacing:-.02em;color:#fff;line-height:1.15;
+  }
+  .stat .d{font-size:.9rem;color:var(--muted);margin-top:.3rem}
+  .src{font-size:.76rem;color:var(--faint)}
+  .stat .src{margin-top:.55rem;display:block}
+
+  /* cards grid */
+  .grid{display:grid;gap:1rem;grid-template-columns:1fr}
+  .card{
+    background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);
+    padding:1.3rem;box-shadow:var(--shadow-1);
+  }
+  section.alt .card{background:var(--surface-2)}
+  .card p{font-size:.92rem;color:var(--muted)}
+  .num{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:1.75rem;height:1.75rem;padding:0 .3rem;
+    border-radius:var(--radius-xs);border:1px solid var(--accent-border);
+    background:var(--accent-weak);color:var(--accent);
+    font-family:var(--mono);font-weight:700;font-size:.85rem;margin-bottom:.7rem;
+  }
+
+  /* timeline table */
+  .tablewrap{
+    overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);
+    background:var(--surface-2);box-shadow:var(--shadow-1);
+  }
+  table{border-collapse:collapse;width:100%;min-width:420px;font-size:.92rem}
+  th,td{text-align:left;padding:.7rem 1rem;border-bottom:1px solid var(--border);color:var(--text)}
+  td:first-child{font-family:var(--mono);color:var(--accent);font-weight:700}
+  th{
+    font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;
+    color:var(--faint);font-weight:600;
+  }
+  tr:last-child td{border-bottom:none}
+  caption{caption-side:top}
+
+  /* price cards */
+  .prices{display:grid;gap:1rem;grid-template-columns:1fr;margin-top:1.5rem}
+  .price{
+    background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);
+    padding:1.4rem;display:flex;flex-direction:column;gap:.4rem;box-shadow:var(--shadow-1);
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .price:hover{border-color:var(--border-strong);transform:translateY(-2px)}
+  .price.featured{border:1px solid var(--accent);box-shadow:0 0 0 1px var(--accent), 0 12px 32px rgba(53,196,212,.10)}
+  .price .tier{font-weight:800;font-size:1rem;color:var(--text)}
+  .price .amt{
+    font-family:var(--mono);font-variant-numeric:tabular-nums;
+    font-size:2rem;font-weight:700;letter-spacing:-.02em;color:#fff;
+  }
+  .price .amt small{font-size:.85rem;font-weight:500;color:var(--faint);font-family:var(--font)}
+  .price .desc{font-size:.88rem;color:var(--muted)}
+  .badge{
+    align-self:flex-start;font-family:var(--mono);font-size:.62rem;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;
+    border-radius:var(--radius-xs);padding:.16rem .5rem;margin-bottom:.35rem;border:1px solid transparent;
+  }
+  .badge.live{color:var(--pass);background:rgba(63,183,126,.12);border-color:rgba(63,183,126,.4)}
+  .badge.future{color:var(--muted);background:var(--surface-3);border-color:var(--border-strong)}
+
+  /* ---------- maturity ladder — a climb with a hard honesty line ---------- */
+  .ladder{display:flex;flex-direction:column;gap:.6rem;margin:2rem 0 1.2rem}
+  .rung{display:grid;grid-template-columns:3.4rem 1fr;gap:.85rem;align-items:stretch}
+  .rung .lv{
+    font-family:var(--mono);font-weight:700;font-size:.85rem;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--surface-3);color:var(--muted);
+    border:1px solid var(--border-strong);border-radius:var(--radius-sm);
+  }
+  .rung .bar{
+    border-radius:var(--radius-sm);padding:.6rem .95rem;min-height:2.8rem;
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .rung .bar b{font-size:.95rem;color:var(--text)}
+  .rung .bar span{font-size:.82rem;color:var(--muted)}
+  /* achievable today: lit teal; platform-gated: locked, dashed */
+  .rung.solid .lv{background:var(--accent);color:#04252b;border-color:var(--accent)}
+  .rung.solid .bar{background:var(--accent-weak);border:1px solid var(--accent-border)}
+  .rung.gated .bar{background:transparent;border:1px dashed var(--border-strong)}
+  .rung.gated .bar b::after{
+    content:" 🔒";font-size:.75rem;
+  }
+  .r5 .bar{width:100%}
+  .r4 .bar{width:90%}
+  .r3 .bar{width:78%}
+  .r2 .bar{width:66%}
+  .r1 .bar{width:54%}
+  .capline{display:flex;align-items:center;gap:.8rem;margin:.4rem 0}
+  .capline .rule{flex:1;border-top:2px solid var(--accent)}
+  .capline .lbl{
+    font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--accent);background:var(--accent-weak);border:1px solid var(--accent-border);
+    border-radius:var(--radius-xs);padding:.22rem .7rem;white-space:nowrap;
+  }
+  @media (max-width:560px){
+    .r1 .bar,.r2 .bar,.r3 .bar,.r4 .bar,.r5 .bar{width:100%}
+    .capline .lbl{white-space:normal;text-align:center}
+  }
+
+  /* insurer five */
+  .fivegrid{display:grid;gap:1rem;grid-template-columns:1fr}
+  .fivegrid .card b{display:block;margin-bottom:.3rem;color:var(--text)}
+  .fivegrid .card b i{
+    font-style:normal;font-family:var(--mono);color:var(--accent);margin-right:.4rem;font-weight:700;
+  }
+
+  /* ---------- roadmap ---------- */
+  .roadmap{display:grid;gap:1rem;grid-template-columns:1fr;margin-top:1.7rem}
+  .stage{
+    background:var(--surface-2);border:1px solid var(--border);
+    border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-1);
+  }
+  .stage .when{
+    font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    border-radius:var(--radius-xs);padding:.18rem .55rem;display:inline-block;margin-bottom:.75rem;
+    border:1px solid transparent;
+  }
+  .stage .when.now{color:var(--pass);background:rgba(63,183,126,.12);border-color:rgba(63,183,126,.4)}
+  .stage .when.build{color:var(--partial);background:rgba(232,194,69,.10);border-color:rgba(232,194,69,.4)}
+  .stage .when.later{color:var(--muted);background:var(--surface-3);border-color:var(--border-strong)}
+  .stage p{font-size:.92rem;color:var(--muted)}
+  .stage ul{margin:.6rem 0 0 1.1rem;font-size:.9rem;color:var(--muted)}
+  .stage li{margin-bottom:.3rem}
+  .finePrint{color:var(--faint);font-size:.82rem;margin-top:1.5rem;max-width:52em}
+
+  /* platform pricing commitments */
+  .commit{list-style:none;margin-top:1.7rem;display:grid;gap:.6rem}
+  .commit li{
+    background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);
+    padding:.78rem 1rem;font-size:.92rem;color:var(--muted);display:flex;gap:.6rem;align-items:flex-start;
+  }
+  .commit li::before{content:"✓";font-weight:800;color:var(--pass);font-family:var(--mono)}
+
+  /* microsoft strip */
+  .ms .wrap{display:grid;gap:1.4rem;grid-template-columns:1fr}
+
+  /* waitlist form */
+  form{display:grid;gap:1rem;max-width:34rem}
+  label{font-size:.85rem;font-weight:700;display:block;margin-bottom:.35rem;color:var(--text)}
+  input,select{
+    width:100%;padding:.72rem .85rem;border:1px solid var(--border-strong);border-radius:var(--radius-sm);
+    font-size:1rem;font-family:inherit;background:var(--surface-2);color:var(--text);
+  }
+  input::placeholder{color:var(--faint)}
+  select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 18px) 55%,calc(100% - 13px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+  .form-note{font-size:.82rem;color:var(--faint)}
+
+  /* FAQ */
+  details{
+    background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);
+    padding:1rem 1.2rem;margin-bottom:.7rem;box-shadow:var(--shadow-1);
+    transition:border-color .15s ease;
+  }
+  details[open]{border-color:var(--border-strong)}
+  summary{
+    cursor:pointer;font-weight:700;font-size:.97rem;list-style:none;
+    display:flex;justify-content:space-between;gap:1rem;align-items:center;color:var(--text);
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-family:var(--mono);font-size:1.25rem;font-weight:400;color:var(--faint);flex-shrink:0}
+  details[open] summary::after{content:"–";color:var(--accent)}
+  details p{margin-top:.7rem;font-size:.92rem;color:var(--muted)}
+  details p + p{margin-top:.5rem}
+
+  /* footer */
+  footer{background:var(--surface-1);border-top:1px solid var(--border);color:var(--muted);padding:3rem 0 2.5rem;font-size:.88rem}
+  footer .brand{color:#fff;display:inline-flex;margin-bottom:.6rem}
+  footer .tagline{color:var(--faint);margin-bottom:1.4rem}
+  footer nav a{color:var(--muted)}
+  footer nav a:hover{color:var(--accent)}
+  footer .legal{font-size:.78rem;color:var(--faint);max-width:56em;margin-top:1.4rem;border-top:1px solid var(--border);padding-top:1.2rem}
+
+  /* responsive */
+  @media (min-width:720px){
+    .hero-grid{grid-template-columns:1.12fr .88fr}
+    .stats{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    .prices{grid-template-columns:repeat(3,1fr)}
+    .fivegrid{grid-template-columns:repeat(5,1fr)}
+    .roadmap{grid-template-columns:repeat(3,1fr)}
+    .ms .wrap{grid-template-columns:1.2fr .8fr;align-items:center}
+  }
+  @media (max-width:719px){
+    .fivegrid{grid-template-columns:repeat(2,1fr)}
+    .fivegrid .card:last-child{grid-column:1/-1}
+  }
+  /* compact sticky header on small screens: brand + CTA only
+     (all nav targets remain reachable by scrolling; footer repeats them) */
+  @media (max-width:679px){
+    .nav-links a:not(.btn){display:none}
+    .nav{flex-wrap:nowrap;justify-content:space-between}
+    .nav .btn.small{white-space:nowrap;padding:.42rem .7rem;font-size:.78rem}
+  }
+
+  /* motion restraint */
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .btn,.price,header.site,details{transition:none}
+    .btn:hover,.price:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <!-- shield mark: hairline shield with a check, teal on graphite -->
+      <svg class="mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.3 7.5 9.9 4.3-1.6 7.5-5.3 7.5-9.9v-6L12 2.5Z" stroke="#35C4D4" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="m8.6 11.8 2.3 2.4 4.5-4.8" stroke="#E6EDF5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Clear<span>Fend</span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#assessment">The assessment</a>
+      <a href="#ladder">The ladder</a>
+      <a href="#platform">Platform</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <!-- BOOKING-CTA -->
+      <a class="btn small" href="mailto:hello@clearfend.com?subject=Posture%20Assessment%20%E2%80%94%20booking%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20to%20scope%20a%20posture%20assessment.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20accounts%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%20(SOC%202%20request%20%2F%20insurance%20%2F%20board)%3A">Book a posture assessment</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Security &amp; compliance for companies without a security team</span>
+      <h1>How secure is your company, really? Get one honest number — and the ten fixes that matter.</h1>
+      <p class="lede">
+        A customer just asked for SOC&nbsp;2. Your insurer just sent the questionnaire. The board just asked
+        &ldquo;are we OK?&rdquo; ClearFend&rsquo;s fixed-price, read-only posture assessment answers with one honest
+        number — your maturity level — plus your status on the five controls insurers actually price on,
+        and the ten fixes that matter most, ranked. No installs. No jargon. No quote games.
+      </p>
+      <div class="cta-row">
+        <!-- BOOKING-CTA -->
+        <a class="btn" href="mailto:hello@clearfend.com?subject=Posture%20Assessment%20%E2%80%94%20booking%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20to%20scope%20a%20posture%20assessment.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20accounts%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%20(SOC%202%20request%20%2F%20insurance%20%2F%20board)%3A">Book a posture assessment</a>
+        <a class="btn ghost" href="#waitlist">Join the platform waitlist</a>
+      </div>
+      <p class="cta-note">Fixed price, published below. No sales call required to see it.</p>
+      <div class="honesty">
+        <strong>Honest by design:</strong> this is a point-in-time assessment — not an audit, not a penetration
+        test, not a certification. A snapshot can honestly award at most <strong>Level&nbsp;2 of 5</strong>.
+        Level&nbsp;3 requires controls proven <em>continuously</em> — that&rsquo;s the platform we&rsquo;re building,
+        and this page tells you plainly which is which.
+      </div>
+    </div>
+
+    <figure class="report" aria-label="Sample excerpt from a ClearFend assessment report">
+      <div class="bar" aria-hidden="true">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="fname">posture-report.pdf</span>
+        <span class="tag">Sample — illustrative</span>
+      </div>
+      <div class="body">
+        <div class="level-chip">
+          <span class="big">Level <b>1</b> — Exposed</span>
+          <span class="next">next gate: Level 2 Covered</span>
+        </div>
+        <ul class="five">
+          <li>MFA everywhere <span class="pill fail">Fail</span></li>
+          <li>EDR / monitoring present <span class="pill partial">Partial</span></li>
+          <li>Tested offline backups <span class="pill fail">Fail</span></li>
+          <li>Patching cadence <span class="pill pass">Pass</span></li>
+          <li>Security awareness training <span class="pill partial">Partial</span></li>
+        </ul>
+        <p class="finding"><em>Finding #1 of 10:</em> 2 admin accounts have no MFA — anyone who guesses one
+          password can read all company email. <em>Fix:</em> enforce MFA on both accounts (about 20 minutes).</p>
+        <figcaption>This is the register every finding is written in — business consequence, then the fix.</figcaption>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= PROBLEM ================= -->
+<section class="alt" id="problem">
+  <div class="wrap">
+    <p class="kicker">The problem</p>
+    <h2>You bought tools. Nobody can tell you if you&rsquo;re actually OK.</h2>
+    <p class="sub">
+      The typical company our size runs 8–12 disconnected security tools — and still can&rsquo;t answer the only
+      question the board, the customer, and the insurer are asking: <em>how good is our security, really, and
+      what should we fix first?</em>
+    </p>
+    <div class="stats">
+      <div class="stat">
+        <div class="n">88%</div>
+        <div class="d">of breaches at small and mid-sized businesses involved ransomware</div>
+        <span class="src">Verizon Data Breach Investigations Report, 2025</span>
+      </div>
+      <div class="stat">
+        <div class="n">~$115K</div>
+        <div class="d">median ransom payment, among victims that paid</div>
+        <span class="src">Verizon Data Breach Investigations Report, 2025</span>
+      </div>
+      <div class="stat">
+        <div class="n">8–12</div>
+        <div class="d">disconnected tools in a typical SMB security stack — none of them showing the whole picture</div>
+        <span class="src">Industry surveys of SMB security stacks</span>
+      </div>
+    </div>
+    <p class="sub" style="margin-bottom:0">
+      You don&rsquo;t need a thirteenth tool yet — least of all another one sold behind a quote wall, with a
+      30–50% renewal hike waiting at month 13. You need to know where you stand, what carriers and auditors
+      will actually look at, and what to fix in what order. That&rsquo;s the assessment.
+    </p>
+  </div>
+</section>
+
+<!-- ================= THE ASSESSMENT ================= -->
+<section id="assessment">
+  <div class="wrap">
+    <p class="kicker">Available today · fixed price · five business days</p>
+    <h2>The ClearFend Security &amp; Compliance Posture Assessment</h2>
+    <p class="sub">
+      A read-only assessment of your Microsoft 365 or Google Workspace estate — plus Okta and AWS/Azure/GCP —
+      scored on a five-level maturity ladder and mapped to the five controls your cyber-insurance carrier
+      prices on. Delivered in plain English, in five business days.
+    </p>
+
+    <div class="grid cols-3">
+      <div class="card"><span class="num">01</span><h3>Your maturity level</h3>
+        <p>One number on a five-level ladder, with the specific blockers gating the next level. Levels are
+        gates, not averages: you are the level whose requirements you fully meet.
+        &ldquo;You&rsquo;re a Level&nbsp;X; here&rsquo;s what gets you to the next level.&rdquo;</p></div>
+      <div class="card"><span class="num">02</span><h3>Insurer-five status</h3>
+        <p>Pass / partial / fail on the five controls carriers price on: MFA everywhere, EDR/monitoring,
+        tested offline backups, patching cadence, and security awareness training. Your next renewal
+        questionnaire is built from this list.</p></div>
+      <div class="card"><span class="num">03</span><h3>Top-10 fixes, in business language</h3>
+        <p>Every finding translated into what happens to your business — not scanner jargon — ranked by blast
+        radius, exploitability, and business impact, each with a one-sentence fix and an effort hint.</p></div>
+      <div class="card"><span class="num">04</span><h3>Framework gap view</h3>
+        <p>Where your configuration stands against the SOC&nbsp;2 CC-series (HIPAA basics on request) — a gap
+        indication, clearly labeled, before you pay an auditor to tell you the same thing.</p></div>
+      <div class="card"><span class="num">05</span><h3>Executive one-pager</h3>
+        <p>The level, the five, the top three fixes — board-ready, shareable, one page.</p></div>
+      <div class="card"><span class="num">06</span><h3>45-minute delivery call</h3>
+        <p>We walk your team through the report and the fix order, and answer everything.</p></div>
+    </div>
+
+    <div class="grid cols-2" style="margin-top:2rem">
+      <div>
+        <h3>How it works — read-only, no installs</h3>
+        <p class="sub" style="margin-bottom:1rem;font-size:.93rem">
+          You grant time-boxed read-only access; we run vetted open-source posture scanners — CISA SCuBA
+          baselines for Microsoft 365 and Google Workspace, CIS Foundations checks for AWS/Azure/GCP, and
+          ClearFend-authored read-only checks for Okta — then our translation pipeline plus a human analyst
+          turn raw output into the report above. <strong style="color:var(--text)">We never change anything in
+          your environment. Access is revoked the day we deliver.</strong>
+        </p>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <caption class="src" style="text-align:left;padding:.7rem 1rem 0">Timeline: five business days (scoping questionnaire and signed authorization letter happen before Day 1)</caption>
+          <thead><tr><th scope="col">Day</th><th scope="col">What happens</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>30-minute credentials session — you create the read-only access with us on a call</td></tr>
+            <tr><td>2</td><td>Scans run and complete</td></tr>
+            <tr><td>3</td><td>Findings translated, ranked, and analyst-reviewed</td></tr>
+            <tr><td>4</td><td>Report QA and executive summary</td></tr>
+            <tr><td>5</td><td>Delivery call; access revocation begins same day</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2.2rem">Price — fixed, published, no quote games</h3>
+    <div class="prices">
+      <div class="price">
+        <span class="badge live">Available now</span>
+        <span class="tier">Core</span>
+        <span class="amt">$1,500 <small>fixed</small></span>
+        <span class="desc">Up to ~25 people; one identity platform (M365 <em>or</em> Google Workspace); up to 1 cloud account.</span>
+      </div>
+      <div class="price featured">
+        <span class="badge live">Available now</span>
+        <span class="tier">Standard</span>
+        <span class="amt">$3,000 <small>fixed</small></span>
+        <span class="desc">~26–100 people; identity platform + Okta and/or one cloud provider (up to 3 accounts/subscriptions/projects).</span>
+      </div>
+      <div class="price">
+        <span class="badge live">Available now</span>
+        <span class="tier">Extended</span>
+        <span class="amt">$5,000 <small>fixed</small></span>
+        <span class="desc">~101–250 people, or multi-cloud / multiple tenants (up to 10 accounts).</span>
+      </div>
+    </div>
+    <p class="cta-note">One price, one invoice, no upsell inside the engagement. Larger or unusual estates: we&rsquo;ll tell you the price before you sign, in writing.</p>
+    <div class="cta-row" style="margin-top:1rem">
+      <!-- BOOKING-CTA -->
+      <a class="btn" href="mailto:hello@clearfend.com?subject=Posture%20Assessment%20%E2%80%94%20booking%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20to%20scope%20a%20posture%20assessment.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20accounts%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%20(SOC%202%20request%20%2F%20insurance%20%2F%20board)%3A">Book a posture assessment</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MATURITY LADDER ================= -->
+<section class="alt" id="ladder">
+  <div class="wrap">
+    <p class="kicker">The one honest number</p>
+    <h2>The ClearFend maturity ladder</h2>
+    <p class="sub">
+      Five levels, in plain business language. Levels are <strong style="color:var(--text)">gates, not
+      averages</strong> — world-class detection with untested backups isn&rsquo;t &ldquo;Level 4 on
+      average,&rdquo; it&rsquo;s Level 2 with a fatal gap. Your report says which level you fully meet, and
+      exactly what unlocks the next one.
+    </p>
+
+    <div class="ladder" role="img" aria-label="Five-level maturity ladder. Level 1 Exposed, Level 2 Covered, then a line marking the honest ceiling of a point-in-time assessment. Levels 3 Audit-Ready, 4 Resilient, and 5 Adaptive require continuous monitoring and render as locked.">
+      <div class="rung gated r5"><span class="lv">L5</span><div class="bar"><b>Adaptive</b><span>Continuously tested and exercised — the bar for defense and heavily regulated industries</span></div></div>
+      <div class="rung gated r4"><span class="lv">L4</span><div class="bar"><b>Resilient</b><span>You detect, respond, recover — and you&rsquo;ve tested that, not just written it down</span></div></div>
+      <div class="rung gated r3"><span class="lv">L3</span><div class="bar"><b>Audit-Ready</b><span>Controls proven continuously — you can show they&rsquo;ve been true every day</span></div></div>
+      <div class="capline" aria-hidden="true"><span class="rule"></span><span class="lbl">A point-in-time assessment honestly caps here</span><span class="rule"></span></div>
+      <div class="rung solid r2"><span class="lv">L2</span><div class="bar"><b>Covered</b><span>The five controls insurers price on are in place</span></div></div>
+      <div class="rung solid r1"><span class="lv">L1</span><div class="bar"><b>Exposed</b><span>Basic gaps are open and no one is watching</span></div></div>
+    </div>
+
+    <p class="sub" style="margin-bottom:0">
+      Why the cap? Level 3 means controls proven <em>continuously</em> — and no snapshot can honestly claim
+      that. Your report is 90 days stale the day we email it. Continuous monitoring keeps it true: that&rsquo;s
+      exactly what ClearFend Starter will do when the platform launches, and it&rsquo;s the only honest path to
+      Level 3. We say so in the report, on this page, and on the call. And most companies never need Level 5 —
+      topping out at Level 3 or 4 is success, and we&rsquo;ll tell you so.
+    </p>
+  </div>
+</section>
+
+<!-- ================= INSURER FIVE ================= -->
+<section id="insurer-five">
+  <div class="wrap">
+    <p class="kicker">The insurance lens</p>
+    <h2>The five controls your carrier actually prices on</h2>
+    <p class="sub">
+      Cyber-insurance premiums, renewals, and even insurability come down to five things. Every relevant
+      finding in your report is mapped to them — so the report doubles as your renewal-questionnaire prep.
+    </p>
+    <div class="fivegrid">
+      <div class="card"><b><i>01</i>MFA everywhere</b><p>Especially admin accounts and email.</p></div>
+      <div class="card"><b><i>02</i>EDR / monitoring</b><p>Something watching endpoints — and someone watching it.</p></div>
+      <div class="card"><b><i>03</i>Tested backups</b><p>Offline, and actually restored at least once.</p></div>
+      <div class="card"><b><i>04</i>Patching cadence</b><p>Known holes closed on a schedule, not &ldquo;eventually.&rdquo;</p></div>
+      <div class="card"><b><i>05</i>Awareness training</b><p>Staff who can spot the phish that starts it all.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PLATFORM ROADMAP ================= -->
+<section class="alt" id="platform">
+  <div class="wrap">
+    <p class="kicker">Roadmap — labeled honestly</p>
+    <h2>What we&rsquo;re building: the whole security lifecycle in one product</h2>
+    <p class="sub">
+      Posture to proof, one graph, one meter. The signature move: <strong style="color:#fff">one click fixes a
+      real misconfiguration — and it simultaneously becomes a closed finding, a passing SOC&nbsp;2 control, and
+      a line in your insurance evidence pack.</strong> Fix once, prove three ways. Nothing below is on sale
+      today, and we won&rsquo;t pretend otherwise.
+    </p>
+    <div class="roadmap">
+      <div class="stage">
+        <span class="when now">Live now</span>
+        <h3>The concierge assessment</h3>
+        <p>The fixed-price, five-day posture assessment on this page. Real scans, real analyst, real report.
+        Every assessment sharpens the maturity model and the plain-English findings library the platform is
+        built on.</p>
+      </div>
+      <div class="stage">
+        <span class="when build">In development — not available today</span>
+        <h3>Agentless continuous monitoring</h3>
+        <p>Connect Microsoft 365, Google Workspace, and Okta in about 30 minutes — no installs, no agents.
+        Your posture re-checked continuously, one ranked fix queue, an evidence vault, and Level 3
+        Audit-Ready finally reachable.</p>
+        <ul>
+          <li>Assessment customers get first access as design partners</li>
+        </ul>
+      </div>
+      <div class="stage">
+        <span class="when later">Next — the full loop</span>
+        <h3>Endpoint agent + AI SOC</h3>
+        <p>The endpoint agent, an AI-run security operations layer with human escalation included, and the
+        insurer evidence pack — the posture-to-proof loop closed end to end, on one graph and one price meter.</p>
+      </div>
+    </div>
+    <p class="finePrint">
+      Further out (and labeled as vision, not product): governing your AI estate — agents, MCP servers,
+      non-human identities — on the same graph, by a vendor that governs its own the same way. We&rsquo;ll ship
+      it when it&rsquo;s real, not before.
+    </p>
+  </div>
+</section>
+
+<!-- ================= PLATFORM PRICING ================= -->
+<section id="pricing">
+  <div class="wrap">
+    <p class="kicker">Published in advance, on purpose</p>
+    <h2>Platform pricing — every number public before launch</h2>
+    <p class="sub">
+      This industry hides prices behind quote walls, then hikes renewals 30–50%. We&rsquo;re publishing the
+      whole price list before the product launches, with the commitments that keep it honest. These prices
+      take effect at platform launch; the assessment above is what you can buy today.
+    </p>
+    <div class="prices">
+      <div class="price">
+        <span class="badge future">At platform launch</span>
+        <span class="tier">Free</span>
+        <span class="amt">$0</span>
+        <span class="desc">Full posture assessment, <strong style="color:var(--text)">unlimited</strong> one-click fixes (not a capped teaser),
+        and your maturity score — awardable to Level 2. Genuinely useful, forever free.</span>
+      </div>
+      <div class="price">
+        <span class="badge future">At platform launch</span>
+        <span class="tier">Starter</span>
+        <span class="amt">$9 <small>/user/mo</small></span>
+        <span class="desc">Agentless continuous monitoring and the evidence vault — the report, alive, and the
+        only honest path to Level 3 Audit-Ready.</span>
+      </div>
+      <div class="price">
+        <span class="badge future">At platform launch</span>
+        <span class="tier">Complete</span>
+        <span class="amt">$17 <small>/user/mo list</small></span>
+        <span class="desc">Adds the endpoint agent, the AI SOC (unmetered within published fair-use), included
+        human escalation, and the insurer pack.</span>
+      </div>
+    </div>
+    <ul class="commit">
+      <li>No quote wall below 500 users — every price self-serve and published, volume discounts included.</li>
+      <li>Renewal increases capped at the lesser of CPI or 7% per year — it will be written into every contract and enforced in the billing system from day one, not left as a marketing promise.</li>
+      <li>Your per-user rate is locked for the term — 24 months on a first paid contract.</li>
+      <li>One human = one seat, however many devices. Endpoints are never metered separately.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= MICROSOFT STRIP ================= -->
+<section class="alt ms" id="microsoft">
+  <div class="wrap">
+    <div>
+      <p class="kicker">The Microsoft question, answered straight</p>
+      <h2 style="font-size:1.5rem">Already pay for Microsoft 365 Business Premium? Keep it.</h2>
+      <p class="sub" style="margin-bottom:0">
+        Microsoft gives you good tools — shipped with weak defaults. That&rsquo;s why CISA publishes hardening
+        baselines for M365 in the first place. ClearFend is the layer on top: we harden your tenant to those
+        baselines, turn scattered alerts into one fixed queue, and generate the SOC&nbsp;2 evidence and insurer
+        answers Business Premium never will — across Google Workspace, Okta, and your cloud too, not just the
+        Microsoft slice.
+      </p>
+    </div>
+    <div class="card">
+      <h3>The three-sentence version</h3>
+      <p>Keep what you&rsquo;ve paid for. We make it actually protect you. Then we prove it — to your auditor,
+      your insurer, and your board.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WAITLIST ================= -->
+<section id="waitlist">
+  <div class="wrap">
+    <p class="kicker">The platform waitlist</p>
+    <h2>Be first when continuous monitoring goes live</h2>
+    <p class="sub">
+      Waitlist members get launch pricing exactly as published above (that&rsquo;s the point of publishing it)
+      and early access in signup order. Assessment customers skip the line as design partners.
+    </p>
+
+    <!-- WAITLIST FORM — placeholder endpoint.
+         Replace action with your Formspree endpoint (https://formspree.io/f/YOUR_FORM_ID)
+         or swap this <form> for a Tally embed. Until replaced, the script at the bottom
+         of this page intercepts submit and opens a pre-filled email instead, so the page
+         works even served from a file:// URL. -->
+    <form id="waitlist-form" action="https://formspree.io/f/FORM_ID_PLACEHOLDER" method="POST">
+      <div>
+        <label for="wl-email">Work email</label>
+        <input id="wl-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com">
+      </div>
+      <div>
+        <label for="wl-size">Company size</label>
+        <select id="wl-size" name="company_size">
+          <option>Under 25 people</option>
+          <option selected>25–100 people</option>
+          <option>101–250 people</option>
+          <option>251–500 people</option>
+          <option>Over 500 people</option>
+        </select>
+      </div>
+      <div>
+        <label for="wl-trigger">What&rsquo;s driving this? (optional)</label>
+        <select id="wl-trigger" name="trigger">
+          <option value="">Choose one…</option>
+          <option>A customer is asking for SOC 2</option>
+          <option>Cyber-insurance renewal or application</option>
+          <option>The board asked &ldquo;are we OK?&rdquo;</option>
+          <option>We just want the honest number</option>
+          <option>I&rsquo;m an MSP</option>
+        </select>
+      </div>
+      <button class="btn" type="submit">Join the waitlist</button>
+      <p class="form-note">
+        No spam, no drip campaign — launch news and early access only.
+        Prefer email? <a href="mailto:hello@clearfend.com?subject=Platform%20waitlist">hello@clearfend.com</a>
+      </p>
+    </form>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="alt" id="faq">
+  <div class="wrap">
+    <p class="kicker">Straight answers</p>
+    <h2>Questions a skeptic would ask</h2>
+
+    <details>
+      <summary>How new are you, really? Do you have customers?</summary>
+      <p>We&rsquo;re at the start, and we won&rsquo;t pretend otherwise. The assessment pipeline — the scanners,
+      the translation layer, the report — is built and running today. The platform is in development, and this
+      page labels which is which everywhere. You&rsquo;ll notice there are no logos, no testimonials, and no
+      &ldquo;trusted by&rdquo; wall here: when we have numbers worth showing, we&rsquo;ll publish them.</p>
+      <p>What you get for being early: fixed pricing in writing, direct access to the people building the
+      product, and design-partner priority when continuous monitoring ships.</p>
+    </details>
+
+    <details>
+      <summary>Is the assessment an audit, a pentest, or a certification?</summary>
+      <p>No, no, and no — and we put that in the report, on this page, and on the delivery call. It&rsquo;s a
+      point-in-time posture assessment: findings are configuration-based, from read-only access only. It tells
+      you where you stand and what to fix before you pay an auditor or a pentester — it doesn&rsquo;t replace
+      either.</p>
+    </details>
+
+    <details>
+      <summary>Why can the assessment only award Level 2?</summary>
+      <p>Because Level 3 — Audit-Ready — means controls proven <em>continuously</em>, and no snapshot can
+      honestly claim that. An assessor who awards &ldquo;audit-ready&rdquo; off a one-day scan is selling you a
+      number that expires overnight. We&rsquo;d rather cap the score honestly and tell you exactly what
+      continuous proof requires. Yes, that continuous monitoring is what our platform will sell — we&rsquo;re
+      telling you the incentive out loud so you can judge the reasoning on its merits.</p>
+    </details>
+
+    <details>
+      <summary>What access do you need, and what happens to it?</summary>
+      <p>Time-boxed, read-only access that you create with us on a 30-minute call — we never ask for your
+      passwords and we never change anything in your environment. The scanners are vetted open-source tools
+      (CISA SCuBA baselines, CIS Foundations checks). Access revocation begins the day we deliver, and the
+      report notes it.</p>
+    </details>
+
+    <details>
+      <summary>Why not just use Vanta or Drata?</summary>
+      <p>If checkbox-compliance automation is all you&rsquo;ll ever need, they&rsquo;re competent products.
+      But they only work the paperwork side — they don&rsquo;t harden your systems, run your security
+      operations, or talk to your insurer — and their renewal pricing is notorious (30–50% hikes are widely
+      reported). ClearFend&rsquo;s thesis is one loop: fix the problem and the proof generates itself, with
+      renewal caps written into the contract. Today, our assessment gives you the SOC&nbsp;2 gap view before
+      you commit to anyone — including us.</p>
+    </details>
+
+    <details>
+      <summary>Why not Huntress, or a bundle like Coro?</summary>
+      <p>Huntress is genuinely great at managed detection — if that&rsquo;s your only gap, buy it with our
+      blessing. It meters per endpoint (three devices, three charges) and doesn&rsquo;t close the compliance or
+      insurance loop. The all-in-one bundles (Coro, Guardz, Cynet) staple point modules together — you get many
+      dashboards under one invoice, not one graph with one queue and proof as the output. Our bet is the loop,
+      not the bundle. Judge us on it when the platform ships; judge the assessment on its own merits today.</p>
+    </details>
+
+    <details>
+      <summary>Isn&rsquo;t Microsoft enough? I already pay for Business Premium.</summary>
+      <p>Keep it — seriously. Business Premium includes strong tools, but the tenant ships insecure-by-default
+      (CISA&rsquo;s SCuBA hardening baselines exist precisely because of this), nobody triages the alerts, and
+      nothing in it produces SOC&nbsp;2 evidence or insurer answers. We&rsquo;re the layer that hardens,
+      operates, and proves — and when the platform launches, the Defender you already own slots in as a
+      first-class engine, not a duplicate you pay for twice. Complement, not rip-and-replace.</p>
+    </details>
+
+    <details>
+      <summary>Who is the assessment for?</summary>
+      <p>Companies of roughly 25–250 people running Microsoft 365 or Google Workspace (plus Okta and/or
+      AWS/Azure/GCP) with a live trigger: a SOC&nbsp;2 request from a customer, a cyber-insurance renewal or
+      application, or a board asking &ldquo;are we OK?&rdquo; If that&rsquo;s you, the five-day report is
+      priced to pay for itself in audit-prep hours alone.</p>
+    </details>
+
+    <details>
+      <summary>What happens after the report?</summary>
+      <p>You fix things — the report is ordered so the first hour of work buys the most safety, and many fixes
+      are 20-minute settings changes. And honestly: your report is 90 days stale the day we email it.
+      Continuous monitoring keeps it true — that&rsquo;s ClearFend Starter at platform launch, and assessment
+      customers get first access as design partners. Ask us on the delivery call, or don&rsquo;t — the report
+      is complete either way, no upsell inside the engagement.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section id="book">
+  <div class="wrap" style="text-align:center">
+    <h2>One honest number, five days from now.</h2>
+    <p class="sub" style="margin-left:auto;margin-right:auto">
+      Fixed price. Read-only. Plain English. And an exact list of what to fix first.
+    </p>
+    <div class="cta-row" style="justify-content:center">
+      <!-- BOOKING-CTA -->
+      <a class="btn" href="mailto:hello@clearfend.com?subject=Posture%20Assessment%20%E2%80%94%20booking%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20to%20scope%20a%20posture%20assessment.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20accounts%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%20(SOC%202%20request%20%2F%20insurance%20%2F%20board)%3A">Book a posture assessment</a>
+      <a class="btn ghost" href="#waitlist">Join the platform waitlist</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg class="mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.3 7.5 9.9 4.3-1.6 7.5-5.3 7.5-9.9v-6L12 2.5Z" stroke="#35C4D4" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="m8.6 11.8 2.3 2.4 4.5-4.8" stroke="#E6EDF5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Clear<span style="color:var(--accent)">Fend</span>
+    </a>
+    <p class="tagline">Security and compliance for companies without a security team.<br>Read-only. Fixed price. Plain English.</p>
+    <nav aria-label="Footer">
+      <a href="#assessment">The assessment</a> ·
+      <a href="#ladder">The maturity ladder</a> ·
+      <a href="#platform">Platform roadmap</a> ·
+      <a href="#pricing">Pricing</a> ·
+      <a href="#faq">FAQ</a> ·
+      <a href="mailto:hello@clearfend.com">hello@clearfend.com</a>
+    </nav>
+    <p class="legal">
+      ClearFend is pre-launch. The Posture Assessment is available today; platform capabilities and platform
+      pricing on this page are published in advance and labeled as roadmap. This page makes no traction,
+      customer, or revenue claims — when we have numbers, we&rsquo;ll publish them. The sample report shown is
+      illustrative, not a real customer&rsquo;s. Breach statistics: Verizon 2025 Data Breach Investigations
+      Report. The assessment is not an audit, not a penetration test, and not a certification.
+      &copy; 2026 ClearFend.
+    </p>
+  </div>
+</footer>
+
+<script>
+  /* Waitlist fallback: while the form action is still the placeholder,
+     intercept submit and open a pre-filled email instead — so the page
+     is functional before any form backend is connected. Remove this
+     block (or leave it; it self-disables) once a real endpoint is set. */
+  (function () {
+    var form = document.getElementById('waitlist-form');
+    if (!form || form.action.indexOf('FORM_ID_PLACEHOLDER') === -1) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = document.getElementById('wl-email').value;
+      var size = document.getElementById('wl-size').value;
+      var trigger = document.getElementById('wl-trigger').value || 'not specified';
+      var body = 'Please add me to the ClearFend platform waitlist.\n\n' +
+                 'Email: ' + email + '\nCompany size: ' + size + '\nTrigger: ' + trigger;
+      window.location.href = 'mailto:hello@clearfend.com' +
+        '?subject=' + encodeURIComponent('Platform waitlist signup') +
+        '&body=' + encodeURIComponent(body);
+    });
+  })();
+
+  /* FAQ: open one at a time (progressive enhancement; <details> works without JS). */
+  (function () {
+    var items = document.querySelectorAll('#faq details');
+    items.forEach(function (d) {
+      d.addEventListener('toggle', function () {
+        if (!d.open) return;
+        items.forEach(function (other) { if (other !== d) other.open = false; });
+      });
+    });
+  })();
+
+  /* Header: add a shadow once the page scrolls. Style-only enhancement. */
+  (function () {
+    var header = document.querySelector('header.site');
+    if (!header) return;
+    var update = function () {
+      header.classList.toggle('scrolled', window.scrollY > 8);
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
+</body>
+</html>
