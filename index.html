@@ -3,362 +3,669 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ClearFend — The Confidence Console. One honest security score, the fixes that matter, and the proof.</title>
-<meta name="description" content="ClearFend is the security and compliance console for companies without a security team. Connect your estate read-only, get one honest confidence score, a fix queue ranked by what an attacker can actually reach, living programs for vendor, AI and human risk, and evidence you can hand an auditor — kept current. In private preview.">
+<title>ClearFend — One honest security number, the fixes that matter, and the proof.</title>
+<meta name="description" content="ClearFend is the security and compliance console for companies without a security team. One honest confidence score with every input labelled, a Fix Queue ranked by what an attacker can reach, living programs for vendors, AI and people, and evidence you can hand an auditor. In private preview.">
 <meta property="og:title" content="ClearFend — The Confidence Console">
-<meta property="og:description" content="One honest security score, the fixes that matter, and the proof — for companies without a security team. Read-only by default. Plain English throughout. In private preview.">
+<meta property="og:description" content="One honest security number, the fixes that matter, and the proof — for companies without a security team. Read-only by default. Plain English throughout. In private preview.">
 <meta property="og:type" content="website">
 <!-- TODO before launch: add an og:image (1200x630 PNG). -->
 <meta property="og:url" content="https://clearfend.com/">
-<meta name="theme-color" content="#080b12">
+<meta name="theme-color" content="#ffffff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet">
 
 <!-- ============================================================
-     CTA WIRING (both CTAs ship as honest placeholders)
+     CTA WIRING (every CTA ships as an honest placeholder)
      ============================================================
-     1) "Request a walkthrough" — a mailto: link to admin@clearfend.com.
-        To go live, keep the mailto or swap the href for a Cal.com /
-        SavvyCal booking link. Search this file for "BOOKING-CTA".
-     2) "Join the waitlist" — <form id="waitlist-form"> posts to a
-        placeholder endpoint. Replace the action with a Formspree/Tally
-        endpoint. Until then, a script at the bottom intercepts submit
-        and falls back to a pre-filled mailto (search FORM_ID_PLACEHOLDER).
+     1) "Get a demo" / "Request a walkthrough" — a mailto: link to
+        admin@clearfend.com. To go live, keep the mailto or swap the href
+        for a Cal.com / SavvyCal booking link. Search this file for
+        "BOOKING-CTA".
+     2) The hero email field and the waitlist <form id="waitlist-form">
+        post to a placeholder endpoint. Replace the action with a
+        Formspree/Tally endpoint. Until then, a script at the bottom
+        intercepts submit and falls back to a pre-filled mailto
+        (search FORM_ID_PLACEHOLDER).
+     3) Anything in square brackets like [BOOKING LINK] is a visibly
+        marked placeholder for a fact we do not have yet.
      ============================================================ -->
 
 <style>
   /* ═══════════════════════════════════════════════════════════
-     ClearFend landing — "The Confidence Console" design system.
-     Tokens mirror the product's tokens.css (command-center revision):
-     deep blue-charcoal canvas, hairline structure, ONE rationed teal glow,
-     severity color = meaning never mood, hierarchy by weight not color.
+     ClearFend marketing site — light theme.
+     Tokens mirror the console's light theme in tokens.css:
+     canvas #eef1f6, surface #ffffff, text #18202e, muted #5b6577,
+     accent #0a6b79 (the one accent; AA on white as fill and as text),
+     brand teal #2de1c6 used only as a decorative tint in illustrations,
+     severity ramp = meaning, never mood.
      ═══════════════════════════════════════════════════════════ */
   :root{
-    --canvas:#080b12; --s1:#0e131e; --s2:#141b29; --s3:#1a2233; --s4:#212b3e;
-    --border:rgba(255,255,255,.07); --border-strong:rgba(255,255,255,.12);
-    --text:#eaf0fa; --muted:#93a0b5; --faint:#5c6879; --on-accent:#04120f;
-    --accent:#2de1c6; --accent-strong:#5defd3; --accent-deep:#12a594;
-    --accent-weak:rgba(45,225,198,.12); --accent-line:rgba(45,225,198,.5); --glow:rgba(45,225,198,.18);
-    --ai:#f5b23d; --ai-tint:rgba(245,178,61,.12); --ai-border:rgba(245,178,61,.4);
-    --critical:#ff5b6b; --critical-text:#ff8b93; --high:#ff9f45; --high-text:#ffbe7f; --medium:#f6c453; --low:#38d9a0; --low-text:#74e3bb; --info:#5b8def;
-    --shadow-1:0 1px 2px rgba(0,0,0,.5),0 8px 24px rgba(0,0,0,.28); --shadow-2:0 12px 40px rgba(0,0,0,.55);
+    --canvas:#eef1f6; --s1:#ffffff; --s2:#f5f7fb; --s3:#eef2f8; --s4:#e6ecf4;
+    --border:#e7ebf2; --border-strong:#d6deea;
+    --text:#18202e; --muted:#5b6577; --faint:#5f6b7d; --on-accent:#ffffff;
+    --accent:#0a6b79; --accent-strong:#095e6b; --accent-deep:#084a54;
+    --accent-weak:rgba(10,107,121,.1); --accent-line:rgba(10,107,121,.5); --accent-text:#095e6b;
+    --brand:#2de1c6; --brand-tint:rgba(45,225,198,.18);
+    --ai:#e0952a; --ai-text:#8a5a0b; --ai-tint:rgba(224,149,42,.12); --ai-border:rgba(224,149,42,.4);
+    --critical:#e5484d; --critical-text:#c0272d; --high:#f5811f; --high-text:#a94a0b; --medium:#e0a63a; --medium-text:#8a6208; --low:#22a565; --low-text:#1a7d4e; --info:#2f6bff; --info-text:#1d4ed8; --stale:#94a3b8;
+    --shadow-1:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.05); --shadow-2:0 12px 32px rgba(16,24,40,.12);
     --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
     --display:'Sora','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-    --r:12px; --r-sm:8px; --r-xs:5px; --ease:cubic-bezier(.22,.61,.36,1);
-    --max:1180px;
-    color-scheme:dark;
+    --r:14px; --r-sm:10px; --r-xs:6px; --ease:cubic-bezier(.22,.61,.36,1);
+    --max:1200px;
+    /* type scale: 1.2 ratio from 15px */
+    --fs-xs:12px; --fs-sm:13.5px; --fs-base:15px; --fs-md:17px; --fs-lg:20px; --fs-xl:24px; --fs-2xl:30px; --fs-3xl:38px; --fs-4xl:clamp(2.4rem,4.8vw,3.75rem);
+    color-scheme:light;
   }
   *,*::before,*::after{box-sizing:border-box}
-  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:120px}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-  body{margin:0;background:var(--canvas);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.6;font-weight:400;
-    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-    background-image:
-      radial-gradient(900px 520px at 78% -10%, rgba(45,225,198,.07), transparent 60%),
-      radial-gradient(700px 420px at -10% 30%, rgba(91,141,239,.05), transparent 60%);
-    background-attachment:fixed}
+  body{margin:0;background:var(--s1);color:var(--text);font-family:var(--font);font-size:var(--fs-base);line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
   a{color:var(--accent);text-decoration:none}
-  a:hover{color:var(--accent-strong)}
+  a:hover{color:var(--accent-strong);text-decoration:underline;text-underline-offset:3px}
   :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
   .skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:var(--on-accent);padding:8px 12px;border-radius:6px;font-weight:600;z-index:100}
   .skip:focus{left:8px}
   .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
   .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
-  .eyebrow{font:600 11px/1.3 var(--font);letter-spacing:.13em;text-transform:uppercase;color:var(--faint)}
-  .eyebrow.accent{color:var(--accent)}
-  .eyebrow.ai{color:var(--ai)}
-  h1,h2,h3{font-family:var(--display);letter-spacing:-.02em;margin:0;text-wrap:balance}
-  h1{font-size:clamp(2.2rem,4.6vw,3.6rem);line-height:1.05;font-weight:700}
-  h2{font-size:clamp(1.6rem,3vw,2.35rem);line-height:1.12;font-weight:600}
-  h3{font-size:1.05rem;line-height:1.3;font-weight:600}
+  .eyebrow{font:600 var(--fs-xs)/1.3 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-text)}
+  .eyebrow.ai{color:var(--ai-text)}
+  .eyebrow.plain{color:var(--faint)}
+  h1,h2,h3,h4{font-family:var(--display);letter-spacing:-.02em;margin:0;text-wrap:balance;color:var(--text)}
+  h1{font-size:var(--fs-4xl);line-height:1.04;font-weight:700}
+  h2{font-size:clamp(1.7rem,3.2vw,2.5rem);line-height:1.12;font-weight:600}
+  h3{font-size:var(--fs-lg);line-height:1.3;font-weight:600}
+  h4{font-size:var(--fs-md);line-height:1.3;font-weight:600}
   p{margin:0}
-  .lead{color:var(--muted);font-size:1.05rem;line-height:1.65;max-width:62ch}
-  .lead b,.sub b{color:var(--text);font-weight:600}
-  section{padding:88px 0}
-  section.alt{background:linear-gradient(180deg,rgba(255,255,255,.012),transparent)}
-  .sec-head{display:flex;flex-direction:column;gap:12px;margin-bottom:40px;max-width:72ch}
-  .sec-head p{color:var(--muted);font-size:1.02rem;line-height:1.65}
+  .lead{color:var(--muted);font-size:var(--fs-md);line-height:1.65;max-width:62ch}
+  .lead b,p b{color:var(--text);font-weight:600}
+  section{padding:96px 0}
+  section.alt{background:var(--s2)}
+  section.canvas{background:var(--canvas)}
+  .sec-head{display:flex;flex-direction:column;gap:14px;margin-bottom:48px;max-width:72ch}
+  .sec-head p{color:var(--muted);font-size:var(--fs-md);line-height:1.65}
+  .sec-head.center{margin-left:auto;margin-right:auto;text-align:center;align-items:center}
+  @media (max-width:700px){section{padding:72px 0}}
+
+  /* icons — 24px grid, 1.6 stroke, currentColor */
+  .ic{width:24px;height:24px;flex:0 0 auto;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .ic-box{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:var(--accent-weak);color:var(--accent);flex:0 0 auto}
+  .ic-box.ai{background:var(--ai-tint);color:var(--ai-text)}
+  .ic-box.lg{width:48px;height:48px;border-radius:12px}
+
+  /* chips */
+  .chip{display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:999px;border:1px solid var(--border-strong);color:var(--muted);background:var(--s1);white-space:nowrap}
+  .chip::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+  .chip.preview{color:var(--accent-text);border-color:var(--accent-line);background:var(--accent-weak)}
+  .chip.build{color:var(--medium-text);border-color:rgba(224,166,58,.5);background:rgba(224,166,58,.12)}
+  .chip.planned{color:var(--faint);border-color:var(--border-strong);background:var(--s2)}
+  .chip.sample{color:var(--faint);border-style:dashed}
+  .chip.sample::before{display:none}
+  .ph{font:600 11px/1 var(--mono);color:var(--high-text);background:rgba(245,129,31,.12);border:1px dashed rgba(245,129,31,.5);padding:3px 6px;border-radius:5px;white-space:nowrap}
 
   /* buttons */
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r-sm);font:600 14px/1 var(--font);padding:14px 20px;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:filter .15s,border-color .15s,color .15s,transform .15s}
-  .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:var(--on-accent);box-shadow:0 6px 20px var(--glow)}
-  .btn.primary:hover{filter:brightness(1.08);color:var(--on-accent);transform:translateY(-1px)}
-  .btn.ghost{background:var(--s2);border-color:var(--border-strong);color:var(--muted)}
-  .btn.ghost:hover{color:var(--text);border-color:var(--accent)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r-sm);font:600 14px/1 var(--font);padding:14px 20px;border:1px solid transparent;cursor:pointer;white-space:nowrap;text-decoration:none;transition:background .15s,border-color .15s,color .15s,transform .15s,box-shadow .15s}
+  .btn:hover{text-decoration:none}
+  .btn.primary{background:var(--accent);color:var(--on-accent);box-shadow:0 1px 2px rgba(16,24,40,.08)}
+  .btn.primary:hover{background:var(--accent-strong);color:var(--on-accent);transform:translateY(-1px);box-shadow:0 6px 16px rgba(10,107,121,.22)}
+  .btn.ghost{background:var(--s1);border-color:var(--border-strong);color:var(--text)}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent-strong)}
   .btn.full{width:100%}
+  .btn.sm{padding:10px 14px;font-size:13px}
 
-  /* header */
-  header.site{position:sticky;top:0;z-index:50;background:rgba(8,11,18,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
-  header.site.scrolled{border-bottom-color:var(--border);box-shadow:0 8px 30px rgba(0,0,0,.35)}
-  .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:20px}
-  .brand{display:flex;align-items:center;gap:10px;color:var(--text)}
-  .brand:hover{color:var(--text)}
-  .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent-deep));display:grid;place-items:center;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 6px 16px var(--glow)}
-  .mark svg{width:16px;height:16px}
-  .brand-name{font:700 16px/1 var(--display);letter-spacing:-.01em}
+  /* ── header: utility row + primary nav + mega menus ── */
+  .util{background:var(--canvas);border-bottom:1px solid var(--border);font-size:var(--fs-xs);color:var(--muted)}
+  .util .wrap{display:flex;justify-content:space-between;align-items:center;height:34px;gap:16px}
+  .util a{color:var(--muted);font-weight:500}
+  .util a:hover{color:var(--accent-strong)}
+  .util .links{display:flex;gap:20px;align-items:center}
+  .util .links a{display:inline-flex;align-items:center;gap:6px}
+  .util .links .ic{width:15px;height:15px;stroke-width:1.8}
+  @media (max-width:700px){.util .tag{display:none}}
+  header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);transition:box-shadow .2s}
+  header.site.scrolled{box-shadow:0 8px 30px rgba(16,24,40,.08)}
+  .navbar{display:flex;align-items:center;justify-content:space-between;height:68px;gap:24px}
+  .brand{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none}
+  .brand:hover{color:var(--text);text-decoration:none}
+  .mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#2de1c6,#0a6b79);display:grid;place-items:center;box-shadow:0 1px 2px rgba(16,24,40,.12);flex:0 0 auto}
+  .mark svg{width:17px;height:17px}
+  .brand-name{font:700 17px/1 var(--display);letter-spacing:-.01em}
   .brand-sub{display:block;font:600 9.5px/1 var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:4px}
-  .nav-links{display:flex;gap:26px;align-items:center}
-  .nav-links a{font-size:13.5px;font-weight:500;color:var(--muted)}
-  .nav-links a:hover{color:var(--text)}
-  .nav .btn{padding:10px 14px;font-size:13px}
-  @media (max-width:900px){.nav-links a:not(.btn){display:none}}
   @media (max-width:480px){.brand-sub{display:none}}
+  .nav-right{display:flex;align-items:center;gap:12px}
+  .menu-btn{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--border-strong);background:var(--s1);color:var(--text);cursor:pointer;place-items:center}
+  .menu-btn .ic{width:22px;height:22px}
+  .menu-btn .x{display:none}
+  .menu-btn[aria-expanded="true"] .x{display:block}.menu-btn[aria-expanded="true"] .bars{display:none}
 
-  /* hero */
-  .hero{padding:72px 0 40px;position:relative;overflow:hidden}
+  nav.primary{display:flex;align-items:center;flex:1}
+  nav.primary > ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;align-items:center}
+  nav.primary li{position:static}
+  .navlink{display:inline-flex;align-items:center;gap:6px;font:500 14px/1 var(--font);color:var(--text);background:none;border:0;padding:10px 12px;border-radius:8px;cursor:pointer;text-decoration:none;font-family:var(--font)}
+  .navlink:hover,.navlink[aria-expanded="true"]{background:var(--s2);color:var(--accent-strong);text-decoration:none}
+  .navlink .chev{width:14px;height:14px;stroke-width:2;transition:transform .2s}
+  .navlink[aria-expanded="true"] .chev{transform:rotate(180deg)}
+
+  .mega{display:none;position:absolute;left:0;right:0;top:100%;background:var(--s1);border-bottom:1px solid var(--border);box-shadow:0 24px 48px rgba(16,24,40,.12)}
+  .mega.open{display:block}
+  .mega-inner{max-width:var(--max);margin:0 auto;padding:28px 24px 30px;display:grid;grid-template-columns:300px 1fr;gap:32px}
+  .mega-inner.rail{grid-template-columns:240px 1fr}
+  .mega-inner.simple{grid-template-columns:1fr}
+  .feat{background:linear-gradient(160deg,var(--brand-tint),var(--s2) 70%);border:1px solid var(--border);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:12px;text-decoration:none;color:var(--text);transition:border-color .15s,transform .15s}
+  .feat:hover{border-color:var(--accent-line);color:var(--text);text-decoration:none;transform:translateY(-1px)}
+  .feat .f-kick{font:600 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-text)}
+  .feat h4{font-size:var(--fs-md)}
+  .feat p{font-size:var(--fs-sm);color:var(--muted);line-height:1.55}
+  .feat .f-n{display:flex;align-items:baseline;gap:8px}
+  .feat .f-n b{font:700 34px/1 var(--mono);color:var(--accent-strong);letter-spacing:-.02em}
+  .feat .f-n span{font-size:var(--fs-xs);color:var(--faint)}
+  .feat .f-link{font:600 13px/1 var(--font);color:var(--accent);margin-top:auto}
+  .cols{display:grid;grid-template-columns:repeat(2,1fr);gap:6px 24px;align-content:start}
+  .cols.three{grid-template-columns:repeat(3,1fr)}
+  .col-h{grid-column:1 / -1;font:600 11px/1.3 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);padding:4px 10px 8px}
+  .mi{display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:10px;color:var(--text);text-decoration:none;transition:background .15s}
+  .mi:hover,.mi:focus-visible{background:var(--s2);color:var(--text);text-decoration:none}
+  .mi .ic-box{width:36px;height:36px;border-radius:9px}
+  .mi .ic{width:20px;height:20px}
+  .mi .t{font:600 14px/1.3 var(--font);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .mi .d{font-size:var(--fs-sm);color:var(--muted);line-height:1.5;margin-top:2px}
+  .rail-list{display:flex;flex-direction:column;gap:4px}
+  .rail-list .mi{padding:12px}
+  .rail-list .mi .t{font-family:var(--display)}
+  .mega-foot{grid-column:1 / -1;display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:16px;border-top:1px solid var(--border);font-size:var(--fs-sm);color:var(--muted);flex-wrap:wrap}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+  @media (max-width:1023px){
+    .menu-btn{display:grid}
+    nav.primary{position:fixed;inset:0;top:0;z-index:70;background:var(--s1);display:none;overflow-y:auto;padding:0 0 40px}
+    nav.primary.open{display:block}
+    nav.primary > ul{flex-direction:column;align-items:stretch;gap:0;padding:78px 16px 0}
+    nav.primary li{border-bottom:1px solid var(--border)}
+    .navlink{width:100%;justify-content:space-between;padding:16px 8px;font-size:16px;border-radius:0}
+    .navlink:hover,.navlink[aria-expanded="true"]{background:none}
+    .mega{position:static;box-shadow:none;border:0;background:var(--s2);border-radius:12px;margin:0 0 14px}
+    .mega-inner,.mega-inner.rail,.mega-inner.simple{grid-template-columns:1fr;padding:14px;gap:14px}
+    .cols,.cols.three{grid-template-columns:1fr}
+    .feat .f-n b{font-size:28px}
+    .mega-foot{flex-direction:column;align-items:flex-start}
+    .drawer-cta{display:flex;flex-direction:column;gap:10px;padding:20px 24px 0}
+    .nav-right .btn{display:none}
+    header.site.drawer-open{z-index:80}
+  }
+  @media (min-width:1024px){.drawer-cta{display:none}}
+  body.no-scroll{overflow:hidden}
+
+  /* ── hero ── */
+  .hero{padding:72px 0 64px;position:relative;overflow:hidden;background:
+    radial-gradient(900px 520px at 85% -10%, rgba(45,225,198,.16), transparent 60%),
+    radial-gradient(700px 420px at -10% 40%, rgba(47,107,255,.06), transparent 60%),var(--s1)}
   .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
-  @media (max-width:980px){.hero-grid{grid-template-columns:1fr;gap:40px}}
-  .hero-copy{display:flex;flex-direction:column;gap:22px}
-  .pill-live{display:inline-flex;align-items:center;gap:8px;width:fit-content;font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-weak);border:1px solid var(--accent-line);padding:7px 11px;border-radius:999px}
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--glow),0 0 10px var(--accent)}
-  @media (prefers-reduced-motion:no-preference){.dot{animation:pulse 2.2s ease-in-out infinite}}
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 3px var(--glow),0 0 10px var(--accent)}50%{box-shadow:0 0 0 6px rgba(45,225,198,.06),0 0 14px var(--accent)}}
-  h1 .accent-line{display:block;color:var(--accent);font-weight:600;font-size:.62em;letter-spacing:-.01em;margin-top:14px;line-height:1.25}
-  .cta-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-  .micro{font-size:12.5px;color:var(--faint)}
-  .honest{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--border-strong);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--s1);font-size:13px;color:var(--muted);line-height:1.55;max-width:60ch}
+  @media (max-width:980px){.hero-grid{grid-template-columns:1fr;gap:44px}}
+  .hero-copy{display:flex;flex-direction:column;gap:24px}
+  .pill{display:inline-flex;align-items:center;gap:8px;width:fit-content;font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent-text);background:var(--accent-weak);border:1px solid var(--accent-line);padding:7px 11px;border-radius:999px}
+  .pill::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .hero-form{display:flex;gap:10px;max-width:520px;background:var(--s1);border:1px solid var(--border-strong);border-radius:12px;padding:6px;box-shadow:var(--shadow-1)}
+  .hero-form input{flex:1;min-width:0;border:0;background:transparent;padding:12px 14px;font:500 15px/1.2 var(--font);color:var(--text)}
+  .hero-form input:focus{outline:none}
+  .hero-form:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
+  @media (max-width:520px){.hero-form{flex-direction:column;padding:8px}.hero-form .btn{width:100%}}
+  .micro{font-size:var(--fs-xs);color:var(--faint)}
+  .honest{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--border-strong);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--s2);font-size:var(--fs-sm);color:var(--muted);line-height:1.55;max-width:60ch}
   .honest b{color:var(--text)}
-  .honest .h-ic{flex:0 0 auto;width:18px;height:18px;border-radius:5px;background:var(--accent-weak);display:grid;place-items:center;color:var(--accent);font:700 11px/1 var(--mono);margin-top:2px}
 
-  /* console frame */
-  .console{position:relative;background:var(--s1);border:1px solid var(--border-strong);border-radius:16px;box-shadow:var(--shadow-2),0 0 0 1px rgba(45,225,198,.06);overflow:hidden;opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-  .console.in{opacity:1;transform:none}
-  .console .bar{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--border);background:var(--s2)}
-  .console .bar i{width:9px;height:9px;border-radius:50%;background:var(--s4);display:inline-block}
-  .console .bar .fname{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.04em;margin-left:4px}
-  .console .bar .live{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font:700 9.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
-  .console .body{padding:14px;display:grid;grid-template-columns:150px 1fr;gap:12px}
-  @media (max-width:520px){.console .body{grid-template-columns:1fr}}
-  .tile{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:12px}
-  .tile .t-l{font:600 9.5px/1 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
-  .tile .t-n{font:700 34px/1 var(--mono);color:var(--accent);margin:8px 0 4px;text-shadow:0 0 18px var(--glow)}
-  .tile .t-s{font-size:11px;color:var(--muted);line-height:1.4}
+  /* the drawn console */
+  .console{position:relative}
+  .console .blob{position:absolute;inset:-8% -6% -10% -6%;z-index:0;pointer-events:none}
+  .cframe{position:relative;z-index:1;background:var(--s1);border:1px solid var(--border-strong);border-radius:18px;box-shadow:var(--shadow-2);overflow:hidden}
+  .cframe .bar{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--border);background:var(--s2)}
+  .cframe .bar i{width:9px;height:9px;border-radius:50%;background:var(--s4);display:inline-block}
+  .cframe .bar .fname{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.04em;margin-left:4px}
+  .cframe .bar .chip{margin-left:auto}
+  .cbody{padding:16px;display:grid;grid-template-columns:150px 1fr;gap:14px}
+  @media (max-width:520px){.cbody{grid-template-columns:1fr}}
+  .tile{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:14px}
+  .tile .t-l{font:600 9.5px/1 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);display:flex;justify-content:space-between;gap:6px}
+  .score{display:grid;place-items:center;margin:10px auto 6px;width:104px;height:104px;position:relative}
+  .score svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+  .score .n{font:700 34px/1 var(--mono);color:var(--accent-strong);letter-spacing:-.02em}
+  .score .of{font:500 10px/1 var(--mono);color:var(--faint);margin-top:4px}
+  .tile .t-s{font-size:11px;color:var(--muted);line-height:1.4;text-align:center}
   .tile .t-lvl{margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)}
   .tile .t-lvl b{color:var(--text);font-weight:600;display:block;font-size:12px}
-  .graph-wrap{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:10px 10px 4px}
-  .graph-wrap .g-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
-  .graph-wrap .g-l{font:600 9.5px/1.2 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
-  .graph-wrap .g-sample{font:600 9px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);white-space:nowrap}
-  #estate-graph{width:100%;height:auto;display:block;margin-top:6px}
-  #estate-graph .edge{stroke:var(--s4);stroke-width:1.5;transition:stroke .45s ease,opacity .45s ease}
-  #estate-graph .edge.lit{stroke:var(--critical);stroke-width:2;filter:drop-shadow(0 0 4px rgba(255,91,107,.6))}
-  #estate-graph .edge.dim{opacity:.3}
-  #estate-graph .node circle{fill:var(--s3);stroke:var(--border-strong);stroke-width:1.2;transition:fill .45s ease,stroke .45s ease,opacity .45s ease}
-  #estate-graph .node.firing circle{fill:var(--critical);stroke:var(--critical);filter:drop-shadow(0 0 8px rgba(255,91,107,.75))}
-  #estate-graph .node.reached circle{fill:rgba(255,91,107,.22);stroke:var(--critical)}
-  #estate-graph .node.crown circle{stroke:var(--medium)}
-  #estate-graph .node.ai circle{stroke:var(--ai-border)}
-  #estate-graph .node.dim{opacity:.35}
-  #estate-graph .node-label{fill:var(--muted);font-family:var(--mono);font-size:9.5px;transition:fill .45s ease,opacity .45s ease}
-  #estate-graph .node.firing .node-label,#estate-graph .node.reached .node-label{fill:var(--text)}
-  .graph-caption{margin:6px 4px 4px;font-size:11.5px;color:var(--muted);line-height:1.45;min-height:48px;opacity:0;transition:opacity .5s ease}
-  .graph-caption.show{opacity:1}
-  .graph-caption b{color:var(--text);font-weight:600}
-  .graph-caption .fix{color:var(--accent)}
-  .queue{grid-column:1 / -1;background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
-  .queue .q-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .verdict{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+  .verdict .v-l{font:600 9.5px/1 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+  .verdict h4{font-size:var(--fs-lg);margin:8px 0 6px}
+  .verdict p{font-size:var(--fs-sm);color:var(--muted);line-height:1.5}
+  .queue{grid-column:1 / -1;background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+  .queue .q-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
   .queue .q-l{font:600 9.5px/1 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
-  .queue .q-hint{font-size:10px;color:var(--faint)}
-  .qrow{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--border);font-size:12px}
+  .queue .q-hint{font-size:10.5px;color:var(--faint)}
+  .qrow{display:grid;grid-template-columns:22px auto 1fr auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--border);font-size:12.5px}
   .qrow:first-of-type{border-top:0}
-  .sev{font:700 9px/1 var(--mono);text-transform:uppercase;padding:3px 6px;border-radius:5px;color:var(--on-accent)}
-  .sev-critical{background:var(--critical)} .sev-high{background:var(--high)} .sev-medium{background:var(--medium)} .sev-low{background:var(--low)}
+  .qrow .k{font:600 11px/1 var(--mono);color:var(--faint)}
+  .sev{font:700 9px/1 var(--mono);text-transform:uppercase;padding:4px 6px;border-radius:5px;color:#fff;letter-spacing:.06em}
+  .sev-critical{background:var(--critical)} .sev-high{background:var(--high)} .sev-medium{background:var(--medium)} .sev-ai{background:var(--ai)}
   .qrow .q-t{color:var(--text);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .qrow .q-e{font-family:var(--mono);font-size:10.5px;color:var(--faint);white-space:nowrap}
+  .qrow .q-e{font-family:var(--mono);font-size:10.5px;color:var(--accent-text);white-space:nowrap;font-weight:600}
+  .csample{position:absolute;right:14px;bottom:-14px;z-index:2}
 
-  /* stats */
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+  /* cards grid (generic) */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .cards.two{grid-template-columns:repeat(2,1fr)}
+  .cards.four{grid-template-columns:repeat(4,1fr)}
+  @media (max-width:980px){.cards,.cards.four{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:640px){.cards,.cards.two,.cards.four{grid-template-columns:1fr}}
+  .card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow-1);transition:border-color .2s,transform .2s}
+  .card:hover{border-color:var(--border-strong);transform:translateY(-2px)}
+  .card p{font-size:var(--fs-sm);color:var(--muted);line-height:1.6}
+  .card .more{font:600 13px/1 var(--font);margin-top:auto}
+  .card .head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .card.tinted{background:linear-gradient(160deg,var(--brand-tint),var(--s1) 60%)}
+  .card.ai{border-color:var(--ai-border)}
+
+  /* problem stats */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
   @media (max-width:820px){.stats{grid-template-columns:1fr}}
-  .stat{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:22px 22px 18px;box-shadow:var(--shadow-1)}
+  .stat{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--shadow-1)}
   .stat .n{font:700 40px/1 var(--mono);color:var(--text);letter-spacing:-.02em}
-  .stat .n.warn{color:var(--high)}
-  .stat .d{margin-top:10px;font-size:14px;color:var(--muted);line-height:1.5}
-  .stat .src{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--faint)}
+  .stat .n.warn{color:var(--high-text)}
+  .stat .d{margin-top:10px;font-size:var(--fs-sm);color:var(--muted);line-height:1.5}
+  .stat .src{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:var(--fs-xs);color:var(--faint)}
 
-  /* reveal */
-  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-  .reveal.in{opacity:1;transform:none}
-  @media (prefers-reduced-motion:reduce){.reveal,.console{opacity:1;transform:none;transition:none}}
+  /* console section */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  @media (max-width:980px){.split{grid-template-columns:1fr}}
+  .feature-list{display:flex;flex-direction:column;gap:6px}
+  .fl{display:flex;gap:14px;align-items:flex-start;padding:14px;border-radius:12px;scroll-margin-top:130px}
+  .fl:target{background:var(--s2);box-shadow:inset 0 0 0 1px var(--accent-line)}
+  .fl h4{font-size:var(--fs-base)}
+  .fl p{font-size:var(--fs-sm);color:var(--muted);line-height:1.55;margin-top:3px}
 
-  /* module grid */
-  .groups{display:flex;flex-direction:column;gap:22px}
-  .group{display:grid;grid-template-columns:200px 1fr;gap:18px;align-items:start}
-  @media (max-width:820px){.group{grid-template-columns:1fr;gap:10px}}
-  .group .g-name{font:600 12px/1.3 var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:18px}
-  .group .g-name span{display:block;font:400 12px/1.5 var(--font);letter-spacing:0;text-transform:none;color:var(--faint);margin-top:6px}
-  .mods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  @media (max-width:980px){.mods{grid-template-columns:repeat(2,1fr)}}
-  @media (max-width:560px){.mods{grid-template-columns:1fr}}
-  .mod{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px 16px 14px;display:flex;flex-direction:column;gap:6px;transition:border-color .2s,transform .2s;box-shadow:var(--shadow-1)}
-  .mod:hover{border-color:var(--accent-line);transform:translateY(-2px)}
-  .mod .m-n{font:600 13.5px/1.3 var(--display);color:var(--text);letter-spacing:-.01em}
-  .mod .m-q{font-size:13px;color:var(--muted);line-height:1.5}
-  .mod .m-q::before{content:'“';color:var(--accent)}
-  .mod .m-q::after{content:'”';color:var(--accent)}
-  .mod.ai{border-color:var(--ai-border);background:linear-gradient(180deg,var(--ai-tint),var(--s1) 60%)}
-  .mod.core{border-color:var(--accent-line);background:linear-gradient(180deg,var(--accent-weak),var(--s1) 60%)}
+  /* ladder */
+  .ladder{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:8px}
+  @media (max-width:900px){.ladder{grid-template-columns:1fr}}
+  .rung{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:18px;position:relative;box-shadow:var(--shadow-1)}
+  .rung .l{font:700 11px/1 var(--mono);letter-spacing:.1em;color:var(--faint)}
+  .rung .n{font:600 15px/1.2 var(--display);color:var(--text);margin:8px 0 6px}
+  .rung .d{font-size:var(--fs-sm);color:var(--muted);line-height:1.5}
+  .rung.gate{border-color:var(--accent-line);background:linear-gradient(180deg,var(--accent-weak),var(--s1) 70%)}
+  .rung.gate .l{color:var(--accent-text)}
+  .rung .tag{position:absolute;top:12px;right:12px;font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent-text);background:var(--accent-weak);padding:3px 6px;border-radius:4px}
+  .note{margin-top:20px;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--border-strong);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--s1);font-size:var(--fs-sm);color:var(--muted);line-height:1.55}
+  .note b{color:var(--text)}
 
-  /* living programs */
-  .programs{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-  @media (max-width:900px){.programs{grid-template-columns:1fr}}
-  .prog{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:22px;box-shadow:var(--shadow-1);display:flex;flex-direction:column;gap:12px}
-  .prog.wide{grid-column:1 / -1;display:grid;grid-template-columns:1.1fr 1fr;gap:26px;align-items:center}
-  @media (max-width:900px){.prog.wide{grid-template-columns:1fr}}
-  .prog h3{font-size:1.15rem}
-  .prog p{color:var(--muted);font-size:14px;line-height:1.6}
-  .prog p b{color:var(--text);font-weight:600}
-  .life{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px}
-  .stage{font:600 10px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:6px 9px;border-radius:7px;border:1px solid var(--border-strong);color:var(--muted);background:var(--s2)}
-  .stage.on{color:var(--accent);border-color:var(--accent-line);background:var(--accent-weak)}
-  .stage.warn{color:var(--high);border-color:rgba(255,159,69,.4);background:rgba(255,159,69,.1)}
-  .stage.ai{color:var(--ai);border-color:var(--ai-border);background:var(--ai-tint)}
-  .arrow{color:var(--faint);font-size:11px}
-  .diff{margin-top:2px;padding:10px 12px;border-radius:8px;background:var(--s2);border:1px solid var(--border);border-left:3px solid var(--critical);font-size:12.5px;color:var(--muted);line-height:1.5}
-  .diff b{color:var(--text)}
-  .diff .delta{font-family:var(--mono);color:var(--critical);font-weight:700}
-  .diff.good{border-left-color:var(--low)} .diff.good .delta{color:var(--low)}
-  .spine{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  @media (max-width:560px){.spine{grid-template-columns:1fr}}
-  .sp{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:14px}
-  .sp .sp-l{font:600 9.5px/1 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
-  .sp .sp-t{font:600 13px/1.3 var(--display);color:var(--text);margin-top:6px}
-  .sp .sp-d{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.45}
+  /* how it works */
+  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative}
+  @media (max-width:900px){.steps3{grid-template-columns:1fr}}
+  .step3{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:26px;box-shadow:var(--shadow-1);scroll-margin-top:130px;display:flex;flex-direction:column;gap:12px}
+  .step3 .k{font:700 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-text)}
+  .step3 p{font-size:var(--fs-sm);color:var(--muted);line-height:1.6}
+  .step3 ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+  .step3 li{font-size:var(--fs-sm);color:var(--muted);padding-left:18px;position:relative;line-height:1.5}
+  .step3 li::before{content:'';position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:2px;background:var(--accent-weak);border:1px solid var(--accent-line)}
+  .step3 .art{height:120px;border-radius:12px;background:var(--s2);border:1px solid var(--border);display:grid;place-items:center;overflow:hidden}
+  .step3 .art svg{width:100%;height:100%}
 
-  /* loop */
-  .loop{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-  @media (max-width:900px){.loop{grid-template-columns:1fr}}
+  /* fix once prove three ways */
   .fan{display:flex;flex-direction:column;gap:10px}
-  .fan .fix{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:var(--r);background:var(--s1);border:1px solid var(--accent-line);box-shadow:0 0 0 1px var(--accent-weak),0 8px 28px var(--glow)}
-  .fan .fix .ok{width:26px;height:26px;border-radius:8px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font-weight:800;font-size:14px;flex:0 0 auto}
+  .fan .fix{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:var(--r);background:var(--s1);border:1px solid var(--accent-line);box-shadow:0 0 0 3px var(--accent-weak)}
+  .fan .fix .ok{width:28px;height:28px;border-radius:8px;background:var(--accent);color:#fff;display:grid;place-items:center;flex:0 0 auto}
+  .fan .fix .ok .ic{width:16px;height:16px;stroke-width:2.4}
   .fan .fix .f-t{font-weight:600;color:var(--text)}
-  .fan .fix .f-s{font-size:12px;color:var(--muted)}
+  .fan .fix .f-s{font-size:var(--fs-xs);color:var(--muted)}
   .fan .out{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
   @media (max-width:560px){.fan .out{grid-template-columns:1fr}}
-  .fan .o{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:12px 13px;opacity:0;transform:translateY(8px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
-  .fan.in .o{opacity:1;transform:none}
-  .fan.in .o:nth-child(2){transition-delay:.15s} .fan.in .o:nth-child(3){transition-delay:.3s}
+  .fan .o{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:12px 13px}
   .fan .o .o-l{font:600 9.5px/1 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
   .fan .o .o-t{font:600 12.5px/1.35 var(--font);color:var(--text);margin-top:6px}
   .fan .o .o-s{display:inline-block;margin-top:8px;font:700 9.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:4px 7px;border-radius:5px}
-  .fan .o .o-s.pass{color:var(--low);background:rgba(56,217,160,.14)}
-  .fan .o .o-s.closed{color:var(--accent);background:var(--accent-weak)}
-  .fan .o .o-s.pkt{color:var(--info);background:rgba(91,141,239,.14)}
+  .fan .o .o-s.pass{color:var(--low-text);background:rgba(34,165,101,.14)}
+  .fan .o .o-s.closed{color:var(--accent-text);background:var(--accent-weak)}
+  .fan .o .o-s.pkt{color:var(--info-text);background:rgba(47,107,255,.12)}
 
-  /* ladder */
-  .ladder{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px}
-  @media (max-width:900px){.ladder{grid-template-columns:1fr}}
-  .rung{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;position:relative;opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
-  .ladder.in .rung{opacity:1;transform:none}
-  .ladder.in .rung:nth-child(2){transition-delay:.08s}.ladder.in .rung:nth-child(3){transition-delay:.16s}.ladder.in .rung:nth-child(4){transition-delay:.24s}.ladder.in .rung:nth-child(5){transition-delay:.32s}
-  .rung .l{font:700 11px/1 var(--mono);letter-spacing:.1em;color:var(--faint)}
-  .rung .n{font:600 15px/1.2 var(--display);color:var(--text);margin:8px 0 6px}
-  .rung .d{font-size:12.5px;color:var(--muted);line-height:1.5}
-  .rung.gate{border-color:var(--accent-line);background:linear-gradient(180deg,var(--accent-weak),var(--s1) 70%)}
-  .rung.gate .l{color:var(--accent)}
-  .rung .tag{position:absolute;top:12px;right:12px;font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-weak);padding:3px 6px;border-radius:4px}
-  .gate-note{margin-top:18px;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--border-strong);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--s1);font-size:13.5px;color:var(--muted);line-height:1.55}
-  .gate-note b{color:var(--text)}
+  /* modules grid */
+  .mods{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media (max-width:980px){.mods{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.mods{grid-template-columns:1fr}}
+  .mod{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow-1);scroll-margin-top:130px;transition:border-color .2s,transform .2s}
+  .mod:hover{border-color:var(--accent-line);transform:translateY(-2px)}
+  .mod:target{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
+  .mod .m-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .mod .m-n{font:600 15px/1.3 var(--display);color:var(--text);letter-spacing:-.01em;margin-top:8px}
+  .mod .m-q{font-size:var(--fs-sm);color:var(--muted);line-height:1.5}
+  .mod .m-q::before{content:'\201C';color:var(--accent)}
+  .mod .m-q::after{content:'\201D';color:var(--accent)}
+  .mod .m-note{font-size:var(--fs-xs);color:var(--faint);line-height:1.5;padding-top:8px;border-top:1px solid var(--border);margin-top:auto}
+  .mod.ai{border-color:var(--ai-border)}
 
-  /* start / assessment */
-  .start{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  /* living programs */
+  .programs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media (max-width:900px){.programs{grid-template-columns:1fr}}
+  .prog{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--shadow-1);display:flex;flex-direction:column;gap:12px}
+  .prog p{color:var(--muted);font-size:var(--fs-sm);line-height:1.6}
+  .life{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:2px}
+  .stage{font:600 10px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:6px 9px;border-radius:7px;border:1px solid var(--border-strong);color:var(--muted);background:var(--s2)}
+  .stage.on{color:var(--accent-text);border-color:var(--accent-line);background:var(--accent-weak)}
+  .stage.warn{color:var(--high-text);border-color:rgba(245,129,31,.4);background:rgba(245,129,31,.1)}
+  .stage.ai{color:var(--ai-text);border-color:var(--ai-border);background:var(--ai-tint)}
+  .arrow{color:var(--faint);font-size:11px}
+  .diff{margin-top:2px;padding:10px 12px;border-radius:8px;background:var(--s2);border:1px solid var(--border);border-left:3px solid var(--critical);font-size:12.5px;color:var(--muted);line-height:1.5}
+  .diff b{color:var(--text)}
+  .diff .delta{font-family:var(--mono);color:var(--critical-text);font-weight:700}
+  .diff.good{border-left-color:var(--low)} .diff.good .delta{color:var(--low-text)}
+  .diff .lbl{font:600 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);border:1px dashed var(--border-strong);padding:2px 5px;border-radius:4px;margin-left:6px;vertical-align:middle}
+
+  /* partners */
+  .start{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
   @media (max-width:900px){.start{grid-template-columns:1fr}}
   .steps{display:flex;flex-direction:column;gap:10px}
-  .step{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;padding:14px 16px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r)}
-  .step .k{width:30px;height:30px;border-radius:8px;background:var(--s2);border:1px solid var(--border-strong);display:grid;place-items:center;font:700 12px/1 var(--mono);color:var(--accent)}
+  .step{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;padding:16px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-1)}
+  .step .k{width:30px;height:30px;border-radius:8px;background:var(--accent-weak);display:grid;place-items:center;font:700 12px/1 var(--mono);color:var(--accent-text)}
   .step .t{font-weight:600;color:var(--text)}
-  .step .s{font-size:13px;color:var(--muted);margin-top:3px;line-height:1.5}
-  .commit{margin-top:14px;font-weight:600;color:var(--text);font-size:14px}
+  .step .s{font-size:var(--fs-sm);color:var(--muted);margin-top:3px;line-height:1.5}
+  .commit{margin-top:6px;font-weight:600;color:var(--text);font-size:14px}
+  .nolog{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px dashed var(--border-strong);border-radius:var(--r-sm);font-size:var(--fs-sm);color:var(--muted);line-height:1.55;margin-top:18px}
 
-  /* pricing (generic, no numbers) */
-  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  /* pricing */
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   @media (max-width:900px){.tiers{grid-template-columns:1fr}}
-  .tier{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow-1)}
-  .tier.hi{border-color:var(--accent-line);box-shadow:0 0 0 1px var(--accent-weak),var(--shadow-1)}
-  .tier .t-name{font:600 1.15rem/1.2 var(--display)}
-  .tier .t-for{font-size:13px;color:var(--muted)}
-  .tier .t-price{font:600 13px/1.3 var(--mono);color:var(--accent);letter-spacing:.02em}
+  .tier{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow-1)}
+  .tier.hi{border-color:var(--accent-line);box-shadow:0 0 0 3px var(--accent-weak),var(--shadow-1)}
+  .tier .t-name{font:600 var(--fs-lg)/1.2 var(--display)}
+  .tier .t-for{font-size:var(--fs-sm);color:var(--muted)}
+  .tier .t-price{font:600 13px/1.3 var(--mono);color:var(--accent-text);letter-spacing:.02em}
   .tier ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
-  .tier li{font-size:13.5px;color:var(--muted);padding-left:20px;position:relative;line-height:1.5}
-  .tier li::before{content:'';position:absolute;left:0;top:9px;width:9px;height:9px;border-radius:3px;background:var(--accent-weak);border:1px solid var(--accent-line)}
-  .tier .t-tag{font:700 9.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);width:fit-content;background:var(--accent-weak);padding:4px 7px;border-radius:5px}
-  .price-note{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .tier li{font-size:var(--fs-sm);color:var(--muted);padding-left:22px;position:relative;line-height:1.5}
+  .tier li::before{content:'';position:absolute;left:0;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent-line)}
+  .tier .t-tag{font:700 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-text);width:fit-content;background:var(--accent-weak);padding:5px 8px;border-radius:5px}
+  .price-note{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   @media (max-width:900px){.price-note{grid-template-columns:1fr}}
-  .pn{padding:14px 16px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--s1);font-size:13px;color:var(--muted);line-height:1.55}
+  .pn{padding:16px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--s1);font-size:var(--fs-sm);color:var(--muted);line-height:1.55}
   .pn b{color:var(--text);display:block;margin-bottom:4px;font-family:var(--display);font-weight:600}
 
-  /* status columns */
-  .status{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  /* trust */
+  .trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media (max-width:900px){.trust-grid{grid-template-columns:1fr}}
+  .tr{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--shadow-1);display:flex;flex-direction:column;gap:10px}
+  .tr p{font-size:var(--fs-sm);color:var(--muted);line-height:1.6}
+  .tr .how{font-size:var(--fs-xs);color:var(--faint);padding-top:10px;border-top:1px solid var(--border);margin-top:auto;line-height:1.5}
+
+  /* principles */
+  .princ{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media (max-width:980px){.princ{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.princ{grid-template-columns:1fr}}
+  .pr{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:22px;box-shadow:var(--shadow-1)}
+  .pr .num{font:700 11px/1 var(--mono);color:var(--accent-text);letter-spacing:.1em}
+  .pr h4{margin:10px 0 6px}
+  .pr p{font-size:var(--fs-sm);color:var(--muted);line-height:1.55}
+  .swatches{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .sw{width:26px;height:26px;border-radius:7px;border:1px solid rgba(16,24,40,.08)}
+
+  /* status */
+  .status{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   @media (max-width:900px){.status{grid-template-columns:1fr}}
-  .st{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:22px;box-shadow:var(--shadow-1)}
-  .st .st-l{display:inline-flex;align-items:center;gap:8px;font:700 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:999px;border:1px solid}
-  .st .st-l.now{color:var(--accent);border-color:var(--accent-line);background:var(--accent-weak)}
-  .st .st-l.build{color:var(--medium);border-color:rgba(246,196,83,.4);background:rgba(246,196,83,.1)}
-  .st .st-l.vision{color:var(--muted);border-color:var(--border-strong);background:var(--s2)}
-  .st h3{margin:14px 0 8px}
+  .st{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--shadow-1)}
+  .st h3{margin:14px 0 10px;font-size:var(--fs-md)}
   .st ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
-  .st li{font-size:13.5px;color:var(--muted);line-height:1.5;padding-left:16px;position:relative}
+  .st li{font-size:var(--fs-sm);color:var(--muted);line-height:1.5;padding-left:16px;position:relative}
   .st li::before{content:'·';position:absolute;left:2px;color:var(--faint);font-weight:700}
-  .st p{font-size:13px;color:var(--faint);margin-top:12px;line-height:1.5}
+  .st p{font-size:var(--fs-sm);color:var(--faint);margin-top:12px;line-height:1.5}
 
   /* waitlist */
-  .wl{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  .wl{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
   @media (max-width:900px){.wl{grid-template-columns:1fr}}
-  form{background:var(--s1);border:1px solid var(--border-strong);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow-1)}
+  form.panel{background:var(--s1);border:1px solid var(--border-strong);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow-1)}
   label{font:600 11px/1.3 var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-  input,select{width:100%;background:var(--canvas);border:1px solid var(--border-strong);color:var(--text);padding:12px 13px;border-radius:var(--r-sm);font:500 14px/1.2 var(--font)}
+  input,select{width:100%;background:var(--s1);border:1px solid var(--border-strong);color:var(--text);padding:12px 13px;border-radius:var(--r-xs);font:500 14px/1.2 var(--font)}
   input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
   .fld{display:flex;flex-direction:column;gap:6px}
-  .form-note{font-size:12px;color:var(--faint);line-height:1.5}
-  .promise{padding:16px 18px;border:1px solid var(--border-strong);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--s1);font-size:13.5px;color:var(--muted);line-height:1.6;margin-top:18px}
+  .form-note{font-size:var(--fs-xs);color:var(--faint);line-height:1.5}
+  .promise{padding:16px 18px;border:1px solid var(--border-strong);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--s1);font-size:var(--fs-sm);color:var(--muted);line-height:1.6;margin-top:18px}
   .promise b{color:var(--text)}
 
   /* faq */
-  .faq{display:flex;flex-direction:column;gap:8px;max-width:820px}
-  details{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:0 20px;transition:border-color .2s}
-  details[open]{border-color:var(--border-strong)}
-  summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 0;font:600 15px/1.35 var(--display);letter-spacing:-.01em;color:var(--text)}
-  summary::-webkit-details-marker{display:none}
-  summary::after{content:'+';font:600 18px/1 var(--mono);color:var(--accent);flex:0 0 auto;transition:transform .2s}
-  details[open] summary::after{content:'–'}
-  details .a{padding:0 0 18px;color:var(--muted);font-size:14px;line-height:1.65}
-  details .a b{color:var(--text);font-weight:600}
+  .faq{display:flex;flex-direction:column;gap:8px;max-width:840px}
+  details.q{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:0 22px;transition:border-color .2s}
+  details.q[open]{border-color:var(--border-strong)}
+  details.q summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;font:600 15px/1.35 var(--display);letter-spacing:-.01em;color:var(--text)}
+  details.q summary::-webkit-details-marker{display:none}
+  details.q summary::after{content:'+';font:600 18px/1 var(--mono);color:var(--accent);flex:0 0 auto}
+  details.q[open] summary::after{content:'\2013'}
+  details.q .a{padding:0 0 18px;color:var(--muted);font-size:14px;line-height:1.65}
+
+  /* company */
+  .company{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media (max-width:980px){.company{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.company{grid-template-columns:1fr}}
+  .co{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--shadow-1);display:flex;flex-direction:column;gap:10px;scroll-margin-top:130px}
+  .co:target{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
+  .co p{font-size:var(--fs-sm);color:var(--muted);line-height:1.6}
+  .co .press-mark{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--s2)}
+  .co .press-mark .mark{width:40px;height:40px;border-radius:11px}
+  .co .press-mark .mark svg{width:21px;height:21px}
+  .co .press-mark b{font:700 18px/1 var(--display)}
+  .incident{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;background:var(--s1);border:1px solid var(--border-strong);border-left:4px solid var(--high);border-radius:var(--r);padding:22px 24px;margin-top:24px;scroll-margin-top:130px}
+  .incident p{font-size:var(--fs-sm);color:var(--muted);line-height:1.6}
+  .incident .ic-box{background:rgba(245,129,31,.12);color:var(--high-text)}
 
   /* final cta */
-  .final{text-align:center;padding:96px 0}
-  .final h2{font-size:clamp(1.8rem,3.4vw,2.6rem)}
-  .final p{color:var(--muted);margin:14px auto 28px;max-width:56ch;font-size:1.05rem}
+  .final{text-align:center;padding:96px 0;background:linear-gradient(180deg,var(--s2),var(--canvas))}
+  .final p{color:var(--muted);margin:14px auto 28px;max-width:56ch;font-size:var(--fs-md)}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
   .final .cta-row{justify-content:center}
 
   /* footer */
-  footer{border-top:1px solid var(--border);padding:44px 0 34px}
-  .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:34px}
-  @media (max-width:820px){.trust{grid-template-columns:1fr}}
-  .trust h3{font-size:.98rem;margin-bottom:6px}
-  .trust p{font-size:13px;color:var(--muted);line-height:1.55}
-  .foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:22px;border-top:1px solid var(--border);font-size:12.5px;color:var(--faint)}
+  footer{border-top:1px solid var(--border);padding:56px 0 34px;background:var(--s1)}
+  .fgrid{display:grid;grid-template-columns:1.4fr repeat(5,1fr);gap:28px;margin-bottom:40px}
+  @media (max-width:980px){.fgrid{grid-template-columns:repeat(3,1fr)}.fgrid .fbrand{grid-column:1 / -1}}
+  @media (max-width:600px){.fgrid{grid-template-columns:repeat(2,1fr)}}
+  .fbrand p{font-size:var(--fs-sm);color:var(--muted);line-height:1.6;max-width:36ch;margin-top:12px}
+  .fcol h4{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-family:var(--font);margin-bottom:12px}
+  .fcol ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .fcol a{font-size:var(--fs-sm);color:var(--muted)}
+  .fcol a:hover{color:var(--accent-strong)}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:22px;border-top:1px solid var(--border);font-size:var(--fs-xs);color:var(--faint)}
   .foot b{color:var(--muted);font-weight:600}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(12px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="site">
-  <div class="wrap nav">
+<!-- 24px-grid line icons, drawn for this site -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4-5"/><circle cx="12" cy="16" r="1.5"/><path d="M3 20h18"/></symbol>
+  <symbol id="i-queue" viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M3 6l1.5 1.5L7 5"/><path d="M3 12l1.5 1.5L7 11"/><circle cx="4.5" cy="18" r="1.2"/></symbol>
+  <symbol id="i-graph" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="12" cy="13" r="2.4"/><circle cx="7" cy="19" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="M7 7.5l3.4 3.6M17 7.5l-3.4 3.6M10.6 15l-2.2 2.4M13.4 15l2.6 2.6"/></symbol>
+  <symbol id="i-packet" viewBox="0 0 24 24"><path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5"/><path d="M9 15l2 2 4-4"/></symbol>
+  <symbol id="i-summary" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4M8 20h8"/><path d="M7 12l3-3 3 2 4-4"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v4M15 3v4"/><path d="M6 7h12v4a6 6 0 0 1-12 0z"/><path d="M12 17v4"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 4.5a5 5 0 0 0 5.7 6.9L11 20.6a2 2 0 0 1-2.8-2.8l9.2-9.2a5 5 0 0 0-3-4.1z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.5-8A6 6 0 0 1 18 9.5 3.5 3.5 0 0 1 18 18z"/><path d="M12 14l1.5 1.5L16 13"/></symbol>
+  <symbol id="i-data" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="2.6"/><path d="M5 6v6c0 1.4 3.1 2.6 7 2.6"/><path d="M5 12v6c0 1.4 3.1 2.6 7 2.6"/><path d="M19 6v5"/><rect x="15" y="14" width="6" height="6" rx="1.2"/><path d="M16.5 14v-1.2a1.5 1.5 0 0 1 3 0V14"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14.5a4.5 4.5 0 0 1 5.5 4.5"/></symbol>
+  <symbol id="i-vendor" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/><path d="M12 9h.01"/></symbol>
+  <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v2"/><path d="M8 11h8M8 15h5"/></symbol>
+  <symbol id="i-ai" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2.5"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/><path d="M10 12h4M12 10v4"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/><path d="M8 7h7M8 11h5"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M13 8l3 3"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><path d="M12 14v3"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6"/></symbol>
+  <symbol id="i-handshake" viewBox="0 0 24 24"><path d="M3 8h4l4 3 3-3h7"/><path d="M7 8v8l4 3 4-3 3-3"/><path d="M11 11l3 3"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></symbol>
+  <symbol id="i-press" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h6M7 13h10M7 17h10"/><rect x="15" y="8" width="3" height="3"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-bars" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-login" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M13 4h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
+
+<div class="util" role="region" aria-label="Utility links">
+  <div class="wrap">
+    <span class="tag">Security and compliance for companies without a security team</span>
+    <span class="links">
+      <a href="https://dev.clearfend.com/login"><svg class="ic" aria-hidden="true"><use href="#i-login"/></svg>Sign in</a>
+      <a href="#incident"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>Experiencing an incident?</a>
+    </span>
+  </div>
+</div>
+
+<header class="site" id="siteHeader">
+  <div class="wrap navbar">
     <a class="brand" href="#top" aria-label="ClearFend home">
       <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#04120f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
       <span><span class="brand-name">ClearFend</span><span class="brand-sub">Confidence Console</span></span>
     </a>
-    <nav class="nav-links" aria-label="Page sections">
-      <a href="#console">Console</a>
-      <a href="#programs">Living programs</a>
-      <a href="#stand">Where you stand</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-      <!-- BOOKING-CTA -->
-      <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20walkthrough%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20a%20walkthrough%20of%20the%20Confidence%20Console.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%20(SOC%202%20request%20%2F%20customer%20questionnaire%20%2F%20board%20%2F%20AI%20governance)%3A">Request a walkthrough</a>
+
+    <nav class="primary" id="primaryNav" aria-label="Primary">
+      <ul>
+        <!-- PLATFORM -->
+        <li class="has-menu">
+          <button class="navlink" type="button" aria-expanded="false" aria-controls="menu-platform" id="btn-platform">Platform <svg class="ic chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
+          <div class="mega" id="menu-platform" role="region" aria-labelledby="btn-platform">
+            <div class="mega-inner">
+              <a class="feat" href="#console">
+                <span class="f-kick">Featured · The Confidence Console</span>
+                <h4>One honest number, with the proof behind it.</h4>
+                <div class="f-n"><b class="mono">0–100</b><span>every input labelled: self-declared, observed, derived, or sample</span></div>
+                <p>A missing number never renders as zero. A control with no evidence shows stale, never green. The score is only as confident as what you have connected or declared, and it says so.</p>
+                <span class="f-link">See the console →</span>
+              </a>
+              <div class="cols">
+                <div class="col-h">What the console gives you</div>
+                <a class="mi" href="#fix-queue"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-queue"/></svg></span><span><span class="t">Fix Queue</span><span class="d">One queue across every module, ranked by what an attacker can reach, with effort and consequence in plain English.</span></span></a>
+                <a class="mi" href="#estate"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-graph"/></svg></span><span><span class="t">Estate graph</span><span class="d">Every system, identity, vendor, AI agent and person as a node. Blast radius, crown jewels, choke points.</span></span></a>
+                <a class="mi" href="#evidence"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-packet"/></svg></span><span><span class="t">Evidence packets</span><span class="d">A tamper-evident record of what was true and when, exportable for an auditor or a customer.</span></span></a>
+                <a class="mi" href="#leadership"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-summary"/></svg></span><span><span class="t">Leadership summary</span><span class="d">A read-only one-pager: the score, movement since last time, top risks, decisions waiting. Every figure links to its source.</span></span></a>
+                <a class="mi" href="#connectors"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg></span><span><span class="t">Connectors <span class="chip build">In build</span></span><span class="d">Read-only sources you create and can revoke. Microsoft 365, Google Workspace, Okta and AWS are the first four.</span></span></a>
+                <a class="mi" href="#programs"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg></span><span><span class="t">Living programs</span><span class="d">Vendors, AI systems, machine identities and people each carry a lifecycle, a history, and a diff.</span></span></a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <!-- SOLUTIONS -->
+        <li class="has-menu">
+          <button class="navlink" type="button" aria-expanded="false" aria-controls="menu-solutions" id="btn-solutions">Solutions <svg class="ic chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
+          <div class="mega" id="menu-solutions" role="region" aria-labelledby="btn-solutions">
+            <div class="mega-inner rail">
+              <div class="rail-list">
+                <div class="col-h">By outcome</div>
+                <a class="mi" href="#know"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><span><span class="t">Know where you stand</span><span class="d">One score, one verdict, one map of what reaches what.</span></span></a>
+                <a class="mi" href="#fix"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-wrench"/></svg></span><span><span class="t">Fix what matters</span><span class="d">The three fixes that move the number, with a runbook each.</span></span></a>
+                <a class="mi" href="#prove"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></span><span><span class="t">Prove it</span><span class="d">Controls that drift when the estate contradicts them, and evidence that holds.</span></span></a>
+              </div>
+              <div class="cols three">
+                <div class="col-h">By module · status shown honestly</div>
+                <a class="mi" href="#m-exposure"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg></span><span><span class="t">Exposure <span class="chip preview">Preview</span></span><span class="d">What can an attacker reach? The estate graph and the queue it ranks.</span></span></a>
+                <a class="mi" href="#m-cloud"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-cloud"/></svg></span><span><span class="t">Cloud &amp; Identity <span class="chip preview">Preview</span></span><span class="d">Is our cloud configured safely? CIS-style checks over what you declare; AWS read connector in build.</span></span></a>
+                <a class="mi" href="#m-data"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-data"/></svg></span><span><span class="t">Data &amp; Privacy <span class="chip preview">Preview</span></span><span class="d">Is our data protected, and where does it go?</span></span></a>
+                <a class="mi" href="#m-appsec"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span><span><span class="t">Application Security <span class="chip preview">Preview</span></span><span class="d">Is our code safe to ship? Secrets, dependencies and patterns in a repo you point at.</span></span></a>
+                <a class="mi" href="#m-pentest"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span><span><span class="t">Pen Test <span class="chip preview">Preview</span></span><span class="d">Can we be broken into? Authorized, scoped external tests of your own systems.</span></span></a>
+                <a class="mi" href="#m-human"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-people"/></svg></span><span><span class="t">Human Risk <span class="chip preview">Preview</span></span><span class="d">Will my team get phished? Real simulations, every person scored.</span></span></a>
+                <a class="mi" href="#m-tprm"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-vendor"/></svg></span><span><span class="t">Third-Party Risk <span class="chip preview">Preview</span></span><span class="d">Are our vendors safe? A living program with re-assessment and diff.</span></span></a>
+                <a class="mi" href="#m-compliance"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-clipboard"/></svg></span><span><span class="t">Compliance <span class="chip preview">Preview</span></span><span class="d">Are we audit-ready? SOC 2, ISO 27001, NIST CSF and HIPAA on one register, net of drift.</span></span></a>
+                <a class="mi" href="#m-ai"><span class="ic-box ai"><svg class="ic" aria-hidden="true"><use href="#i-ai"/></svg></span><span><span class="t">AI Estate <span class="chip preview">Preview</span></span><span class="d">What AI is running, and is it governed? Systems, agents, MCP servers and the identities behind them.</span></span></a>
+              </div>
+              <div class="mega-foot">
+                <span class="legend"><span class="chip preview">Preview</span> running today for design partners &nbsp;<span class="chip build">In build</span> being built now &nbsp;<span class="chip planned">Planned</span> not started</span>
+                <a href="#modules">All modules, including planned ones →</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <!-- PRICING -->
+        <li><a class="navlink" href="#pricing">Pricing</a></li>
+
+        <!-- RESOURCES -->
+        <li class="has-menu">
+          <button class="navlink" type="button" aria-expanded="false" aria-controls="menu-resources" id="btn-resources">Resources <svg class="ic chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
+          <div class="mega" id="menu-resources" role="region" aria-labelledby="btn-resources">
+            <div class="mega-inner">
+              <a class="feat" href="glossary.html">
+                <span class="f-kick">Featured · Glossary</span>
+                <h4>Every term we use, in plain English.</h4>
+                <p>Blast radius, crown jewel, drift, provenance, living program. If a word on the console needs a paragraph, the paragraph is here. Written for an office manager, not an analyst.</p>
+                <span class="f-link">Open the glossary →</span>
+              </a>
+              <div class="cols">
+                <div class="col-h">Read</div>
+                <a class="mi" href="glossary.html"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg></span><span><span class="t">Glossary</span><span class="d">Plain-English security terms, deep-linkable from the console.</span></span></a>
+                <a class="mi" href="#principles"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span><span><span class="t">Design principles</span><span class="d">Colour equals meaning. One glow, rationed. Critical must feel rare. Words equal truth.</span></span></a>
+                <a class="mi" href="#trust"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg></span><span><span class="t">Trust &amp; security</span><span class="d">How ClearFend protects your data: a closed database, tenant isolation by construction, AI that cannot act.</span></span></a>
+                <a class="mi" href="#status"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg></span><span><span class="t">Status</span><span class="d">What runs today, what is in build, and what is vision. Labelled, not dressed up.</span></span></a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <!-- CUSTOMERS -->
+        <li class="has-menu">
+          <button class="navlink" type="button" aria-expanded="false" aria-controls="menu-customers" id="btn-customers">Customers <svg class="ic chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
+          <div class="mega" id="menu-customers" role="region" aria-labelledby="btn-customers">
+            <div class="mega-inner">
+              <a class="feat" href="#partners">
+                <span class="f-kick">Design partners</span>
+                <h4>No logo wall. No testimonials. Not yet.</h4>
+                <p>ClearFend is working software running with design partners in private preview. When we have customers and numbers worth showing, they will be here with their permission. Until then, this page says so.</p>
+                <span class="f-link">How the programme works →</span>
+              </a>
+              <div class="cols">
+                <div class="col-h">The programme</div>
+                <a class="mi" href="#partners"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-handshake"/></svg></span><span><span class="t">What a design partner gets</span><span class="d">The console on your own estate, direct access to the people building it, and a real say in what ships next.</span></span></a>
+                <a class="mi" href="#assessment"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><span><span class="t">How to join</span><span class="d">Start with a five-day, read-only posture assessment. Assessment customers come in as design partners.</span></span></a>
+                <a class="mi" href="#waitlist"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="t">Waitlist</span><span class="d">Early access in signup order, at the launch price exactly as published.</span></span></a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <!-- COMPANY -->
+        <li class="has-menu">
+          <button class="navlink" type="button" aria-expanded="false" aria-controls="menu-company" id="btn-company">Company <svg class="ic chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
+          <div class="mega" id="menu-company" role="region" aria-labelledby="btn-company">
+            <div class="mega-inner simple">
+              <div class="cols four" style="grid-template-columns:repeat(4,1fr)">
+                <a class="mi" href="#about"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg></span><span><span class="t">About</span><span class="d">Why one honest number, and why the name is the product.</span></span></a>
+                <a class="mi" href="#contact"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="t">Contact</span><span class="d">admin@clearfend.com. A person reads it.</span></span></a>
+                <a class="mi" href="#careers"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-briefcase"/></svg></span><span><span class="t">Careers</span><span class="d">Not hiring yet. We will say so here when that changes.</span></span></a>
+                <a class="mi" href="#press"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-press"/></svg></span><span><span class="t">Press kit</span><span class="d">The mark, the name rationale, and the palette.</span></span></a>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="drawer-cta">
+        <!-- BOOKING-CTA -->
+        <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%3A">Get a demo</a>
+        <a class="btn ghost" href="https://dev.clearfend.com/login">Sign in</a>
+        <a class="btn ghost" href="#incident">Experiencing an incident?</a>
+      </div>
     </nav>
+
+    <div class="nav-right">
+      <!-- BOOKING-CTA -->
+      <a class="btn primary sm" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%3A">Get a demo</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="primaryNav" aria-label="Open menu" id="menuBtn"><svg class="ic bars" aria-hidden="true"><use href="#i-bars"/></svg><svg class="ic x" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
   </div>
 </header>
 
@@ -368,65 +675,58 @@
 <section class="hero" id="top">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <span class="pill-live"><span class="dot" aria-hidden="true"></span>The Confidence Console · private preview</span>
-      <h1>How secure is your company, really?
-        <span class="accent-line">One honest number. The fixes that matter. The proof.</span>
-      </h1>
-      <p class="lead">ClearFend is the security and compliance console for companies without a security team. Connect your estate <b>read-only</b>, and get one honest confidence score, a <b>Fix Queue ranked by what an attacker can actually reach</b>, living programs for your vendors, your AI, and your people, and <b>evidence you can hand an auditor</b> — kept current, not a PDF that dies on delivery.</p>
-      <div class="cta-row">
-        <!-- BOOKING-CTA -->
-        <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20walkthrough%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20a%20walkthrough%20of%20the%20Confidence%20Console.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%20(SOC%202%20request%20%2F%20customer%20questionnaire%20%2F%20board%20%2F%20AI%20governance)%3A">Request a walkthrough</a>
-        <a class="btn ghost" href="#waitlist">Join the waitlist</a>
-      </div>
-      <p class="micro">Read-only by default. No agents to install. Plain English throughout.</p>
+      <span class="pill">The Confidence Console · private preview</span>
+      <h1>Know if your company is secure. Fix what matters. Prove it.</h1>
+      <p class="lead">ClearFend gives companies without a security team <b>one honest security number</b>, the <b>fixes that actually move it</b>, and the <b>proof behind it</b>: connect your estate read-only, and every figure on screen says where it came from.</p>
+      <form class="hero-form" id="hero-form" action="https://formspree.io/f/FORM_ID_PLACEHOLDER" method="POST" aria-label="Request a demo">
+        <label for="hero-email" class="visually-hidden" style="position:absolute;left:-9999px">Work email</label>
+        <input id="hero-email" name="email" type="email" required autocomplete="email" placeholder="Work email">
+        <input type="hidden" name="intent" value="demo">
+        <button class="btn primary" type="submit">Get a demo</button>
+      </form>
+      <p class="micro">Read-only by default. No agents to install. Plain English throughout. A person replies.</p>
       <div class="honest">
-        <span class="h-ic" aria-hidden="true">i</span>
-        <p><b>Labeled honestly.</b> ClearFend is a working platform running with design partners in private preview. It is not generally available yet. Everything on this page says which is which — what runs today, what is in build, and what is vision.</p>
+        <span class="ic-box" style="width:28px;height:28px;border-radius:7px" aria-hidden="true"><svg class="ic" style="width:16px;height:16px"><use href="#i-info"/></svg></span>
+        <p><b>Labelled honestly.</b> ClearFend is working software running with design partners. It is not generally available yet. Everything on this page says which is which: what runs today, what is in build, and what is vision.</p>
       </div>
     </div>
 
-    <!-- The console: sample data, illustrative -->
-    <div class="console" aria-label="Illustrative view of the ClearFend Confidence Console">
-      <div class="bar"><i></i><i></i><i></i><span class="fname">pinebrook · clearfend console</span><span class="live"><span class="dot" aria-hidden="true"></span>live</span></div>
-      <div class="body">
-        <div class="tile">
-          <div class="t-l">Confidence</div>
-          <div class="t-n mono">62</div>
-          <div class="t-s">of 100 · from live telemetry, not a questionnaire</div>
-          <div class="t-lvl"><b>Level 2 · Covered</b>next gate: Level 3 · Audit-Ready</div>
-        </div>
-        <div class="graph-wrap">
-          <div class="g-head"><span class="g-l">Estate · what an attacker can reach</span><span class="g-sample">sample · illustrative</span></div>
-          <svg id="estate-graph" viewBox="0 0 420 200" role="img" aria-label="An estate graph showing a CI/CD key reaching staging, then the customer database, backups and production in two hops">
-            <!-- edges -->
-            <line class="edge" data-edge="m365-admin" x1="60" y1="46" x2="140" y2="46"/>
-            <line class="edge" data-edge="admin-db" x1="140" y1="46" x2="262" y2="98"/>
-            <line class="edge" data-edge="vpn-stg" x1="60" y1="150" x2="170" y2="120"/>
-            <line class="edge" data-edge="ci-stg" x1="70" y1="100" x2="170" y2="120"/>
-            <line class="edge" data-edge="stg-db" x1="170" y1="120" x2="262" y2="98"/>
-            <line class="edge" data-edge="stg-s3" x1="170" y1="120" x2="262" y2="160"/>
-            <line class="edge" data-edge="stg-prod" x1="170" y1="120" x2="355" y2="128"/>
-            <line class="edge" data-edge="ai-db" x1="350" y1="44" x2="262" y2="98"/>
-            <!-- nodes -->
-            <g class="node" data-node="m365"><circle cx="60" cy="46" r="11"/><text class="node-label" x="60" y="26" text-anchor="middle">M365</text></g>
-            <g class="node" data-node="admin"><circle cx="140" cy="46" r="11"/><text class="node-label" x="140" y="26" text-anchor="middle">Admin</text></g>
-            <g class="node" data-node="ci"><circle cx="70" cy="100" r="12"/><text class="node-label" x="70" y="124" text-anchor="middle">CI/CD key</text></g>
-            <g class="node" data-node="vpn"><circle cx="60" cy="150" r="11"/><text class="node-label" x="60" y="176" text-anchor="middle">VPN</text></g>
-            <g class="node" data-node="stg"><circle cx="170" cy="120" r="12"/><text class="node-label" x="170" y="146" text-anchor="middle">AWS stg</text></g>
-            <g class="node crown" data-node="db"><circle cx="262" cy="98" r="13"/><text class="node-label" x="262" y="78" text-anchor="middle">Cust DB</text></g>
-            <g class="node crown" data-node="s3"><circle cx="262" cy="160" r="11"/><text class="node-label" x="262" y="186" text-anchor="middle">Backups</text></g>
-            <g class="node" data-node="prod"><circle cx="355" cy="128" r="12"/><text class="node-label" x="355" y="154" text-anchor="middle">AWS prod</text></g>
-            <g class="node ai" data-node="ai"><circle cx="350" cy="44" r="11"/><text class="node-label" x="350" y="24" text-anchor="middle">AI agent</text></g>
-          </svg>
-          <p class="graph-caption" id="graph-caption"><b>Toxic path.</b> From the <b>CI/CD key</b>, an attacker reaches <b>4 systems in 2 hops</b> — including your customer database and your backups. <span class="fix">Fix: scope this key down (~60 min).</span></p>
-        </div>
-        <div class="queue">
-          <div class="q-h"><span class="q-l">Fix Queue · ranked by reach</span><span class="q-hint">what to fix first</span></div>
-          <div class="qrow"><span class="sev sev-critical">crit</span><span class="q-t">Scope down the CI/CD deploy key</span><span class="q-e">~60 min</span></div>
-          <div class="qrow"><span class="sev sev-high">high</span><span class="q-t">2 admin accounts without MFA</span><span class="q-e">~20 min</span></div>
-          <div class="qrow"><span class="sev sev-medium">med</span><span class="q-t">Ownerless service account with admin scope</span><span class="q-e">~30 min</span></div>
+    <!-- The console, drawn. Sample data, labelled sample. -->
+    <div class="console" aria-label="Illustration of the ClearFend Confidence Console, showing sample data">
+      <svg class="blob" viewBox="0 0 600 460" aria-hidden="true" preserveAspectRatio="none">
+        <defs><linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2de1c6" stop-opacity=".28"/><stop offset="1" stop-color="#2f6bff" stop-opacity=".06"/></linearGradient></defs>
+        <path d="M80 120c40-90 200-110 320-70s180 150 150 250-160 150-300 130S20 320 40 220c10-40 20-60 40-100z" fill="url(#bg1)"/>
+        <g stroke="#0a6b79" stroke-opacity=".18" stroke-width="1.2" fill="none">
+          <path d="M60 400c80-30 160 20 240-10s160-60 260-30"/>
+          <path d="M20 60c90 10 150 80 260 60s170-90 300-50"/>
+        </g>
+      </svg>
+      <div class="cframe">
+        <div class="bar"><i></i><i></i><i></i><span class="fname">clearfend · confidence console</span><span class="chip sample">sample data</span></div>
+        <div class="cbody">
+          <div class="tile">
+            <div class="t-l"><span>Confidence</span><span>sample</span></div>
+            <div class="score" role="img" aria-label="Sample confidence score of 62 out of 100">
+              <svg viewBox="0 0 104 104"><circle cx="52" cy="52" r="44" fill="none" stroke="#e6ecf4" stroke-width="8"/><circle cx="52" cy="52" r="44" fill="none" stroke="#0a6b79" stroke-width="8" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="105"/></svg>
+              <div><div class="n">62</div><div class="of">OF 100</div></div>
+            </div>
+            <div class="t-s">from what you connected and declared, never a questionnaire alone</div>
+            <div class="t-lvl"><b>Level 2 · Covered</b>next gate: Level 3 · Audit-Ready</div>
+          </div>
+          <div class="verdict">
+            <div class="v-l">Verdict</div>
+            <h4>Mostly. Three fixes need a decision this week; one is critical.</h4>
+            <p>Your five core controls hold except one: two admin accounts have no second factor. A deploy key reaches your customer database in two hops. Nothing else changed since last week.</p>
+          </div>
+          <div class="queue">
+            <div class="q-h"><span class="q-l">The three fixes that matter</span><span class="q-hint">ranked by what an attacker can reach</span></div>
+            <div class="qrow"><span class="k">1</span><span class="sev sev-critical">crit</span><span class="q-t">Scope down the CI/CD deploy key</span><span class="q-e">runbook · ~60 min</span></div>
+            <div class="qrow"><span class="k">2</span><span class="sev sev-high">high</span><span class="q-t">Enforce MFA on two admin accounts</span><span class="q-e">runbook · ~20 min</span></div>
+            <div class="qrow"><span class="k">3</span><span class="sev sev-ai">ai</span><span class="q-t">Ownerless agent token with admin scope</span><span class="q-e">runbook · ~30 min</span></div>
+          </div>
         </div>
       </div>
+      <span class="chip sample csample">illustration · sample data, not a customer</span>
     </div>
   </div>
 </section>
@@ -435,16 +735,16 @@
 <section class="alt" id="problem">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow reveal">The problem</span>
+      <span class="eyebrow plain reveal">The problem</span>
       <h2 class="reveal">You bought tools. Nobody can tell you if you&rsquo;re actually OK.</h2>
-      <p class="reveal">The typical company our size runs a dozen disconnected security tools — and still can&rsquo;t answer the only question the board, the customer, and the auditor are asking: <b>how good is our security, really, and what should we fix first?</b></p>
+      <p class="reveal">Companies our size run a stack of disconnected security tools and still can&rsquo;t answer the only question the board, the customer and the auditor are asking: <b>how good is our security, really, and what should we fix first?</b></p>
     </div>
     <div class="stats">
       <div class="stat reveal"><div class="n warn mono"><span data-count="88" data-suffix="%">0%</span></div><div class="d">of breaches at small and mid-sized businesses involved ransomware</div><div class="src">Verizon Data Breach Investigations Report, 2025</div></div>
       <div class="stat reveal"><div class="n mono"><span data-count="115" data-prefix="~$" data-suffix="K">~$0K</span></div><div class="d">median ransom payment, among victims that paid</div><div class="src">Verizon Data Breach Investigations Report, 2025</div></div>
-      <div class="stat reveal"><div class="n mono">8&ndash;12</div><div class="d">disconnected tools in a typical SMB security stack — none of them showing the whole picture</div><div class="src">Industry surveys of SMB security stacks</div></div>
+      <div class="stat reveal"><div class="n mono">1</div><div class="d">question every tool in the stack fails to answer on its own: are we OK, and what do we fix first?</div><div class="src">Not a statistic. The reason ClearFend exists.</div></div>
     </div>
-    <p class="lead reveal" style="margin-top:36px">You don&rsquo;t need a thirteenth tool. You need <b>one console that answers the question and shows its work</b> — where every finding is priced by what an attacker can reach, every fix moves a real number, and every control is proven by what is actually true in your estate today.</p>
+    <p class="lead reveal" style="margin-top:36px">You don&rsquo;t need another tool. You need <b>one console that answers the question and shows its work</b>: every finding ranked by what an attacker can reach, every fix moving a real number, every control proven by what is actually true in your estate, and every figure labelled with where it came from.</p>
   </div>
 </section>
 
@@ -452,64 +752,125 @@
 <section id="console">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow accent reveal">The Confidence Console</span>
-      <h2 class="reveal">One console. The fifteen questions your board is actually asking.</h2>
-      <p class="reveal">Every module in ClearFend is built around one plain question and answers it from live telemetry — not a form you fill in. They all feed the same estate graph, the same Fix Queue, and the same Risk Register, so a fix in one place moves the number everywhere it should.</p>
+      <span class="eyebrow reveal">The Confidence Console</span>
+      <h2 class="reveal">Above the fold: one number, one verdict, three fixes.</h2>
+      <p class="reveal">The dashboard opens on the score with its provenance, a plain-English verdict, the three fixes that matter most, and what changed since your last assessment. Everything else lives below the fold. Every figure links to the screen it came from.</p>
     </div>
-    <div class="groups">
-      <div class="group reveal">
-        <div class="g-name">Where you stand<span>the one number</span></div>
-        <div class="mods">
-          <div class="mod core"><div class="m-n">Confidence</div><div class="m-q">Are we OK?</div></div>
+    <div class="split">
+      <div class="feature-list">
+        <div class="fl" id="confidence"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-gauge"/></svg></span><div><h4>Confidence score, with provenance</h4><p>0–100, from your connected sources and what you declare. Each input is marked self-declared, observed, derived or sample. Nothing is shown as live unless a live source wrote it.</p></div></div>
+        <div class="fl" id="fix-queue"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-queue"/></svg></span><div><h4>Fix Queue</h4><p>One queue across compliance, vendors, AI systems, machine identities, people, code and cloud. Ranked by severity times reach. Each item carries a runbook: the ordered fix steps, grounded in a control register, not improvised.</p></div></div>
+        <div class="fl" id="estate"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-graph"/></svg></span><div><h4>Estate graph</h4><p>What can reach what. Crown jewels are the places data and keys live; choke points are the nodes most attack paths pass through. The queue ranks on this graph, so a fix that cuts a path moves the number.</p></div></div>
+        <div class="fl" id="evidence"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-packet"/></svg></span><div><h4>Evidence packets</h4><p>An append-only, hash-chained audit record plus the current state of your five core controls and open findings, exportable by the account owner. A control with expired evidence shows stale, never green.</p></div></div>
+        <div class="fl" id="leadership"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-summary"/></svg></span><div><h4>Leadership summary</h4><p>A read-only one-pager for the board or a customer: score and movement, top risks in plain English, resolved findings, decisions waiting on an owner. Prints to a single page.</p></div></div>
+        <div class="fl" id="connectors"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg></span><div><h4>Connectors <span class="chip build">In build</span></h4><p>Read-only sources you create and can revoke: Microsoft 365, Google Workspace, Okta, AWS. Until they land, the console runs on what you declare and on the modules that probe directly, and labels it that way.</p></div></div>
+      </div>
+      <div>
+        <div class="card tinted" style="gap:16px">
+          <span class="eyebrow">Where you stand</span>
+          <h3>Levels are gates, not averages.</h3>
+          <p>Your maturity level places the score on a five-rung ladder outsiders hold you to. You are the level whose requirements you <b>fully</b> meet. Great backups don&rsquo;t cancel out two admin accounts without MFA.</p>
+          <div class="ladder" style="grid-template-columns:1fr;gap:8px">
+            <div class="rung" style="padding:12px 14px"><div class="l">L1</div><div class="n">Exposed</div><div class="d">Basic gaps are open and nobody has been assigned to look.</div></div>
+            <div class="rung" style="padding:12px 14px"><div class="l">L2</div><div class="n">Covered</div><div class="d">The five core controls hold. The next questionnaire stops being a guess.</div></div>
+            <div class="rung gate" style="padding:12px 14px"><span class="tag">continuous</span><div class="l">L3</div><div class="n">Audit-Ready</div><div class="d">Controls proven every day, not set up once. What an auditor assumes.</div></div>
+            <div class="rung" style="padding:12px 14px"><div class="l">L4 · L5</div><div class="n">Resilient · Adaptive</div><div class="d">Detect, respond, recover, and exercise it. Most companies never need L5, and we&rsquo;ll say so.</div></div>
+          </div>
+          <div class="note" style="margin-top:4px"><span aria-hidden="true">→</span><p><b>A snapshot can honestly award at most Level 2.</b> Level 3 needs proof that holds every day. That is what a console watching your estate exists to do, and it is why our engine caps itself at L2 until continuous evidence is real.</p></div>
         </div>
       </div>
-      <div class="group reveal">
-        <div class="g-name">Your work<span>what to do, and what you chose not to</span></div>
-        <div class="mods">
-          <div class="mod core"><div class="m-n">Fix Queue</div><div class="m-q">What do I fix first?</div></div>
-          <div class="mod core"><div class="m-n">Risk Register</div><div class="m-q">What have we accepted, and who signed for it?</div></div>
-          <div class="mod"><div class="m-n">Evidence</div><div class="m-q">Can we prove it?</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+<section class="canvas" id="how">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow reveal">How it works</span>
+      <h2 class="reveal">Assess. Fix. Prove.</h2>
+      <p class="reveal">Three verbs, one loop. Everything in ClearFend is one of them, and every fix feeds the next assessment.</p>
+    </div>
+    <div class="steps3">
+      <div class="step3 reveal" id="know">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 300 120" fill="none" stroke="#0a6b79" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="60" cy="60" r="34" stroke="#d6deea" stroke-width="8"/><path d="M60 26a34 34 0 0 1 32 22" stroke-width="8"/>
+            <circle cx="170" cy="40" r="7"/><circle cx="230" cy="30" r="7"/><circle cx="210" cy="85" r="7" fill="#2de1c6" fill-opacity=".35"/><circle cx="260" cy="70" r="7"/>
+            <path d="M176 43l28 36M237 34l-21 45M217 84l36-12"/>
+          </svg>
+        </div>
+        <span class="k">01 · Know where you stand</span>
+        <h3>Connect read-only, declare what we can&rsquo;t see, get the number.</h3>
+        <p>You create time-boxed, read-only access. The modules probe what they can and ask you to declare the rest. The console returns one score, one verdict, and a map of what reaches what.</p>
+        <ul><li>Every figure labelled with its provenance</li><li>Nothing installed, nothing changed</li><li>Access revocable by you, any time</li></ul>
+      </div>
+      <div class="step3 reveal" id="fix">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 300 120" fill="none" stroke="#0a6b79" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="30" y="22" width="240" height="20" rx="6" stroke="#e5484d"/><rect x="30" y="50" width="240" height="20" rx="6" stroke="#f5811f"/><rect x="30" y="78" width="240" height="20" rx="6" stroke="#d6deea"/>
+            <path d="M42 32h60M42 60h80M42 88h50" stroke="#d6deea" stroke-width="4"/>
+            <path d="M236 28l5 5 9-9" stroke="#22a565" stroke-width="2.2"/>
+          </svg>
+        </div>
+        <span class="k">02 · Fix what matters</span>
+        <h3>Work the three fixes that move the number, runbook in hand.</h3>
+        <p>The Fix Queue ranks every open finding by severity times what it can reach. Each one comes with a runbook and the consequence in plain English. Risks you choose to carry go to the Risk Register with an owner and a date.</p>
+        <ul><li>One queue across every module</li><li>Regressions surface first</li><li>AI explains with citations; it cannot act</li></ul>
+      </div>
+      <div class="step3 reveal" id="prove">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 300 120" fill="none" stroke="#0a6b79" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M150 18l40 16v26c0 24-17 44-40 52-23-8-40-28-40-52V34z"/><path d="M134 62l11 11 22-22" stroke-width="2.2"/>
+            <path d="M40 40h60M40 60h50M40 80h56" stroke="#d6deea" stroke-width="4"/><path d="M204 40h56M204 60h50M204 80h56" stroke="#d6deea" stroke-width="4"/>
+          </svg>
+        </div>
+        <span class="k">03 · Prove it</span>
+        <h3>Controls that drift when the estate contradicts them. Evidence that holds.</h3>
+        <p>Attest a control is in place; if a live finding later contradicts it, the control shows drifted and counts as a gap until the finding closes. The evidence packet records what was true and when, in a chain that cannot be edited.</p>
+        <ul><li>SOC 2, ISO 27001, NIST CSF, HIPAA on one register</li><li>No silent green</li><li>A one-page leadership summary, every figure sourced</li></ul>
+      </div>
+    </div>
+
+    <div class="split" style="margin-top:64px" id="loop">
+      <div class="sec-head" style="margin-bottom:0">
+        <span class="eyebrow reveal">The signature move</span>
+        <h2 class="reveal">Fix once. Prove three ways.</h2>
+        <p class="reveal">One fix in your estate is simultaneously a <b>closed finding</b>, a <b>control that stops drifting</b>, and a <b>line in your evidence packet</b>. You never write the same thing down twice, and an auditor never sees a control that is only true on paper.</p>
+      </div>
+      <div class="fan reveal">
+        <div class="fix"><span class="ok" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></span><div><div class="f-t">Fix verified · MFA enforced on admin accounts</div><div class="f-s">observed by a connector, not self-attested <span class="chip sample" style="margin-left:6px">sample</span></div></div></div>
+        <div class="out">
+          <div class="o"><div class="o-l">Fix Queue</div><div class="o-t">2 admin accounts without MFA</div><span class="o-s closed">finding closed</span></div>
+          <div class="o"><div class="o-l">Compliance</div><div class="o-t">SOC 2 CC6.1 · logical access</div><span class="o-s pass">drift cleared · in place</span></div>
+          <div class="o"><div class="o-l">Evidence</div><div class="o-t">Packet updated with the observation and timestamp</div><span class="o-s pkt">+1 evidence line</span></div>
         </div>
       </div>
-      <div class="group reveal">
-        <div class="g-name">Applications &amp; APIs<span>what you ship</span></div>
-        <div class="mods">
-          <div class="mod"><div class="m-n">Application Security</div><div class="m-q">Is our code safe to ship?</div></div>
-          <div class="mod"><div class="m-n">Threat Modeling</div><div class="m-q">What would an attacker do to this design?</div></div>
-          <div class="mod"><div class="m-n">Pen Test</div><div class="m-q">Can we be broken into?</div></div>
-        </div>
-      </div>
-      <div class="group reveal">
-        <div class="g-name">Cloud &amp; Infrastructure<span>what you run</span></div>
-        <div class="mods">
-          <div class="mod"><div class="m-n">Estate</div><div class="m-q">What can an attacker reach?</div></div>
-          <div class="mod"><div class="m-n">Cloud &amp; Identity</div><div class="m-q">Is our cloud configured safely?</div></div>
-          <div class="mod"><div class="m-n">Data &amp; Privacy</div><div class="m-q">Is our data protected, and where does it go?</div></div>
-        </div>
-      </div>
-      <div class="group reveal">
-        <div class="g-name">Identity &amp; AI<span>who and what acts in your name</span></div>
-        <div class="mods">
-          <div class="mod ai"><div class="m-n">AI Estate</div><div class="m-q">What AI is running, and is it governed?</div></div>
-          <div class="mod ai"><div class="m-n">Non-Human Identities</div><div class="m-q">Which keys, service accounts and agent credentials can act — and who owns them?</div></div>
-          <div class="mod"><div class="m-n">Connectors</div><div class="m-q">What is actually watching, and how fresh is it?</div></div>
-        </div>
-      </div>
-      <div class="group reveal">
-        <div class="g-name">People &amp; Surface<span>the human and the outside view</span></div>
-        <div class="mods">
-          <div class="mod"><div class="m-n">Human Risk</div><div class="m-q">Will my team get phished?</div></div>
-          <div class="mod"><div class="m-n">Vendor Risk</div><div class="m-q">Are our vendors safe?</div></div>
-          <div class="mod"><div class="m-n">Triage &amp; Threat Intel</div><div class="m-q">Is something happening right now?</div></div>
-        </div>
-      </div>
-      <div class="group reveal">
-        <div class="g-name">Prove<span>to auditors, customers, and yourselves</span></div>
-        <div class="mods">
-          <div class="mod"><div class="m-n">Compliance</div><div class="m-q">Are we audit-ready?</div></div>
-          <div class="mod"><div class="m-n">Security Program</div><div class="m-q">How is the whole program doing?</div></div>
-        </div>
-      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MODULES ═══════════════ -->
+<section id="modules">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow reveal">Modules</span>
+      <h2 class="reveal">Every module answers one plain question. Every status is honest.</h2>
+      <p class="reveal">All of them feed the same estate graph, the same Fix Queue and the same Risk Register, so a fix in one place moves the number everywhere it should. <span class="chip preview">Preview</span> means running today for design partners. <span class="chip build">In build</span> means being built now. <span class="chip planned">Planned</span> means not started.</p>
+    </div>
+    <div class="mods">
+      <div class="mod reveal" id="m-exposure"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Exposure</div><div class="m-q">What can an attacker reach?</div><div class="m-note">The estate graph: blast radius, crown jewels, choke points. Edges come from what modules and connectors write.</div></div>
+      <div class="mod reveal" id="m-cloud"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-cloud"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Cloud &amp; Identity</div><div class="m-q">Is our cloud configured safely?</div><div class="m-note">CIS-style checks over what you declare today. The AWS read-role connector exists and is not yet wired to this surface.</div></div>
+      <div class="mod reveal" id="m-data"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-data"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Data &amp; Privacy</div><div class="m-q">Is our data protected, and where does it go?</div><div class="m-note">Declared data estate, assessed. Records of processing and obligations are not modelled yet.</div></div>
+      <div class="mod reveal" id="m-appsec"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Application Security</div><div class="m-q">Is our code safe to ship?</div><div class="m-note">Secrets, dependencies and risky patterns in a GitHub repo you point at. Pull-request gating is not wired.</div></div>
+      <div class="mod reveal" id="m-pentest"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Pen Test</div><div class="m-q">Can we be broken into?</div><div class="m-note">Automated external tests against targets you prove you own. Real network probes; not a human red team.</div></div>
+      <div class="mod reveal" id="m-human"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-people"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Human Risk</div><div class="m-q">Will my team get phished?</div><div class="m-note">Real simulations from your own mail, every person scored on clicks, reports and access. Roster typed, not yet read from a directory.</div></div>
+      <div class="mod reveal" id="m-tprm"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-vendor"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Third-Party Risk</div><div class="m-q">Are our vendors safe?</div><div class="m-note">A living program: inventory, assess, re-assess when the landscape moves, and see the diff.</div></div>
+      <div class="mod reveal" id="m-compliance"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-clipboard"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Compliance</div><div class="m-q">Are we audit-ready?</div><div class="m-note">28 plain-English controls mapped to SOC 2, ISO 27001, NIST CSF and HIPAA, scored net of drift. A readiness view, not a certificate.</div></div>
+      <div class="mod ai reveal" id="m-ai"><div class="m-h"><span class="ic-box ai"><svg class="ic" aria-hidden="true"><use href="#i-ai"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">AI Estate &amp; machine identities</div><div class="m-q">What AI is running, and is it governed?</div><div class="m-note">Two living programs: AI systems (apps, agents, MCP servers) and the service accounts, keys and grants behind them.</div></div>
+      <div class="mod reveal" id="m-threat"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span><span class="chip planned">Planned</span></div><div class="m-n">Threat Modeling</div><div class="m-q">What would an attacker do to this design?</div><div class="m-note">A secure-by-design fit-gap assessment exists behind the API. The dedicated screen is not built.</div></div>
+      <div class="mod reveal" id="m-operate"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg></span><span class="chip planned">Planned</span></div><div class="m-n">Triage &amp; Threat Intel</div><div class="m-q">Is something happening right now?</div><div class="m-note">Today: analyses an alert you paste. No ingestion, queue, case or on-call. Labelled planned until that changes.</div></div>
+      <div class="mod reveal" id="m-connectors"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg></span><span class="chip build">In build</span></div><div class="m-n">Connectors</div><div class="m-q">What is actually watching, and how fresh is it?</div><div class="m-note">Read-only Microsoft 365, Google Workspace, Okta and AWS readers. One reader built, not yet wired.</div></div>
     </div>
   </div>
 </section>
@@ -518,129 +879,93 @@
 <section class="alt" id="programs">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow accent reveal">Not dashboards. Living programs.</span>
-      <h2 class="reveal">Every capability is a program with a lifecycle, a memory, and a spine.</h2>
-      <p class="reveal">A dashboard shows you a number. A living program remembers every entity, drives it through a lifecycle, keeps an append-only history, and tells you <b>what changed and why</b> — regressions first. Its gaps land in your Fix Queue, its residual risk lands in your Risk Register, and every entity is a node on your estate graph.</p>
+      <span class="eyebrow reveal">Not dashboards. Living programs.</span>
+      <h2 class="reveal">A program remembers every entity, and tells you what changed.</h2>
+      <p class="reveal">A dashboard shows a number. A living program keeps one row per vendor, AI system, key or person, drives it through a lifecycle, keeps an append-only history, and shows the diff, regressions first. Its gaps land in your Fix Queue, its residual risk in your Risk Register, and every entity is a node on the estate graph. The examples below are illustrative and labelled sample.</p>
     </div>
     <div class="programs">
       <div class="prog reveal">
-        <span class="eyebrow">Vendor Risk</span>
-        <h3>Your vendor inventory, assessed and re-assessed as the landscape moves.</h3>
-        <p>Inventory every vendor, assess each one, then <b>amend the assessment when their landscape changes</b> — a new sub-processor, a breach, a lost certification. The program shows the diff, not just the new score.</p>
+        <span class="eyebrow plain">Third-Party Risk</span>
+        <h3>Vendors assessed, and re-assessed as the landscape moves.</h3>
+        <p>Inventory every vendor, assess each one, then amend the assessment when their landscape changes: a new sub-processor, a breach, a lost certification. The program shows the diff, not just the new score.</p>
         <div class="life"><span class="stage">prospective</span><span class="arrow">›</span><span class="stage on">assessed</span><span class="arrow">›</span><span class="stage warn">re-assess</span><span class="arrow">›</span><span class="stage">offboarded</span></div>
-        <div class="diff"><b>What changed:</b> <span class="delta">▲ regressed</span> — vendor added an offshore sub-processor and SOC 2 report lapsed. Re-assessment routed two gaps to your Fix Queue.</div>
+        <div class="diff"><b>What changed:</b> <span class="delta">▲ regressed</span> — vendor added an offshore sub-processor and its SOC 2 report lapsed. Two gaps routed to your Fix Queue.<span class="lbl">sample</span></div>
       </div>
       <div class="prog reveal">
-        <span class="eyebrow ai">AI Estate &amp; Non-Human Identities</span>
+        <span class="eyebrow ai">AI Estate &amp; machine identities</span>
         <h3>Every AI system and every machine identity, inventoried and governed.</h3>
-        <p>Your LLM apps, agents, copilots and MCP servers — plus the <b>service accounts, API keys, OAuth grants and agent credentials</b> behind them. Flagged for the risks that matter: ownerless and privileged, over-scoped, stale, never rotated.</p>
+        <p>Your LLM apps, agents, copilots and MCP servers, plus the service accounts, API keys, OAuth grants and agent credentials behind them. Flagged for what matters: ownerless and privileged, over-scoped, stale, never rotated.</p>
         <div class="life"><span class="stage ai">provisioned</span><span class="arrow">›</span><span class="stage on">active</span><span class="arrow">›</span><span class="stage warn">needs review</span><span class="arrow">›</span><span class="stage">deprovisioned</span></div>
-        <div class="diff"><b>Finding:</b> <span class="delta">critical</span> — ownerless service account with admin scope, key unrotated for 18 months, still in daily use.</div>
+        <div class="diff"><b>Finding:</b> <span class="delta">critical</span> — ownerless service account with admin scope, key unrotated for 18 months, still in daily use.<span class="lbl">sample</span></div>
       </div>
       <div class="prog reveal">
-        <span class="eyebrow">Compliance · continuous drift</span>
-        <h3>A control you attested &ldquo;in place&rdquo; drifts the moment your estate contradicts it.</h3>
-        <p>SOC&nbsp;2, ISO&nbsp;27001, NIST&nbsp;CSF and HIPAA on one register. Readiness is scored <b>net of drift</b>: if a live finding implicates a control you attested, the control shows as drifted and the scorecard counts it as a gap until the finding closes. No silent green.</p>
+        <span class="eyebrow plain">Compliance · continuous drift</span>
+        <h3>A control you attested drifts the moment your estate contradicts it.</h3>
+        <p>SOC 2, ISO 27001, NIST CSF and HIPAA on one register. Readiness is scored net of drift: if a live finding implicates a control you attested, the control shows as drifted and counts as a gap until the finding closes.</p>
         <div class="life"><span class="stage">not in place</span><span class="arrow">›</span><span class="stage">partial</span><span class="arrow">›</span><span class="stage on">in place</span><span class="arrow">›</span><span class="stage warn">drifted</span></div>
-        <div class="diff"><b>Drift detected:</b> <span class="delta">CC6.1</span> — attested in place, but two admin accounts without MFA are open in your Fix Queue. Counted as a gap until they close.</div>
+        <div class="diff"><b>Drift detected:</b> <span class="delta">CC6.1</span> — attested in place, but two admin accounts without MFA are open in your Fix Queue.<span class="lbl">sample</span></div>
       </div>
       <div class="prog reveal">
-        <span class="eyebrow">Human Risk · the person engine</span>
-        <h3>Every person scored on phishability × access × behavior — from real clicks.</h3>
-        <p>Not a training-completion percentage. Each person&rsquo;s score is anchored to <b>their actual clicks and reports in your own simulations</b>, weighted by the access they hold. A repeat clicker with admin access is the target attackers want most — so they rise to the top.</p>
+        <span class="eyebrow plain">Human Risk · the person engine</span>
+        <h3>Every person scored on phishability, access and behaviour, from real clicks.</h3>
+        <p>Not a training-completion percentage. Each person&rsquo;s score is anchored to their actual clicks and reports in your own simulations, weighted by the access they hold. A repeat clicker with admin access rises to the top.</p>
         <div class="life"><span class="stage">onboarding</span><span class="arrow">›</span><span class="stage on">active</span><span class="arrow">›</span><span class="stage warn">at risk</span><span class="arrow">›</span><span class="stage">offboarded</span></div>
-        <div class="diff good"><b>Training completed:</b> <span class="delta">▼ risk −20</span> — the intervention re-scored the person and the coaching gap left your Fix Queue.</div>
-      </div>
-      <div class="prog wide reveal">
-        <div>
-          <span class="eyebrow accent">The spine</span>
-          <h3 style="margin-top:8px">One graph. One queue. One register.</h3>
-          <p style="margin-top:10px">Every program projects onto the same three things, so nothing lives in a silo and nothing gets double-counted. Fix a finding and the control it implicates un-drifts, the vendor or person it belongs to re-scores, and the evidence line writes itself.</p>
-        </div>
-        <div class="spine">
-          <div class="sp"><div class="sp-l">Estate graph</div><div class="sp-t">What can reach what</div><div class="sp-d">Every system, identity, vendor, AI agent and person as a node. Findings are ranked by blast radius along the real edges.</div></div>
-          <div class="sp"><div class="sp-l">Fix Queue</div><div class="sp-t">What to fix first</div><div class="sp-d">One ranked queue across every program, with the effort to fix and the consequence in plain English.</div></div>
-          <div class="sp"><div class="sp-l">Risk Register</div><div class="sp-t">What you accepted, and who signed</div><div class="sp-d">Residual risk proposed by the programs, promoted and owned by a person, with a date.</div></div>
-        </div>
+        <div class="diff good"><b>Training completed:</b> <span class="delta">▼ risk down</span> — the person re-scored and the coaching gap left your Fix Queue.<span class="lbl">sample</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ THE LOOP ═══════════════ -->
-<section id="loop">
-  <div class="wrap loop">
-    <div class="sec-head" style="margin-bottom:0">
-      <span class="eyebrow accent reveal">The signature move</span>
-      <h2 class="reveal">Fix once. Prove three ways.</h2>
-      <p class="reveal">One fix in your estate is simultaneously a <b>closed finding</b>, a <b>control that stops drifting</b>, and a <b>line in your evidence packet</b>. You never write the same thing down twice, and an auditor never sees a control that is only true on paper.</p>
-    </div>
-    <div class="fan">
-      <div class="fix"><span class="ok" aria-hidden="true">✓</span><div><div class="f-t">Fix verified · MFA enforced on Okta admins</div><div class="f-s">observed in telemetry, not self-attested</div></div></div>
-      <div class="out">
-        <div class="o"><div class="o-l">Fix Queue</div><div class="o-t">2 admin accounts without MFA</div><span class="o-s closed">finding closed</span></div>
-        <div class="o"><div class="o-l">Compliance</div><div class="o-t">SOC 2 CC6.1 · logical access</div><span class="o-s pass">drift cleared · in place</span></div>
-        <div class="o"><div class="o-l">Evidence</div><div class="o-t">Packet updated with the observation and timestamp</div><span class="o-s pkt">+1 evidence line</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════ WHERE YOU STAND ═══════════════ -->
-<section class="alt" id="stand">
+<!-- ═══════════════ DESIGN PARTNERS ═══════════════ -->
+<section id="partners">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow reveal">Where you stand</span>
-      <h2 class="reveal">One honest number, with a gate behind it.</h2>
-      <p class="reveal">Your confidence score comes from live telemetry. Your maturity level places it on a five-rung ladder that outsiders actually hold you to. <b>Levels are gates, not averages</b>: you are the level whose requirements you fully meet. Great backups don&rsquo;t cancel out two admin accounts without MFA.</p>
+      <span class="eyebrow reveal">Customers · design partners</span>
+      <h2 class="reveal">No logo wall. No testimonials. Not yet.</h2>
+      <p class="reveal">ClearFend is working software running with design partners in private preview. We are early and we won&rsquo;t pretend otherwise: there are no customer names, counts or quotes on this page because we don&rsquo;t publish what we can&rsquo;t stand behind. When we have numbers worth showing, they will be here with permission.</p>
     </div>
-    <div class="ladder">
-      <div class="rung"><div class="l">L1</div><div class="n">Exposed</div><div class="d">Basic gaps are open and no one is watching. Most companies that have never had a security function start here — not because anyone failed, but because nobody was assigned to look.</div></div>
-      <div class="rung"><div class="l">L2</div><div class="n">Covered</div><div class="d">The foundational controls are in place. Your breach odds are meaningfully cut and the next questionnaire stops being a guessing game.</div></div>
-      <div class="rung gate"><span class="tag">continuous</span><div class="l">L3</div><div class="n">Audit-Ready</div><div class="d">Your controls are proven <b>continuously</b> — not &ldquo;we set it up once,&rdquo; but &ldquo;we can show it&rsquo;s been true every day.&rdquo; What an auditor and an enterprise customer actually assume.</div></div>
-      <div class="rung"><div class="l">L4</div><div class="n">Resilient</div><div class="d">You detect problems, respond, and recover — and you&rsquo;ve tested that, not just written it down.</div></div>
-      <div class="rung"><div class="l">L5</div><div class="n">Adaptive</div><div class="d">Validated and continuously exercised. Most companies never need Level 5 — topping out at 3 or 4 is success, and we&rsquo;ll tell you so.</div></div>
-    </div>
-    <div class="gate-note reveal"><span aria-hidden="true">→</span><p><b>Why continuous matters.</b> A one-time snapshot can honestly award at most Level 2. Level 3 means proof that holds every day — and that is exactly what a console watching your estate continuously exists to do. If someone offers you &ldquo;audit-ready&rdquo; off a one-week review, ask them how.</p></div>
-  </div>
-</section>
-
-<!-- ═══════════════ START HERE ═══════════════ -->
-<section id="start">
-  <div class="wrap start">
-    <div class="sec-head" style="margin-bottom:0">
-      <span class="eyebrow reveal">Start here</span>
-      <h2 class="reveal">Begin with a read-only posture assessment.</h2>
-      <p class="reveal">The fastest way in. Five business days, read-only, nothing installed. You get your confidence score and maturity level, your top ten fixes ranked in plain English, a framework gap view, an executive one-pager, and a delivery call. Assessment customers come into the console as <b>design partners</b>, with their estate already mapped.</p>
-      <p class="reveal" style="margin-top:14px"><b>Fixed price, quoted in writing before you sign.</b> No quote games, no upsell inside the engagement.</p>
-      <div class="cta-row reveal" style="margin-top:22px">
-        <!-- BOOKING-CTA -->
-        <a class="btn primary" href="mailto:admin@clearfend.com?subject=Posture%20Assessment%20%E2%80%94%20scoping%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20to%20scope%20a%20posture%20assessment.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20accounts%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%20(SOC%202%20request%20%2F%20insurance%20%2F%20board)%3A">Scope an assessment</a>
+    <div class="start">
+      <div>
+        <div class="cards two" style="gap:12px">
+          <div class="card reveal"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-handshake"/></svg></span><h4>What a design partner gets</h4><p>The console on your own estate, read-only. Direct access to the people building it. A real say in what ships next, and the launch price locked for your founding term.</p></div>
+          <div class="card reveal"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><h4>What we ask in return</h4><p>Honest feedback, a fortnightly call while you are onboarding, and patience with what is labelled in build. Nothing else.</p></div>
+        </div>
+        <div class="nolog reveal"><svg class="ic" style="color:var(--faint)" aria-hidden="true"><use href="#i-info"/></svg><p><b>Who it suits.</b> Companies of roughly 25 to 500 people with a SOC 2 request, a customer questionnaire, a board asking &ldquo;are we OK?&rdquo;, or AI and agents to govern, and no security team to do it.</p></div>
+      </div>
+      <div id="assessment">
+        <span class="eyebrow plain reveal">How to join</span>
+        <h3 class="reveal" style="margin:10px 0 8px">Start with a read-only posture assessment.</h3>
+        <p class="reveal" style="color:var(--muted);font-size:var(--fs-sm);line-height:1.6;margin-bottom:16px">Five business days, read-only, nothing installed. You get your confidence score and maturity level, your top ten fixes in plain English, a framework gap view, an executive one-pager and a delivery call. Assessment customers come into the console as design partners with their estate already mapped. <b>Fixed price, quoted in writing before you sign.</b></p>
+        <div class="steps">
+          <div class="step reveal"><span class="k">1</span><div><div class="t">A 30-minute credentials session</div><div class="s">You create time-boxed, read-only access with us on a call. You see exactly what it can and can&rsquo;t do. Nothing is installed anywhere.</div></div></div>
+          <div class="step reveal"><span class="k">2</span><div><div class="t">We scan, and a human reviews</div><div class="s">Vetted read-only posture checks across Microsoft 365, Google Workspace, Okta and your cloud. Findings translated into business language and ranked by what an attacker can reach.</div></div></div>
+          <div class="step reveal"><span class="k">3</span><div><div class="t">Delivery on day five</div><div class="s">Full report, executive one-pager, and a 45-minute call walking your team through the fix order. Access revocation begins the same day.</div></div></div>
+          <p class="commit reveal">We never change anything in your environment. Access is revoked the day we deliver.</p>
+        </div>
+        <div class="cta-row reveal" style="margin-top:18px">
+          <!-- BOOKING-CTA -->
+          <a class="btn primary" href="mailto:admin@clearfend.com?subject=Posture%20Assessment%20%E2%80%94%20scoping%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20to%20scope%20a%20posture%20assessment.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20accounts%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%3A">Scope an assessment</a>
+          <a class="btn ghost" href="#waitlist">Join the waitlist</a>
+        </div>
       </div>
     </div>
-    <div class="steps">
-      <div class="step reveal"><span class="k">1</span><div><div class="t">A 30-minute credentials session</div><div class="s">You create time-boxed, read-only access with us on a call. You see exactly what it can and can&rsquo;t do. Nothing is installed anywhere.</div></div></div>
-      <div class="step reveal"><span class="k">2</span><div><div class="t">We scan, and a human reviews</div><div class="s">Vetted read-only posture checks across Microsoft 365, Google Workspace, Okta and your cloud. Findings are translated into business language and ranked by what an attacker can reach.</div></div></div>
-      <div class="step reveal"><span class="k">3</span><div><div class="t">Delivery on day five</div><div class="s">Full report, executive one-pager, and a 45-minute call walking your team through the fix order. Access revocation begins the same day.</div></div></div>
-      <p class="commit reveal">We never change anything in your environment. Access is revoked the day we deliver.</p>
-    </div>
   </div>
 </section>
 
-<!-- ═══════════════ PRICING (generic) ═══════════════ -->
+<!-- ═══════════════ PRICING (generic, no numbers) ═══════════════ -->
 <section class="alt" id="pricing">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow reveal">Pricing</span>
       <h2 class="reveal">Plain pricing, published before launch. No quote wall.</h2>
-      <p class="reveal">Three tiers, priced per user. The numbers publish on this page before general availability — every one of them, volume bands included. Until then, the shape of each tier is below and the waitlist locks in the launch price.</p>
+      <p class="reveal">Three tiers, priced per user. The numbers publish on this page before general availability, volume bands included. Until then, the shape of each tier is below and the waitlist locks in the launch price.</p>
     </div>
     <div class="tiers">
       <div class="tier reveal">
         <span class="t-tag">Free</span>
         <div class="t-name">Know where you stand</div>
         <div class="t-for">For any company that wants the honest number.</div>
-        <div class="t-price mono">$0 · always</div>
+        <div class="t-price mono">free · always</div>
         <ul><li>Your confidence score and maturity level</li><li>The read-only posture check, re-runnable</li><li>Your top fixes, in plain English</li></ul>
       </div>
       <div class="tier hi reveal">
@@ -648,49 +973,90 @@
         <div class="t-name">The console, continuously</div>
         <div class="t-for">For companies with a SOC 2 request, a customer questionnaire, or a board asking.</div>
         <div class="t-price mono">per user · published at launch</div>
-        <ul><li>Continuous monitoring of your estate</li><li>Fix Queue, Risk Register, estate graph</li><li>Compliance with continuous drift, on every framework</li><li>Evidence packets you can hand an auditor</li></ul>
+        <ul><li>Continuous monitoring of your estate as connectors land</li><li>Fix Queue, Risk Register, estate graph</li><li>Compliance with continuous drift, on every framework</li><li>Evidence packets you can hand an auditor</li></ul>
       </div>
       <div class="tier reveal">
         <span class="t-tag">Complete</span>
         <div class="t-name">Every living program</div>
         <div class="t-for">For companies that want the whole security lifecycle in one place.</div>
         <div class="t-price mono">per user · published at launch</div>
-        <ul><li>Everything in Team</li><li>Vendor Risk, AI Estate &amp; non-human identities, Human Risk</li><li>Pen test, application security, threat modeling</li><li>An AI security team with human escalation <span class="mono" style="font-size:11px;color:var(--faint)">(in build)</span></li></ul>
+        <ul><li>Everything in Team</li><li>Third-Party Risk, AI Estate &amp; machine identities, Human Risk</li><li>Pen test, application security, threat modeling <span class="chip planned" style="vertical-align:middle">planned</span></li><li>An AI security team with human escalation <span class="chip build" style="vertical-align:middle">in build</span></li></ul>
       </div>
     </div>
     <div class="price-note">
       <div class="pn reveal"><b>Every number published.</b> No &ldquo;contact sales&rdquo; below enterprise scale. If a number isn&rsquo;t on this page at launch, we don&rsquo;t charge it.</div>
-      <div class="pn reveal"><b>Renewals capped, in the contract.</b> Renewal increases will be contractually capped and enforced in billing from day one — so the price you join at doesn&rsquo;t ambush you at month 13.</div>
+      <div class="pn reveal"><b>Renewals capped, in the contract.</b> Renewal increases will be contractually capped and enforced in billing from day one, so the price you join at doesn&rsquo;t ambush you at month 13.</div>
       <div class="pn reveal"><b>Waitlist locks the launch price.</b> Join below and you get first access at the published launch price, locked for your founding term.</div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ STATUS — honest ═══════════════ -->
+<!-- ═══════════════ TRUST ═══════════════ -->
+<section id="trust">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow reveal">Trust &amp; security</span>
+      <h2 class="reveal">How ClearFend protects your data.</h2>
+      <p class="reveal">Each claim below is something the code enforces today, with a plain sentence on how. Anything we are still building is labelled. We do not yet hold a SOC 2 report of our own; when an auditor is engaged we will say so here. <span class="ph">[CONFIRM: audit status]</span></p>
+    </div>
+    <div class="trust-grid">
+      <div class="tr reveal"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg></span><h4>A closed database</h4><p>Your data lives in a database with no public endpoint anywhere. The ClearFend API is its only client. People reach data through an audited migration path, never from a laptop.</p><div class="how">How: the database sits on an internal network with no published port; every human path goes through the migrator.</div></div>
+      <div class="tr reveal"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></span><h4>Tenant isolation by construction</h4><p>Every table that holds your data enforces row-level security that fails closed: with no tenant context, a query returns nothing and a write is refused. A cross-tenant canary runs in our CI on every change.</p><div class="how">How: FORCE row-level security on every tenant table; a sealed, verified tenant entry is the only door.</div></div>
+      <div class="tr reveal"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><h4>Read-only access you control</h4><p>You create the access, it is time-boxed, and you can revoke it any time. We never ask for passwords and never change anything in your environment. No agents on laptops today.</p><div class="how">How: connectors are read-only by design; an endpoint agent is in build and will be labelled when it ships.</div></div>
+      <div class="tr reveal"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-packet"/></svg></span><h4>An audit trail that cannot be edited</h4><p>Every change made through the console is written to an append-only log where each entry is chained to the previous one. The evidence packet re-verifies the chain before it exports.</p><div class="how">How: a hash-chained audit log with an append-only trigger; verified on every evidence export.</div></div>
+      <div class="tr reveal"><span class="ic-box ai"><svg class="ic" aria-hidden="true"><use href="#i-ai"/></svg></span><h4>AI that explains and cannot act</h4><p>Our AI writes explanations and runbooks with citations to the evidence. It has no tools and no path to change a number or touch a system. Prompts are scrubbed of emails, tokens and keys before they leave.</p><div class="how">How: reader-only agents behind one gateway; every side-effect request is refused by design.</div></div>
+      <div class="tr reveal"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-data"/></svg></span><h4>Your data leaves when we do</h4><p>Isolated per tenant, never sold, never shared, never used to benchmark anyone else. Assessment scan output is deleted within 30 days of delivery, sooner on request, in writing.</p><div class="how">In build: per-customer encryption keys for connector secrets. Today those secrets are envelope-encrypted inside the service; customer-held keys are not yet shipped, so we do not claim them.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ DESIGN PRINCIPLES ═══════════════ -->
+<section class="canvas" id="principles">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow reveal">Design principles</span>
+      <h2 class="reveal">Colour equals meaning. Words equal truth.</h2>
+      <p class="reveal">The console is a command centre, not a marketing dashboard. These are the rules every screen follows, and this site follows them too.</p>
+    </div>
+    <div class="princ">
+      <div class="pr reveal"><div class="num">01</div><h4>Colour equals meaning, never mood</h4><p>Five severity colours and no more. Red means critical, and critical must feel rare. Nothing is tinted for decoration.</p><div class="swatches" aria-label="Severity palette"><span class="sw" style="background:#e5484d" title="Critical"></span><span class="sw" style="background:#f5811f" title="High"></span><span class="sw" style="background:#e0a63a" title="Medium"></span><span class="sw" style="background:#22a565" title="Low / pass"></span><span class="sw" style="background:#2f6bff" title="Info"></span><span class="sw" style="background:#e0952a" title="AI"></span></div></div>
+      <div class="pr reveal"><div class="num">02</div><h4>One glow, rationed</h4><p>Teal is the one accent. In the console it is reserved for the score, the live dot and the active item, so when it appears it means something.</p></div>
+      <div class="pr reveal"><div class="num">03</div><h4>Depth from lines and steps, not blur</h4><p>Hairline borders and surface steps carry the structure. Hierarchy comes from weight, not from colour.</p></div>
+      <div class="pr reveal"><div class="num">04</div><h4>Every number says where it came from</h4><p>Self-declared, observed, derived or sample, on every figure. A missing number cannot render as zero. Missing evidence shows stale, never green.</p></div>
+      <div class="pr reveal"><div class="num">05</div><h4>Plain English, always</h4><p>Every surface must read in business-consequence language an office manager understands. Never a jargon wall; if a term needs a paragraph, it links to the <a href="glossary.html">glossary</a>.</p></div>
+      <div class="pr reveal"><div class="num">06</div><h4>Numbers are mono and tabular</h4><p>A 71 and an 88 take the same width, so the eye can compare them. Sora for headings, Inter for text, JetBrains Mono for numerals.</p></div>
+      <div class="pr reveal"><div class="num">07</div><h4>Honest status on everything</h4><p>Anything not generally available carries one of three labels: in build, private preview, or vision. Nothing is dressed as more than it is.</p></div>
+      <div class="pr reveal"><div class="num">08</div><h4>ClearFend runs ClearFend</h4><p>Our own estate is a tenant, our own Fix Queue is worked, and our own evidence is what an auditor will see.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ STATUS ═══════════════ -->
 <section id="status">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow reveal">Labeled honestly</span>
+      <span class="eyebrow reveal">Status · labelled honestly</span>
       <h2 class="reveal">What runs today, what is in build, and what is vision.</h2>
       <p class="reveal">The whole product is built on saying things plainly, so this page does too. Nothing below is dressed up as more than it is.</p>
     </div>
     <div class="status">
       <div class="st reveal">
-        <span class="st-l now"><span class="dot" aria-hidden="true"></span>Running today · private preview</span>
+        <span class="chip preview">Running today · private preview</span>
         <h3>The Confidence Console, with design partners</h3>
         <ul>
-          <li>Confidence score, Fix Queue, Risk Register, estate graph</li>
-          <li>Compliance register with continuous drift — SOC 2, ISO 27001, NIST CSF, HIPAA</li>
-          <li>Vendor Risk, AI Estate &amp; non-human identities, Human Risk as living programs</li>
-          <li>Evidence packets, threat modeling, application security, pen test, cloud posture</li>
+          <li>Confidence score with provenance, Fix Queue, Risk Register, estate graph, leadership summary</li>
+          <li>Compliance register with continuous drift: SOC 2, ISO 27001, NIST CSF, HIPAA</li>
+          <li>Third-Party Risk, AI Estate &amp; machine identities, Human Risk as living programs</li>
+          <li>Evidence packets, application security, pen test, cloud, data and dependency assessments</li>
         </ul>
-        <p>Working software, running for design partners. Not generally available.</p>
+        <p>Working software, running for design partners. Not generally available. Most inputs are declared today; the score is labelled accordingly.</p>
       </div>
       <div class="st reveal">
-        <span class="st-l build">In build</span>
+        <span class="chip build">In build</span>
         <h3>Closing the loop end to end</h3>
         <ul>
-          <li>Broader continuous connectors across identity, cloud and SaaS</li>
+          <li>Read-only connectors: Microsoft 365, Google Workspace, Okta, AWS</li>
+          <li>The score computed from observed findings and control state, not a declared row</li>
           <li>Endpoint agent, so the estate graph sees the laptops too</li>
           <li>An AI security operations layer with human escalation included</li>
           <li>General availability, with every price published first</li>
@@ -698,10 +1064,10 @@
         <p>Being built now. We&rsquo;ll ship each piece when it&rsquo;s real, not before.</p>
       </div>
       <div class="st reveal">
-        <span class="st-l vision">Vision · labeled as such</span>
+        <span class="chip planned">Vision · labelled as such</span>
         <h3>Governing the AI estate, by a vendor that governs its own</h3>
         <ul>
-          <li>Every agent, MCP server and non-human identity governed on the same graph as everything else</li>
+          <li>Every agent, MCP server and machine identity governed on the same graph as everything else</li>
           <li>Living programs across every capability, each with a lifecycle and a memory</li>
           <li>Proof that holds every day, so Level 3 is reachable honestly</li>
         </ul>
@@ -715,12 +1081,12 @@
 <section class="alt" id="waitlist">
   <div class="wrap wl">
     <div class="sec-head" style="margin-bottom:0">
-      <span class="eyebrow accent reveal">The waitlist</span>
+      <span class="eyebrow reveal">The waitlist</span>
       <h2 class="reveal">Be first when the console opens up.</h2>
-      <p class="reveal">Waitlist members get early access in signup order and the launch price exactly as published — that&rsquo;s the point of publishing it. Assessment customers skip the line as design partners.</p>
-      <div class="promise reveal"><b>What we commit to:</b> first access at launch, at the published launch price, locked for your founding term. No spam in the meantime — we&rsquo;ll email you about access and nothing else.</div>
+      <p class="reveal">Waitlist members get early access in signup order and the launch price exactly as published. That&rsquo;s the point of publishing it. Assessment customers skip the line as design partners.</p>
+      <div class="promise reveal"><b>What we commit to:</b> first access at launch, at the published launch price, locked for your founding term. No spam in the meantime. We&rsquo;ll email you about access and nothing else.</div>
     </div>
-    <form id="waitlist-form" class="reveal" action="https://formspree.io/f/FORM_ID_PLACEHOLDER" method="POST">
+    <form id="waitlist-form" class="panel reveal" action="https://formspree.io/f/FORM_ID_PLACEHOLDER" method="POST">
       <div class="fld"><label for="wl-email">Work email</label><input id="wl-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com"></div>
       <div class="fld"><label for="wl-size">Company size</label>
         <select id="wl-size" name="company_size" required>
@@ -741,7 +1107,7 @@
           <option>I’m an MSP</option>
         </select></div>
       <button class="btn primary full" type="submit">Join the waitlist</button>
-      <p class="form-note">No spam, no drip campaign — launch news and early access only. Prefer email? <a href="mailto:admin@clearfend.com?subject=Platform%20waitlist">admin@clearfend.com</a></p>
+      <p class="form-note">No spam, no drip campaign: launch news and early access only. Prefer email? <a href="mailto:admin@clearfend.com?subject=Platform%20waitlist">admin@clearfend.com</a></p>
     </form>
   </div>
 </section>
@@ -754,26 +1120,58 @@
       <h2 class="reveal">Questions a skeptic would ask</h2>
     </div>
     <div class="faq">
-      <details class="reveal"><summary>How new are you, really? Do you have customers?</summary><div class="a">We&rsquo;re early, and we won&rsquo;t pretend otherwise. The console is working software running with design partners in private preview; it is not generally available. You&rsquo;ll notice there are no logos, no testimonials, and no &ldquo;trusted by&rdquo; wall here — when we have numbers worth showing, we&rsquo;ll publish them. What you get for being early: the published launch price locked in, direct access to the people building the product, and a real say in what ships next.</div></details>
-      <details class="reveal"><summary>Is this an audit, a pentest, or a certification?</summary><div class="a">No, no, and no — and we say so in the product, on this page, and on every call. The console tells you where you stand from what is actually true in your estate and gets you ready for an auditor; it doesn&rsquo;t replace one. The pen-test module runs authorized, scoped tests against your own systems; the compliance register is a readiness view with drift, not a certificate.</div></details>
-      <details class="reveal"><summary>Do you install anything? What access do you need?</summary><div class="a"><b>Read-only by default.</b> You connect Microsoft 365, Google Workspace, Okta and your cloud accounts through time-boxed, read-only access you create yourself — we never ask for passwords and never change anything in your environment. No agents on laptops today; an endpoint agent is in build and will be labeled as such when it ships.</div></details>
-      <details class="reveal"><summary>What is a &ldquo;living program&rdquo;?</summary><div class="a">A dashboard shows a number. A living program remembers every entity — each vendor, AI system, key, control, person — drives it through a lifecycle, keeps an append-only history, and shows you what changed and why, regressions first. Its gaps go to your Fix Queue, its residual risk to your Risk Register, and every entity becomes a node on your estate graph. That&rsquo;s the difference between a report and a program.</div></details>
-      <details class="reveal"><summary>What does &ldquo;continuous drift&rdquo; mean for compliance?</summary><div class="a">You attest a control is in place. Later, a live finding in your estate contradicts it — say, two admin accounts appear without MFA. The control now shows as <b>drifted</b> and your readiness score counts it as a gap until the finding closes. No control is silently green while the estate says otherwise. It&rsquo;s the only honest way to claim &ldquo;audit-ready.&rdquo;</div></details>
-      <details class="reveal"><summary>How is this different from Vanta or Drata?</summary><div class="a">They are competent products for running the paperwork side of one compliance program. ClearFend starts from your security posture — what an attacker can reach — and treats compliance as one consequence of it. It also covers what they don&rsquo;t: your vendors, your AI estate and machine identities, your people, your applications, and a ranked Fix Queue that actually hardens systems. If checkbox automation is all you&rsquo;ll ever need, they&rsquo;ll do; if you want the whole picture on one graph, that&rsquo;s us.</div></details>
-      <details class="reveal"><summary>Why the emphasis on AI and non-human identities?</summary><div class="a">Because the machine identities behind your automation and AI — service accounts, API keys, OAuth grants, agent credentials — are the fastest-growing attack surface, and almost nobody has an owner for each one. ClearFend inventories every AI system and every machine identity, flags the ownerless-and-privileged, the over-scoped, and the never-rotated, and drives them through a lifecycle. We govern our own the same way.</div></details>
-      <details class="reveal"><summary>What happens to our data?</summary><div class="a">Your data stays yours and is isolated per tenant at the database layer. It is never sold, never shared, and never used to benchmark anyone else. Access you grant is time-boxed and revocable by you at any time; for an assessment, raw scan output is deleted within 30 days of delivery — sooner on request, in writing.</div></details>
+      <details class="q reveal"><summary>How new are you, really? Do you have customers?</summary><div class="a">We&rsquo;re early, and we won&rsquo;t pretend otherwise. The console is working software running with design partners in private preview; it is not generally available. You&rsquo;ll notice there are no logos, no testimonials, and no &ldquo;trusted by&rdquo; wall here. When we have numbers worth showing, we&rsquo;ll publish them. What you get for being early: the published launch price locked in, direct access to the people building the product, and a real say in what ships next.</div></details>
+      <details class="q reveal"><summary>Is this an audit, a pentest, or a certification?</summary><div class="a">No, no, and no, and we say so in the product, on this page, and on every call. The console tells you where you stand from what is actually true in your estate and gets you ready for an auditor; it doesn&rsquo;t replace one. The pen-test module runs authorized, scoped tests against your own systems; the compliance register is a readiness view with drift, not a certificate.</div></details>
+      <details class="q reveal"><summary>Do you install anything? What access do you need?</summary><div class="a"><b>Read-only by default.</b> You connect Microsoft 365, Google Workspace, Okta and your cloud accounts through time-boxed, read-only access you create yourself. We never ask for passwords and never change anything in your environment. No agents on laptops today; an endpoint agent is in build and will be labelled as such when it ships.</div></details>
+      <details class="q reveal"><summary>Where does the confidence number come from today?</summary><div class="a">From what you have connected and what you have declared, and it says which. Until the read-only connectors land, most inputs are self-declared or come from the modules that probe directly (pen test, code scan), and the score is labelled that way on the console. We do not show a &ldquo;live&rdquo; indicator unless a live source wrote the data. Honest and partial beats confident and wrong.</div></details>
+      <details class="q reveal"><summary>What is a &ldquo;living program&rdquo;?</summary><div class="a">A dashboard shows a number. A living program remembers every entity, each vendor, AI system, key, control, person, drives it through a lifecycle, keeps an append-only history, and shows you what changed and why, regressions first. Its gaps go to your Fix Queue, its residual risk to your Risk Register, and every entity becomes a node on your estate graph. That&rsquo;s the difference between a report and a program.</div></details>
+      <details class="q reveal"><summary>What does &ldquo;continuous drift&rdquo; mean for compliance?</summary><div class="a">You attest a control is in place. Later, a live finding in your estate contradicts it, say two admin accounts appear without MFA. The control now shows as <b>drifted</b> and your readiness score counts it as a gap until the finding closes. No control is silently green while the estate says otherwise. It&rsquo;s the only honest way to claim &ldquo;audit-ready.&rdquo;</div></details>
+      <details class="q reveal"><summary>How is this different from Vanta or Drata?</summary><div class="a">They are competent products for running the paperwork side of one compliance program. ClearFend starts from your security posture, what an attacker can reach, and treats compliance as one consequence of it. It also covers what they don&rsquo;t: your vendors, your AI estate and machine identities, your people, your applications, and a ranked Fix Queue that actually hardens systems. If checkbox automation is all you&rsquo;ll ever need, they&rsquo;ll do; if you want the whole picture on one graph, that&rsquo;s us.</div></details>
+      <details class="q reveal"><summary>Why the emphasis on AI and machine identities?</summary><div class="a">Because the machine identities behind your automation and AI, service accounts, API keys, OAuth grants, agent credentials, are the fastest-growing attack surface, and almost nobody has an owner for each one. ClearFend inventories every AI system and every machine identity, flags the ownerless-and-privileged, the over-scoped, and the never-rotated, and drives them through a lifecycle. We govern our own the same way.</div></details>
+      <details class="q reveal"><summary>What happens to our data?</summary><div class="a">Your data stays yours and is isolated per tenant at the database layer. It is never sold, never shared, and never used to benchmark anyone else. Access you grant is time-boxed and revocable by you at any time; for an assessment, raw scan output is deleted within 30 days of delivery, sooner on request, in writing. The <a href="#trust">trust section</a> says how each of those is enforced.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ COMPANY ═══════════════ -->
+<section class="alt" id="company">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow reveal">Company</span>
+      <h2 class="reveal">Clear tells you where you stand. Fend does something about it.</h2>
+    </div>
+    <div class="company">
+      <div class="co reveal" id="about"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg></span><h4>About</h4><p>ClearFend builds the security and compliance console for companies without a security team. The product sells one honest security number and the proof behind it, and every rule we work by exists to keep that sentence true: nothing is claimed that the evidence does not show, sample data is labelled sample, and anything not generally available says so.</p><p>We run our own estate through the same console. Our own Fix Queue is worked and our own evidence is what an auditor will see.</p></div>
+      <div class="co reveal" id="contact"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span><h4>Contact</h4><p>One address, read by a person: <a href="mailto:admin@clearfend.com">admin@clearfend.com</a>.</p><p>For a demo, an assessment, the waitlist, press, or a security concern about ClearFend itself, use the same address with a clear subject line. Security reports get a reply first.</p><p><span class="ph">[BOOKING LINK]</span> for a live calendar, once one is set up.</p></div>
+      <div class="co reveal" id="careers"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-briefcase"/></svg></span><h4>Careers</h4><p>We are not hiring yet. <span class="ph">[CONFIRM: hiring status]</span></p><p>When that changes, the roles will be listed here with the salary band and the interview steps, in the same plain English as everything else. If you would like to hear when it does, email <a href="mailto:admin@clearfend.com?subject=Careers">admin@clearfend.com</a> with &ldquo;Careers&rdquo; in the subject.</p></div>
+      <div class="co reveal" id="press"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-press"/></svg></span><h4>Press kit</h4>
+        <div class="press-mark"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#04120f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span><b>ClearFend</b></div>
+        <p><b>The name.</b> Two real words, one meaning. <b>Clear</b> is knowing: plain English, one honest number, nothing hidden behind a quote wall. <b>Fend</b> is fixing: fend off, defend; something that hardens systems, not paperwork. Read as a verb phrase, clear-fend means defend clearly. Spelled as it is said, two syllables, easy on a call and in a browser bar.</p>
+        <p><b>The mark.</b> A shield with a check, teal on deep blue-charcoal. Teal <span class="mono">#2de1c6</span> is the one accent on dark; <span class="mono">#0a6b79</span> is its light-theme counterpart. Type: Sora for headings, Inter for text, JetBrains Mono for numerals.</p>
+        <div class="swatches" aria-label="Brand palette"><span class="sw" style="background:#080b12" title="Canvas, dark"></span><span class="sw" style="background:#2de1c6" title="Accent, dark theme"></span><span class="sw" style="background:#0a6b79" title="Accent, light theme"></span><span class="sw" style="background:#eef1f6" title="Canvas, light"></span><span class="sw" style="background:#18202e" title="Text, light theme"></span></div>
+        <p><span class="ph">[PRESS KIT DOWNLOAD]</span> for the mark in SVG and PNG, once the files are hosted.</p>
+      </div>
+    </div>
+
+    <div class="incident reveal" id="incident">
+      <span class="ic-box lg"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg></span>
+      <div>
+        <h4>Experiencing an incident?</h4>
+        <p style="margin-top:6px"><b>ClearFend is not an incident-response provider</b> and does not run a 24/7 response line. If you are being attacked right now, call your cyber-insurance carrier&rsquo;s incident hotline (it is on your policy) or your incident-response retainer first. Isolate affected machines from the network, do not pay or negotiate before you have spoken to them, and preserve logs.</p>
+        <p style="margin-top:8px">If you are a design partner, email <a href="mailto:admin@clearfend.com?subject=INCIDENT">admin@clearfend.com</a> with &ldquo;INCIDENT&rdquo; in the subject and we will help you read your estate graph and Fix Queue for what the attacker could reach. Response times are best effort during business hours. <span class="ph">[CONFIRM: incident contact policy]</span></p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══════════════ FINAL CTA ═══════════════ -->
-<section class="final alt" id="book">
+<section class="final" id="book">
   <div class="wrap">
     <h2>One honest number. Then the fixes that matter.</h2>
     <p>See the Confidence Console on your own estate, read-only. Or start with a five-day assessment and come in as a design partner.</p>
     <div class="cta-row">
       <!-- BOOKING-CTA -->
-      <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20walkthrough%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20a%20walkthrough%20of%20the%20Confidence%20Console.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%20(SOC%202%20request%20%2F%20customer%20questionnaire%20%2F%20board%20%2F%20AI%20governance)%3A">Request a walkthrough</a>
+      <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%3A">Get a demo</a>
       <a class="btn ghost" href="#waitlist">Join the waitlist</a>
     </div>
   </div>
@@ -783,14 +1181,23 @@
 
 <footer>
   <div class="wrap">
-    <div class="trust">
-      <div><h3>Read-only, by default.</h3><p>You create the access, it is time-boxed, and you can revoke it any time. No agents today, no standing access, and we never change anything in your environment.</p></div>
-      <div><h3>Your data leaves when we do.</h3><p>Isolated per tenant, never sold, never shared, never used to benchmark anyone else. Assessment scan output is deleted within 30 days of delivery — sooner on request.</p></div>
-      <div><h3>The honest meter.</h3><p>Every price publishes before launch. No quote walls, no &ldquo;contact sales&rdquo; below enterprise scale, renewal increases capped in the contract. If a number isn&rsquo;t published, we don&rsquo;t charge it.</p></div>
+    <div class="fgrid">
+      <div class="fbrand">
+        <a class="brand" href="#top" aria-label="ClearFend home">
+          <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#04120f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <span><span class="brand-name">ClearFend</span><span class="brand-sub">Confidence Console</span></span>
+        </a>
+        <p>Security and compliance for companies without a security team. Read-only by default. Plain English throughout. Labelled honestly.</p>
+      </div>
+      <div class="fcol"><h4>Platform</h4><ul><li><a href="#console">The Confidence Console</a></li><li><a href="#fix-queue">Fix Queue</a></li><li><a href="#estate">Estate graph</a></li><li><a href="#evidence">Evidence packets</a></li><li><a href="#leadership">Leadership summary</a></li><li><a href="#connectors">Connectors</a></li></ul></div>
+      <div class="fcol"><h4>Solutions</h4><ul><li><a href="#know">Know where you stand</a></li><li><a href="#fix">Fix what matters</a></li><li><a href="#prove">Prove it</a></li><li><a href="#modules">All modules</a></li><li><a href="#programs">Living programs</a></li></ul></div>
+      <div class="fcol"><h4>Resources</h4><ul><li><a href="glossary.html">Glossary</a></li><li><a href="#principles">Design principles</a></li><li><a href="#trust">Trust &amp; security</a></li><li><a href="#status">Status</a></li><li><a href="#faq">FAQ</a></li><li><a href="#pricing">Pricing</a></li></ul></div>
+      <div class="fcol"><h4>Customers</h4><ul><li><a href="#partners">Design partners</a></li><li><a href="#assessment">Posture assessment</a></li><li><a href="#waitlist">Waitlist</a></li><li><a href="https://dev.clearfend.com/login">Sign in</a></li></ul></div>
+      <div class="fcol"><h4>Company</h4><ul><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li><li><a href="#careers">Careers</a></li><li><a href="#press">Press kit</a></li><li><a href="#incident">Experiencing an incident?</a></li></ul></div>
     </div>
     <div class="foot">
-      <span><b>ClearFend</b> · Security and compliance for companies without a security team</span>
-      <span>Read-only. Plain English. Labeled honestly.</span>
+      <span><b>ClearFend</b> · clearfend.com · <a href="mailto:admin@clearfend.com">admin@clearfend.com</a></span>
+      <span>Read-only. Plain English. Labelled honestly.</span>
     </div>
   </div>
 </footer>
@@ -798,6 +1205,93 @@
 <script>
 (function(){
   var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isDesktop = function(){ return window.matchMedia('(min-width: 1024px)').matches; };
+
+  /* ---- mega menus: click + hover (desktop), keyboard, focus kept inside, Escape closes ---- */
+  (function(){
+    var header = document.getElementById('siteHeader');
+    var nav = document.getElementById('primaryNav');
+    var menuBtn = document.getElementById('menuBtn');
+    var buttons = Array.prototype.slice.call(nav.querySelectorAll('button.navlink'));
+    var openBtn = null, hoverTimer = null;
+    var FOCUSABLE = 'a[href], button:not([disabled]), input, select, [tabindex]:not([tabindex="-1"])';
+
+    function panelOf(btn){ return document.getElementById(btn.getAttribute('aria-controls')); }
+    function closeMenu(returnFocus){
+      if(!openBtn) return;
+      var p = panelOf(openBtn);
+      p.classList.remove('open');
+      openBtn.setAttribute('aria-expanded','false');
+      var b = openBtn; openBtn = null;
+      if(returnFocus) b.focus();
+    }
+    function openMenu(btn){
+      if(openBtn && openBtn !== btn) closeMenu(false);
+      panelOf(btn).classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      openBtn = btn;
+    }
+    buttons.forEach(function(btn){
+      btn.addEventListener('click', function(){ openBtn === btn ? closeMenu(false) : openMenu(btn); });
+      btn.addEventListener('keydown', function(e){
+        if(e.key === 'ArrowDown' || (e.key === 'Enter' && openBtn !== btn)){
+          if(e.key === 'ArrowDown') e.preventDefault();
+          openMenu(btn);
+          var first = panelOf(btn).querySelector(FOCUSABLE); if(first) setTimeout(function(){ first.focus(); }, 0);
+        }
+        if(isDesktop() && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')){
+          var links = Array.prototype.slice.call(nav.querySelectorAll('.navlink'));
+          var i = links.indexOf(btn), n = e.key === 'ArrowRight' ? i + 1 : i - 1;
+          if(links[n]){ e.preventDefault(); closeMenu(false); links[n].focus(); }
+        }
+      });
+      var li = btn.parentNode;
+      li.addEventListener('mouseenter', function(){ if(!isDesktop()) return; clearTimeout(hoverTimer); hoverTimer = setTimeout(function(){ openMenu(btn); }, 90); });
+      li.addEventListener('mouseleave', function(){ if(!isDesktop()) return; clearTimeout(hoverTimer); hoverTimer = setTimeout(function(){ if(openBtn === btn) closeMenu(false); }, 220); });
+    });
+    /* keyboard: Escape closes; Tab stays inside the open panel (desktop) */
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){
+        if(openBtn){ closeMenu(true); e.stopPropagation(); }
+        else if(menuBtn.getAttribute('aria-expanded') === 'true'){ toggleDrawer(false); menuBtn.focus(); }
+        return;
+      }
+      if(e.key === 'Tab' && openBtn && isDesktop()){
+        var p = panelOf(openBtn);
+        var f = Array.prototype.slice.call(p.querySelectorAll(FOCUSABLE));
+        if(!f.length) return;
+        var first = f[0], last = f[f.length - 1], a = document.activeElement;
+        if(a === openBtn && !e.shiftKey){ e.preventDefault(); first.focus(); }
+        else if(a === first && e.shiftKey){ e.preventDefault(); openBtn.focus(); }
+        else if(a === last && !e.shiftKey){ e.preventDefault(); openBtn.focus(); }
+      }
+    });
+    /* click outside closes */
+    document.addEventListener('click', function(e){
+      if(openBtn && !isDesktop()) return;
+      if(openBtn && !header.contains(e.target)) closeMenu(false);
+    });
+    /* anchor click inside a panel closes it (and the drawer) */
+    nav.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a[href]');
+      if(!a) return;
+      closeMenu(false);
+      if(!isDesktop()) toggleDrawer(false);
+    });
+
+    /* mobile drawer */
+    function toggleDrawer(force){
+      var open = typeof force === 'boolean' ? force : menuBtn.getAttribute('aria-expanded') !== 'true';
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      nav.classList.toggle('open', open);
+      header.classList.toggle('drawer-open', open);
+      document.body.classList.toggle('no-scroll', open);
+      if(!open) closeMenu(false);
+    }
+    menuBtn.addEventListener('click', function(){ toggleDrawer(); });
+    window.addEventListener('resize', function(){ if(isDesktop() && menuBtn.getAttribute('aria-expanded') === 'true') toggleDrawer(false); });
+  })();
 
   /* ---- reveal on scroll ---- */
   var reveals = document.querySelectorAll('.reveal');
@@ -806,19 +1300,8 @@
   } else {
     var ro = new IntersectionObserver(function(ents){
       ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); ro.unobserve(en.target); } });
-    }, {threshold:.12, rootMargin:'0px 0px -6% 0px'});
+    }, {threshold:.1, rootMargin:'0px 0px -6% 0px'});
     reveals.forEach(function(e){ ro.observe(e); });
-  }
-
-  /* ---- groups that animate as a unit ---- */
-  var groups = document.querySelectorAll('.ladder, .fan, .console');
-  if (RM || !('IntersectionObserver' in window)) {
-    groups.forEach(function(e){ e.classList.add('in'); });
-  } else {
-    var go = new IntersectionObserver(function(ents){
-      ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); go.unobserve(en.target); } });
-    }, {threshold:.2});
-    groups.forEach(function(e){ go.observe(e); });
   }
 
   /* ---- number counters (cited stats only) ---- */
@@ -848,52 +1331,9 @@
     counters.forEach(function(el){ co.observe(el); });
   }
 
-  /* ---- estate graph: blast-radius ignition on a loop ---- */
-  (function(){
-    var svg = document.getElementById('estate-graph');
-    var cap = document.getElementById('graph-caption');
-    if(!svg) return;
-    var nodeOf = {};
-    svg.querySelectorAll('.node').forEach(function(n){ nodeOf[n.getAttribute('data-node')] = n; });
-    var edgeOf = {};
-    svg.querySelectorAll('.edge').forEach(function(e){ edgeOf[e.getAttribute('data-edge')] = e; });
-    var dimNodes = ['m365','admin','vpn','ai'];
-    var dimEdges = ['m365-admin','admin-db','vpn-stg','ai-db'];
-    var hop1 = ['ci-stg'], hop2 = ['stg-prod','stg-db','stg-s3'];
-
-    function reset(){
-      Object.keys(nodeOf).forEach(function(k){ nodeOf[k].classList.remove('reached','dim','firing'); });
-      Object.keys(edgeOf).forEach(function(k){ edgeOf[k].classList.remove('lit','dim'); });
-      cap.classList.remove('show');
-    }
-    function ignite(){
-      reset();
-      nodeOf['ci'].classList.add('firing');
-      setTimeout(function(){ dimNodes.forEach(function(k){nodeOf[k].classList.add('dim');}); dimEdges.forEach(function(k){edgeOf[k].classList.add('dim');}); }, 200);
-      setTimeout(function(){ hop1.forEach(function(k){edgeOf[k].classList.add('lit');}); nodeOf['stg'].classList.add('reached'); }, 700);
-      setTimeout(function(){ hop2.forEach(function(k){edgeOf[k].classList.add('lit');}); nodeOf['db'].classList.add('reached'); nodeOf['s3'].classList.add('reached'); nodeOf['prod'].classList.add('reached'); }, 1400);
-      setTimeout(function(){ cap.classList.add('show'); }, 1900);
-    }
-    if (RM){
-      nodeOf['ci'].classList.add('firing');
-      ['stg','db','s3','prod'].forEach(function(k){nodeOf[k].classList.add('reached');});
-      hop1.concat(hop2).forEach(function(k){edgeOf[k].classList.add('lit');});
-      cap.classList.add('show');
-      return;
-    }
-    var started = false;
-    var io = new IntersectionObserver(function(ents){
-      ents.forEach(function(en){
-        if(en.isIntersecting && !started){ started = true; setTimeout(ignite, 700); setInterval(ignite, 8200); }
-      });
-    }, {threshold:.4});
-    io.observe(svg);
-  })();
-
   /* ---- header shadow on scroll ---- */
   (function(){
-    var header = document.querySelector('header.site');
-    if(!header) return;
+    var header = document.getElementById('siteHeader');
     var update = function(){ header.classList.toggle('scrolled', window.scrollY > 8); };
     window.addEventListener('scroll', update, {passive:true});
     update();
@@ -910,21 +1350,34 @@
     });
   })();
 
-  /* ---- waitlist fallback (placeholder endpoint -> pre-filled email) ---- */
+  /* ---- forms: placeholder endpoint -> pre-filled email ---- */
   (function(){
-    var form = document.getElementById('waitlist-form');
-    if(!form || form.action.indexOf('FORM_ID_PLACEHOLDER') === -1) return;
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var email = document.getElementById('wl-email').value;
-      var size = document.getElementById('wl-size').value;
-      var trigger = document.getElementById('wl-trigger').value || 'not specified';
-      var body = 'Please add me to the ClearFend waitlist.\n\n' +
-                 'Email: ' + email + '\nCompany size: ' + size + '\nTrigger: ' + trigger;
-      window.location.href = 'mailto:admin@clearfend.com' +
-        '?subject=' + encodeURIComponent('Waitlist signup') +
-        '&body=' + encodeURIComponent(body);
-    });
+    var wl = document.getElementById('waitlist-form');
+    if(wl && wl.action.indexOf('FORM_ID_PLACEHOLDER') !== -1){
+      wl.addEventListener('submit', function(e){
+        e.preventDefault();
+        var email = document.getElementById('wl-email').value;
+        var size = document.getElementById('wl-size').value;
+        var trigger = document.getElementById('wl-trigger').value || 'not specified';
+        var body = 'Please add me to the ClearFend waitlist.\n\n' +
+                   'Email: ' + email + '\nCompany size: ' + size + '\nTrigger: ' + trigger;
+        window.location.href = 'mailto:admin@clearfend.com' +
+          '?subject=' + encodeURIComponent('Waitlist signup') +
+          '&body=' + encodeURIComponent(body);
+      });
+    }
+    var hf = document.getElementById('hero-form');
+    if(hf && hf.action.indexOf('FORM_ID_PLACEHOLDER') !== -1){
+      hf.addEventListener('submit', function(e){
+        e.preventDefault();
+        var email = document.getElementById('hero-email').value;
+        var body = 'Hi ClearFend — we\'d like a demo of the Confidence Console.\n\n' +
+                   'Email: ' + email + '\nCompany:\nHeadcount:\nIdentity platform (M365 / Google Workspace / Okta):\nCloud (AWS / Azure / GCP):\nWhat\'s driving this:';
+        window.location.href = 'mailto:admin@clearfend.com' +
+          '?subject=' + encodeURIComponent('ClearFend demo request') +
+          '&body=' + encodeURIComponent(body);
+      });
+    }
   })();
 })();
 </script>
