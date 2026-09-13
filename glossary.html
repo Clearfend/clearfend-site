@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Glossary — ClearFend. Every term we use, in plain English.</title>
-<meta name="description" content="The ClearFend glossary: blast radius, crown jewel, drift, provenance, living program and every other term on the Confidence Console, explained in plain English for people without a security team.">
+<title>Security glossary in plain English — ClearFend</title>
+<meta name="description" content="Blast radius, crown jewel, drift, provenance and every other term on the ClearFend console, explained in plain English for companies without a security team.">
 <link rel="canonical" href="https://clearfend.com/glossary.html">
 <meta property="og:site_name" content="ClearFend">
 <meta property="og:title" content="Glossary — ClearFend">
@@ -25,6 +25,426 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "DefinedTermSet",
+ "@id": "https://clearfend.com/glossary.html#terms",
+ "name": "ClearFend glossary",
+ "url": "https://clearfend.com/glossary.html",
+ "hasDefinedTerm": [
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#confidence-score",
+   "name": "Confidence score",
+   "description": "The one number on the front of the console, 0 to 100. It summarises how well your company is protected, based on what you have connected and what you have declared. Every input behind it carries a provenance label, and the score is only as confident as those inputs. A missing number never shows as zero.",
+   "url": "https://clearfend.com/glossary.html#confidence-score",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#confidence-console",
+   "name": "Confidence Console",
+   "description": "The name of the ClearFend product screen. It opens on the score, a plain-English verdict, and the three fixes that matter most.",
+   "url": "https://clearfend.com/glossary.html#confidence-console",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#verdict",
+   "name": "Verdict",
+   "description": "A sentence, next to the score, that says what the score means and what needs a decision this week. It is written for whoever runs the company, not for an analyst.",
+   "url": "https://clearfend.com/glossary.html#verdict",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#maturity-level",
+   "name": "Maturity level (L1 to L5)",
+   "description": "A five-rung ladder that places your score where outsiders hold you: Exposed, Covered, Audit-Ready, Resilient, Adaptive. You are the level whose requirements you fully meet. A one-time read can award at most Level 2; Level 3 needs proof that holds every day.",
+   "url": "https://clearfend.com/glossary.html#maturity-level",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#gates-not-averages",
+   "name": "Gates, not averages",
+   "description": "How the level is awarded. Every requirement of a level must hold; nothing is averaged. Great backups do not cancel out two admin accounts without MFA.",
+   "url": "https://clearfend.com/glossary.html#gates-not-averages",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#five-core-controls",
+   "name": "Five core controls",
+   "description": "The five basics the first gate checks: multi-factor authentication, endpoint protection, backups, patching, and security training. All five must hold for Level 2.",
+   "url": "https://clearfend.com/glossary.html#five-core-controls",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#posture-snapshot",
+   "name": "Posture snapshot",
+   "description": "A saved copy of the score and its inputs at a point in time. The console compares the two latest snapshots to tell you what changed since your last assessment.",
+   "url": "https://clearfend.com/glossary.html#posture-snapshot",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#estate",
+   "name": "Estate",
+   "description": "Everything you run and everyone who can act in your name: systems, cloud accounts, identities, keys, vendors, AI agents, people. The console is a map of it.",
+   "url": "https://clearfend.com/glossary.html#estate",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#estate-graph",
+   "name": "Estate graph",
+   "description": "The map itself. Each thing in your estate is a node; each way one can reach another is an edge. Findings are ranked by how far along the edges an attacker could get.",
+   "url": "https://clearfend.com/glossary.html#estate-graph",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#blast-radius",
+   "name": "Blast radius",
+   "description": "For any node, how much an attacker could reach from it in a few hops, weighted by the open findings along the way. A deploy key that reaches your customer database has a large blast radius even if the key itself looks minor.",
+   "url": "https://clearfend.com/glossary.html#blast-radius",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#crown-jewel",
+   "name": "Crown jewel",
+   "description": "A place where data or keys live: a database, a storage bucket, a cloud account, an admin identity. Crown jewels are what attack paths aim at, and anything that reaches one is treated as at least high severity.",
+   "url": "https://clearfend.com/glossary.html#crown-jewel",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#choke-point",
+   "name": "Choke point",
+   "description": "A node that most attack paths pass through on the way to a crown jewel. Fixing a choke point cuts many paths at once, so those fixes rise in the queue.",
+   "url": "https://clearfend.com/glossary.html#choke-point",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#exposure",
+   "name": "Exposure",
+   "description": "The plain word for the question the graph answers: what can an attacker reach? The Estate view is the estate graph, and the Fix Queue is ranked by it.",
+   "url": "https://clearfend.com/glossary.html#exposure",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#connector",
+   "name": "Connector",
+   "description": "A read-only link from the console to one of your systems, such as Microsoft 365 or AWS. You create it, it is time-boxed, and you can revoke it. The Sources screen in the console lists each one, its scope and when it last answered. The read-only readers themselves are in build; until they land, most inputs are declared.",
+   "url": "https://clearfend.com/glossary.html#connector",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#declaration",
+   "name": "Declaration",
+   "description": "Something a person tells the console rather than a connector reading it: which vendors you use, whether backups are tested, what AI is running. Declared inputs are labelled self-declared so nobody mistakes them for an observation.",
+   "url": "https://clearfend.com/glossary.html#declaration",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#finding",
+   "name": "Finding",
+   "description": "One specific thing that is wrong, tied to one node in your estate, with a severity, an effort estimate and a plain-English consequence. Findings are what the Fix Queue is made of.",
+   "url": "https://clearfend.com/glossary.html#finding",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#fix-queue",
+   "name": "Fix Queue",
+   "description": "Every open finding from every module in one list, ranked by severity times what it can reach. The three at the top are the three fixes that matter. There is only ever one queue.",
+   "url": "https://clearfend.com/glossary.html#fix-queue",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#severity",
+   "name": "Severity",
+   "description": "Critical, high, medium, low, or info. Five colours, no more. Critical is reserved and should feel rare.",
+   "url": "https://clearfend.com/glossary.html#severity",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#runbook",
+   "name": "Runbook",
+   "description": "The ordered fix steps for one finding, grounded in a control register rather than improvised. The console downloads it as a document; filing it into a ticketing system is a later connector.",
+   "url": "https://clearfend.com/glossary.html#runbook",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#risk-register",
+   "name": "Risk Register",
+   "description": "The list of risks you have chosen to carry rather than fix right now, each with an owner, a treatment and a date. It answers “what have we accepted, and who signed for it?”",
+   "url": "https://clearfend.com/glossary.html#risk-register",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#proposed-risk",
+   "name": "Proposed risk",
+   "description": "A risk a module has raised but nobody has owned yet. It waits in the register as “awaiting review” until a person sets an owner and a treatment.",
+   "url": "https://clearfend.com/glossary.html#proposed-risk",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#living-program",
+   "name": "Living program",
+   "description": "A capability that remembers every entity it governs, one row per vendor, AI system, key or person, drives each through a lifecycle, keeps an append-only history, and shows what changed and why. Its gaps land in the Fix Queue, its residual risk in the Risk Register.",
+   "url": "https://clearfend.com/glossary.html#living-program",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#lifecycle",
+   "name": "Lifecycle",
+   "description": "The states an entity moves through in a living program, for example a vendor: prospective, assessed, re-assess, offboarded. Every move is recorded.",
+   "url": "https://clearfend.com/glossary.html#lifecycle",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#diff",
+   "name": "Diff (what changed)",
+   "description": "The comparison between an entity’s last assessment and this one, listing every change with a reason, regressions first. A living program shows the diff, not just the new score.",
+   "url": "https://clearfend.com/glossary.html#diff",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#regression",
+   "name": "Regression",
+   "description": "A change for the worse: a control that stopped holding, a vendor that lost a certification, a key that went stale. Regressions are always listed first.",
+   "url": "https://clearfend.com/glossary.html#regression",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#people-risk",
+   "name": "Human risk",
+   "description": "A person’s score in Human Risk, a private preview module: the access they hold, such as admin rights or sensitive data, and whether their security training is complete and current. It comes from the roster you declare, so it is labelled self-declared until a directory connector reads it. An untrained admin shows up as a gap in the Fix Queue.",
+   "url": "https://clearfend.com/glossary.html#people-risk",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#design-gap",
+   "name": "Design gap",
+   "description": "A control missing from a system’s design, found before any code or scan. Finding design gaps is the job of Threat Modeling, which is not built yet.",
+   "url": "https://clearfend.com/glossary.html#design-gap",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#control",
+   "name": "Control",
+   "description": "A specific safeguard, written in plain English, that a framework expects you to have, such as “admin accounts require a second factor”. The Controls module keeps them on one register and maps each to frameworks such as SOC 2, ISO 27001 and NIST CSF.",
+   "url": "https://clearfend.com/glossary.html#control",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#attestation",
+   "name": "Attestation",
+   "description": "A person stating that a control is in place, partial, or not in place. An attestation is self-declared until a connector observes it.",
+   "url": "https://clearfend.com/glossary.html#attestation",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#drift",
+   "name": "Drift",
+   "description": "When a control you attested as in place is contradicted by a live finding in your estate. The control shows as drifted and counts as a gap until the finding closes. No control is silently green while the estate says otherwise.",
+   "url": "https://clearfend.com/glossary.html#drift",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#readiness",
+   "name": "Readiness",
+   "description": "How close you are to passing an audit for a given framework, scored net of drift. It is a readiness view, not a certificate: an auditor still has to look.",
+   "url": "https://clearfend.com/glossary.html#readiness",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#evidence-packet",
+   "name": "Evidence packet",
+   "description": "An export of what was true and when: the current state of your five core controls, your open findings, and the audit trail, re-verified before it leaves. It is an evidence trail you can show a customer; auditor-grade signing is in build.",
+   "url": "https://clearfend.com/glossary.html#evidence-packet",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#audit-trail",
+   "name": "Audit trail",
+   "description": "The append-only log of every change made through the console. Each entry is chained to the one before it, so an edit or a deletion would break the chain and be detected.",
+   "url": "https://clearfend.com/glossary.html#audit-trail",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#stale",
+   "name": "Stale",
+   "description": "What a control shows when its evidence has expired or nothing is watching it. Stale is never shown as green.",
+   "url": "https://clearfend.com/glossary.html#stale",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#leadership-summary",
+   "name": "Leadership summary",
+   "description": "A read-only one-pager for the board or a customer: the score and its movement, the top risks in plain English, resolved findings, and decisions waiting on an owner. Every figure links to the screen it came from.",
+   "url": "https://clearfend.com/glossary.html#leadership-summary",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#fix-once-prove-three-ways",
+   "name": "Fix once, prove three ways",
+   "description": "One fix in your estate closes a finding, clears the drift on the control it implicated, and writes a line in the evidence packet. You never record the same thing twice.",
+   "url": "https://clearfend.com/glossary.html#fix-once-prove-three-ways",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#ai-estate",
+   "name": "AI estate",
+   "description": "Every AI system your company runs or relies on: LLM apps, copilots, agents, MCP servers, and the identities behind them. The AI Estate module, in private preview, inventories and governs them as a living program.",
+   "url": "https://clearfend.com/glossary.html#ai-estate",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#machine-identity",
+   "name": "Machine identity (non-human identity)",
+   "description": "Anything that can act in your name without being a person: a service account, an API key, an OAuth grant, an agent’s credential. Each one should have an owner, a scope and a rotation date. The ones that are ownerless and privileged rise to the top of the queue.",
+   "url": "https://clearfend.com/glossary.html#machine-identity",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#shadow-ai",
+   "name": "Shadow AI",
+   "description": "An AI tool in use that nobody approved. It is still part of your estate, so it is still on the map.",
+   "url": "https://clearfend.com/glossary.html#shadow-ai",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#mcp-server",
+   "name": "MCP server",
+   "description": "A small service that gives an AI agent access to a tool or a data source. Each one is a door into your estate and is governed like any other system.",
+   "url": "https://clearfend.com/glossary.html#mcp-server",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#reader-only-ai",
+   "name": "Reader-only AI",
+   "description": "How ClearFend’s own AI works. It can read findings and write an explanation or a runbook, with citations, but it has no tools and no path to change a number or touch a system. Every request to act is refused by design.",
+   "url": "https://clearfend.com/glossary.html#reader-only-ai",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#grounded",
+   "name": "Grounded (explanation)",
+   "description": "An AI explanation whose severity, consequence and fix come from a maintained register, not from the model’s imagination, with the evidence it cites listed alongside.",
+   "url": "https://clearfend.com/glossary.html#grounded",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#provenance",
+   "name": "Provenance",
+   "description": "Where a number came from. Every figure on the console carries one of four words: self-declared (a person attested it), observed (a live connector read it), derived (the console computed it from those), or sample (demonstration data, never yours).",
+   "url": "https://clearfend.com/glossary.html#provenance",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#sample",
+   "name": "Sample",
+   "description": "Demonstration data used to show how a screen works. It is always labelled sample and is never a customer’s. Every illustration on this website is sample.",
+   "url": "https://clearfend.com/glossary.html#sample",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#in-the-console",
+   "name": "In the console",
+   "description": "A module on the console’s main menu today, and what a design partner gets on day one: Confidence, Fix Queue, Estate, Controls, Evidence, Leadership summary and Sources.",
+   "url": "https://clearfend.com/glossary.html#in-the-console",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#private-preview",
+   "name": "Private preview",
+   "description": "Built and working, but not yet on the console’s main menu: we switch it on for a design partner on request. ClearFend as a whole is in private preview too: working software in private preview. We’re choosing our first design partners now.",
+   "url": "https://clearfend.com/glossary.html#private-preview",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#in-build",
+   "name": "In build",
+   "description": "Work under way that is not yet usable, such as the read-only source readers and auditor-grade evidence signing. Modules are never labelled this way; they use the three stage labels: in the console, private preview and not built yet.",
+   "url": "https://clearfend.com/glossary.html#in-build",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#planned",
+   "name": "Not built yet (planned)",
+   "description": "Named, but not built. The console and this site both say Not built yet, and nothing unbuilt is sold as if it existed. Threat Modeling and Triage & Threat Intel are here today.",
+   "url": "https://clearfend.com/glossary.html#planned",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#design-partner",
+   "name": "Design partner",
+   "description": "A company that runs the console on its own estate during private preview, with direct access to the people building it and a say in what ships next. We’re choosing our first design partners now.",
+   "url": "https://clearfend.com/glossary.html#design-partner",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#read-only",
+   "name": "Read-only",
+   "description": "Access that can look but not change. Every connector ClearFend asks for is read-only; we never ask for passwords and never change anything in your environment.",
+   "url": "https://clearfend.com/glossary.html#read-only",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  },
+  {
+   "@type": "DefinedTerm",
+   "@id": "https://clearfend.com/glossary.html#tenant",
+   "name": "Tenant",
+   "description": "Your company’s own, isolated space in ClearFend. Isolation is enforced inside the database on every table, and a query with no tenant context returns nothing.",
+   "url": "https://clearfend.com/glossary.html#tenant",
+   "inDefinedTermSet": "https://clearfend.com/glossary.html#terms"
+  }
+ ]
+}
+</script>
 <style>
   :root{
     --canvas:#eef1f6; --s1:#ffffff; --s2:#f5f7fb; --s3:#eef2f8; --s4:#e6ecf4;
@@ -41,7 +461,7 @@
     color-scheme:light;
   }
   *,*::before,*::after{box-sizing:border-box}
-  html{scroll-behavior:smooth;scroll-padding-top:110px}
+  html{scroll-behavior:smooth;scroll-padding-top:86px}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
   body{margin:0;background:var(--s1);color:var(--text);font-family:var(--font);font-size:var(--fs-base);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:var(--accent);text-decoration:none}
@@ -64,18 +484,54 @@
   .btn.ghost{background:var(--s1);border-color:var(--border-strong);color:var(--text)}
   .btn.ghost:hover{border-color:var(--accent);color:var(--accent-strong)}
 
-  header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
-  .navbar{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
-  .brand-link{display:inline-flex;align-items:center;text-decoration:none;border-radius:6px}
+  .util{background:var(--canvas);border-bottom:1px solid var(--border);font-size:var(--fs-xs);color:var(--muted)}
+  .util .wrap{display:flex;justify-content:space-between;align-items:center;min-height:34px;gap:16px}
+  .util a{color:var(--muted);font-weight:500;display:inline-flex;align-items:center;gap:6px;min-height:28px}
+  .util a:hover{color:var(--accent-strong)}
+  .util .links{display:flex;gap:18px;align-items:center;margin-left:auto}
+  .util .ic{width:15px;height:15px;stroke-width:1.8}
+  @media (max-width:700px){.util .tag{display:none}.util .links{justify-content:space-between;width:100%}}
+  header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .navbar{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px;position:relative}
+  .brand-link{display:inline-flex;align-items:center;text-decoration:none;border-radius:6px;min-height:32px}
   .brand-link:hover{text-decoration:none}
   .brand{font:600 22px/1 var(--display);letter-spacing:-.025em;color:#0f1b2e;white-space:nowrap}
   .brand > span{color:#0f9a8a}
+  nav.sub{flex:1}
+  nav.sub ul{list-style:none;margin:0;padding:0;display:flex;gap:2px;align-items:center}
+  nav.sub a{display:inline-flex;align-items:center;font:500 14px/1 var(--font);color:var(--text);padding:10px 12px;border-radius:8px}
+  nav.sub a:hover,nav.sub a[aria-current="page"]{background:var(--s2);color:var(--accent-strong);text-decoration:none}
   .nav-right{display:flex;gap:10px;align-items:center}
-  @media (max-width:600px){.nav-right .ghost{display:none}}
+  .menu-btn{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--border-strong);background:var(--s1);color:var(--text);cursor:pointer;place-items:center}
+  .menu-btn .x{display:none}.menu-btn[aria-expanded="true"] .x{display:block}.menu-btn[aria-expanded="true"] .bars{display:none}
+  @media (max-width:1023px){
+    .menu-btn{display:grid}
+    html.js nav.sub{display:none;position:absolute;left:0;right:0;top:100%;background:var(--s1);border-bottom:1px solid var(--border);box-shadow:0 24px 48px rgba(16,24,40,.12);padding:8px 16px 16px}
+    html.js nav.sub.open{display:block}
+    nav.sub ul{flex-direction:column;align-items:stretch}
+    nav.sub a{width:100%;padding:14px 8px;font-size:16px;border-bottom:1px solid var(--border);border-radius:0}
+    html:not(.js) .navbar{flex-wrap:wrap;height:auto;padding:12px 24px}
+    html:not(.js) nav.sub{order:3;flex-basis:100%}
+    html:not(.js) nav.sub ul{flex-direction:row;flex-wrap:wrap}
+    html:not(.js) nav.sub a{width:auto;border:0;font-size:14px;padding:8px}
+    html:not(.js) .menu-btn{display:none}
+  }
+  @media (max-width:520px){.nav-right .btn{padding:10px 12px}}
+  footer{border-top:1px solid var(--border);padding:44px 0 30px;background:var(--s1)}
+  .fgrid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:24px;margin-bottom:28px}
+  @media (max-width:900px){.fgrid{grid-template-columns:repeat(2,1fr)}.fgrid .fbrand{grid-column:1 / -1}}
+  .fbrand p{font-size:var(--fs-sm);color:var(--muted);margin-top:10px;max-width:36ch}
+  .fh{font:600 12px/1.3 var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+  .fgrid ul{list-style:none;margin:0;padding:0}
+  .fgrid ul a{font-size:var(--fs-sm);color:var(--muted);display:inline-flex;align-items:center;min-height:30px;text-decoration:underline;text-decoration-color:rgba(91,101,119,.35);text-underline-offset:3px}
+  .foot{display:flex;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding-top:18px;border-top:1px solid var(--border);font-size:var(--fs-xs);color:var(--faint)}
+  .foot a{text-decoration:underline;text-underline-offset:3px;display:inline-flex;min-height:26px;align-items:center}
+  .foot b{color:var(--muted)}
 
-  .hero{padding:64px 0 40px;background:radial-gradient(800px 400px at 90% -20%, rgba(45,225,198,.16), transparent 60%),var(--s1)}
+  .hero{padding:56px 0 36px;background:radial-gradient(800px 400px at 90% -20%, rgba(45,225,198,.16), transparent 60%),var(--s1)}
   .hero .lead{color:var(--muted);font-size:var(--fs-md);max-width:64ch;margin-top:16px;line-height:1.65}
   .crumb{font-size:var(--fs-sm);color:var(--faint);margin-bottom:18px}
+  .crumb a{display:inline-flex;min-height:26px;align-items:center}
   .search{margin-top:28px;display:flex;gap:10px;max-width:560px;background:var(--s1);border:1px solid var(--border-strong);border-radius:12px;padding:6px;box-shadow:var(--shadow-1)}
   .search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
   .search .ic{color:var(--faint);align-self:center;margin-left:10px}
@@ -83,25 +539,27 @@
   .search input:focus{outline:none}
   .count{font-size:var(--fs-xs);color:var(--faint);margin-top:10px}
 
-  main{padding:40px 0 96px}
+  .terms-wrap{padding:40px 0 96px}
   .layout{display:grid;grid-template-columns:220px 1fr;gap:48px;align-items:start}
   @media (max-width:900px){.layout{grid-template-columns:1fr;gap:24px}}
-  .toc{position:sticky;top:96px;display:flex;flex-direction:column;gap:4px}
+  .toc{position:sticky;top:90px;display:flex;flex-direction:column;gap:4px}
   @media (max-width:900px){.toc{position:static;flex-direction:row;flex-wrap:wrap;gap:8px}}
   .toc h2{font:600 11px/1.3 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:8px;width:100%}
-  .toc a{font-size:var(--fs-sm);color:var(--muted);padding:6px 10px;border-radius:8px}
+  .toc a{font-size:var(--fs-sm);color:var(--muted);padding:6px 10px;border-radius:8px;min-height:30px;display:inline-flex;align-items:center}
   .toc a:hover{background:var(--s2);color:var(--accent-strong);text-decoration:none}
-  .group{margin-bottom:44px;scroll-margin-top:110px}
+  .group{margin-bottom:44px;scroll-margin-top:0}
   .group > h2{padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:12px;display:flex;align-items:center;gap:10px}
   .group > h2 .ic{color:var(--accent)}
   dl{margin:0;display:flex;flex-direction:column;gap:8px}
-  .term{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;scroll-margin-top:110px;box-shadow:var(--shadow-1)}
+  .term{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;scroll-margin-top:0;box-shadow:var(--shadow-1)}
   .term:target{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
   .term[hidden]{display:none}
   dt{font:600 var(--fs-md)/1.3 var(--display);letter-spacing:-.01em;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  dt a.anchor{font:500 12px/1 var(--mono);color:var(--faint);opacity:0;transition:opacity .15s}
+  dt a.anchor{font:500 12px/1 var(--mono);color:var(--faint);opacity:0;transition:opacity .15s;min-width:24px;min-height:24px;display:inline-flex;align-items:center;justify-content:center}
+  @media (hover:none){dt a.anchor{opacity:1}}
   .term:hover dt a.anchor,.term:focus-within dt a.anchor{opacity:1}
   dd{margin:8px 0 0;color:var(--muted);font-size:var(--fs-sm);line-height:1.65}
+  dd a,.lead a,.empty a,.crumb a{text-decoration:underline;text-underline-offset:3px}
   dd b{color:var(--text);font-weight:600}
   .see{margin-top:8px;font-size:var(--fs-xs);color:var(--faint)}
   .see a{font-weight:500}
@@ -110,14 +568,15 @@
   .chip{display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:999px;border:1px solid var(--accent-line);color:var(--accent-text);background:var(--accent-weak);white-space:nowrap}
   .chip.ai{color:var(--ai-text);border-color:rgba(224,149,42,.4);background:var(--ai-tint)}
 
-  footer{border-top:1px solid var(--border);padding:34px 0;font-size:var(--fs-xs);color:var(--faint)}
-  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  footer b{color:var(--muted)}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-login" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M13 4h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-bars" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></symbol>
   <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4-5"/><circle cx="12" cy="16" r="1.5"/><path d="M3 20h18"/></symbol>
   <symbol id="i-graph" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="12" cy="13" r="2.4"/><circle cx="7" cy="19" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="M7 7.5l3.4 3.6M17 7.5l-3.4 3.6M10.6 15l-2.2 2.4M13.4 15l2.6 2.6"/></symbol>
@@ -127,19 +586,30 @@
   <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></symbol>
 </svg>
 
-<header class="site">
+<div class="util" role="region" aria-label="Utility links">
+    <div class="wrap">
+      <span class="tag">Security and compliance for companies without a security team</span>
+      <span class="links">
+        <a href="https://dev.clearfend.com/login"><svg class="ic" aria-hidden="true"><use href="#i-login"/></svg>Sign in (preview)</a>
+        <a href="index.html#incident-report"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>Experiencing an incident?</a>
+      </span>
+    </div>
+</div>
+<header class="site" id="siteHeader">
   <div class="wrap navbar">
     <a class="brand-link" href="index.html" aria-label="ClearFend home"><span class="brand" aria-hidden="true">Clear<span>Fend</span></span></a>
+    <nav class="sub" id="subNav" aria-label="Primary"><ul><li><a href="index.html#console">Platform</a></li><li><a href="index.html#modules">Solutions</a></li><li><a href="index.html#pricing">Pricing</a></li><li><a href="glossary.html" aria-current="page">Resources</a></li><li><a href="index.html#partners">Customers</a></li><li><a href="index.html#about">Company</a></li></ul></nav>
     <div class="nav-right">
-      <a class="btn ghost" href="index.html">Back to the site</a>
-      <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&amp;body=Hi%20ClearFend%2C%0A%0AWe%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0AName%3A%0ACompany%3A%0ACompany%20size%3A%0AWhat%27s%20driving%20this%3A%0A">Get a demo</a>
+      <a class="btn primary" href="index.html#demo-request">Get a demo</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="subNav" aria-label="Open menu" id="menuBtn"><svg class="ic bars" aria-hidden="true"><use href="#i-bars"/></svg><svg class="ic x" aria-hidden="true"><use href="#i-x"/></svg></button>
     </div>
   </div>
 </header>
 
+<main id="main">
 <section class="hero">
   <div class="wrap">
-    <div class="crumb"><a href="index.html">ClearFend</a> · Resources · Glossary</div>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="index.html">ClearFend</a> · <a href="index.html#faq">Resources</a> · Glossary</nav>
     <span class="eyebrow">Glossary</span>
     <h1 style="margin-top:10px">Every term we use, in plain English.</h1>
     <p class="lead">If a word on the console needs a paragraph, the paragraph is here. Written for an office manager, not an analyst. Each entry has its own link, so a first use on the console can point straight at it.</p>
@@ -152,7 +622,7 @@
   </div>
 </section>
 
-<main id="main">
+<div class="terms-wrap">
   <div class="wrap layout">
     <nav class="toc" aria-label="Glossary sections">
       <h2>Sections</h2>
@@ -187,7 +657,7 @@
           <div class="term" id="crown-jewel"><dt>Crown jewel <a class="anchor" href="#crown-jewel">#</a></dt><dd>A place where data or keys live: a database, a storage bucket, a cloud account, an admin identity. Crown jewels are what attack paths aim at, and anything that reaches one is treated as at least high severity.</dd></div>
           <div class="term" id="choke-point"><dt>Choke point <a class="anchor" href="#choke-point">#</a></dt><dd>A node that most attack paths pass through on the way to a crown jewel. Fixing a choke point cuts many paths at once, so those fixes rise in the queue.</dd></div>
           <div class="term" id="exposure"><dt>Exposure <a class="anchor" href="#exposure">#</a></dt><dd>The plain word for the question the graph answers: what can an attacker reach? The Estate view is the estate graph, and the Fix Queue is ranked by it.</dd></div>
-          <div class="term" id="connector"><dt>Connector <a class="anchor" href="#connector">#</a></dt><dd>A read-only link from the console to one of your systems, such as Microsoft 365 or AWS. You create it, it is time-boxed, and you can revoke it. Connectors are <a href="#in-build">in build</a>; until they land, most inputs are declared.</dd></div>
+          <div class="term" id="connector"><dt>Connector <a class="anchor" href="#connector">#</a></dt><dd>A read-only link from the console to one of your systems, such as Microsoft 365 or AWS. You create it, it is time-boxed, and you can revoke it. The Sources screen in the console lists each one, its scope and when it last answered. The read-only readers themselves are <a href="#in-build">in build</a>; until they land, most inputs are declared.</dd></div>
           <div class="term" id="declaration"><dt>Declaration <a class="anchor" href="#declaration">#</a></dt><dd>Something a person tells the console rather than a connector reading it: which vendors you use, whether backups are tested, what AI is running. Declared inputs are labelled <b>self-declared</b> so nobody mistakes them for an observation.</dd></div>
         </dl>
       </div>
@@ -205,19 +675,19 @@
           <div class="term" id="lifecycle"><dt>Lifecycle <a class="anchor" href="#lifecycle">#</a></dt><dd>The states an entity moves through in a living program, for example a vendor: prospective, assessed, re-assess, offboarded. Every move is recorded.</dd></div>
           <div class="term" id="diff"><dt>Diff (what changed) <a class="anchor" href="#diff">#</a></dt><dd>The comparison between an entity&rsquo;s last assessment and this one, listing every change with a reason, regressions first. A living program shows the diff, not just the new score.</dd></div>
           <div class="term" id="regression"><dt>Regression <a class="anchor" href="#regression">#</a></dt><dd>A change for the worse: a control that stopped holding, a vendor that lost a certification, a key that went stale. Regressions are always listed first.</dd></div>
-          <div class="term" id="people-risk"><dt>People risk <a class="anchor" href="#people-risk">#</a></dt><dd>A person&rsquo;s score in the People Risk program: the access they hold, such as admin rights or sensitive data, and whether their security training is complete and current. It comes from the roster you declare, so it is labelled self-declared until a directory connector reads it. An untrained admin shows up as a gap in the Fix Queue.</dd></div>
-          <div class="term" id="design-gap"><dt>Design gap <a class="anchor" href="#design-gap">#</a></dt><dd>A control missing from a system&rsquo;s design, found before any code or scan. It comes from the secure-by-design assessment.</dd></div>
+          <div class="term" id="people-risk"><dt>Human risk <a class="anchor" href="#people-risk">#</a></dt><dd>A person&rsquo;s score in Human Risk, a <a href="#private-preview">private preview</a> module: the access they hold, such as admin rights or sensitive data, and whether their security training is complete and current. It comes from the roster you declare, so it is labelled self-declared until a directory connector reads it. An untrained admin shows up as a gap in the Fix Queue.</dd></div>
+          <div class="term" id="design-gap"><dt>Design gap <a class="anchor" href="#design-gap">#</a></dt><dd>A control missing from a system&rsquo;s design, found before any code or scan. Finding design gaps is the job of Threat Modeling, which is <a href="#planned">not built yet</a>.</dd></div>
         </dl>
       </div>
 
       <div class="group" id="g-proof">
         <h2><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>The proof</h2>
         <dl>
-          <div class="term" id="control"><dt>Control <a class="anchor" href="#control">#</a></dt><dd>A specific safeguard, written in plain English, that a framework expects you to have, such as &ldquo;admin accounts require a second factor&rdquo;. ClearFend keeps 28 of them on one register and maps each to SOC 2, ISO 27001, NIST CSF and HIPAA.</dd></div>
+          <div class="term" id="control"><dt>Control <a class="anchor" href="#control">#</a></dt><dd>A specific safeguard, written in plain English, that a framework expects you to have, such as &ldquo;admin accounts require a second factor&rdquo;. The Controls module keeps them on one register and maps each to frameworks such as SOC 2, ISO 27001 and NIST CSF.</dd></div>
           <div class="term" id="attestation"><dt>Attestation <a class="anchor" href="#attestation">#</a></dt><dd>A person stating that a control is in place, partial, or not in place. An attestation is self-declared until a connector observes it.</dd></div>
           <div class="term" id="drift"><dt>Drift <a class="anchor" href="#drift">#</a></dt><dd>When a control you attested as in place is contradicted by a live finding in your estate. The control shows as <b>drifted</b> and counts as a gap until the finding closes. No control is silently green while the estate says otherwise.</dd></div>
           <div class="term" id="readiness"><dt>Readiness <a class="anchor" href="#readiness">#</a></dt><dd>How close you are to passing an audit for a given framework, scored net of drift. It is a readiness view, not a certificate: an auditor still has to look.</dd></div>
-          <div class="term" id="evidence-packet"><dt>Evidence packet <a class="anchor" href="#evidence-packet">#</a></dt><dd>An export of what was true and when: the current state of your five core controls, your open findings, and the audit trail, re-verified before it leaves. It is what you hand an auditor or a customer.</dd></div>
+          <div class="term" id="evidence-packet"><dt>Evidence packet <a class="anchor" href="#evidence-packet">#</a></dt><dd>An export of what was true and when: the current state of your five core controls, your open findings, and the audit trail, re-verified before it leaves. It is an evidence trail you can show a customer; auditor-grade signing is in build.</dd></div>
           <div class="term" id="audit-trail"><dt>Audit trail <a class="anchor" href="#audit-trail">#</a></dt><dd>The append-only log of every change made through the console. Each entry is chained to the one before it, so an edit or a deletion would break the chain and be detected.</dd></div>
           <div class="term" id="stale"><dt>Stale <a class="anchor" href="#stale">#</a></dt><dd>What a control shows when its evidence has expired or nothing is watching it. Stale is never shown as green.</dd></div>
           <div class="term" id="leadership-summary"><dt>Leadership summary <a class="anchor" href="#leadership-summary">#</a></dt><dd>A read-only one-pager for the board or a customer: the score and its movement, the top risks in plain English, resolved findings, and decisions waiting on an owner. Every figure links to the screen it came from.</dd></div>
@@ -228,7 +698,7 @@
       <div class="group" id="g-ai">
         <h2><svg class="ic" aria-hidden="true"><use href="#i-ai"/></svg>AI and machine identities</h2>
         <dl>
-          <div class="term" id="ai-estate"><dt>AI estate <a class="anchor" href="#ai-estate">#</a></dt><dd>Every AI system your company runs or relies on: LLM apps, copilots, agents, MCP servers, and the identities behind them. The AI Estate module inventories and governs them as a living program.</dd></div>
+          <div class="term" id="ai-estate"><dt>AI estate <a class="anchor" href="#ai-estate">#</a></dt><dd>Every AI system your company runs or relies on: LLM apps, copilots, agents, MCP servers, and the identities behind them. The AI Estate module, in private preview, inventories and governs them as a living program.</dd></div>
           <div class="term" id="machine-identity"><dt>Machine identity (non-human identity) <a class="anchor" href="#machine-identity">#</a></dt><dd>Anything that can act in your name without being a person: a service account, an API key, an OAuth grant, an agent&rsquo;s credential. Each one should have an owner, a scope and a rotation date. The ones that are ownerless and privileged rise to the top of the queue.</dd></div>
           <div class="term" id="shadow-ai"><dt>Shadow AI <a class="anchor" href="#shadow-ai">#</a></dt><dd>An AI tool in use that nobody approved. It is still part of your estate, so it is still on the map.</dd></div>
           <div class="term" id="mcp-server"><dt>MCP server <a class="anchor" href="#mcp-server">#</a></dt><dd>A small service that gives an AI agent access to a tool or a data source. Each one is a door into your estate and is governed like any other system.</dd></div>
@@ -242,10 +712,11 @@
         <dl>
           <div class="term" id="provenance"><dt>Provenance <a class="anchor" href="#provenance">#</a></dt><dd>Where a number came from. Every figure on the console carries one of four words: <b>self-declared</b> (a person attested it), <b>observed</b> (a live connector read it), <b>derived</b> (the console computed it from those), or <b>sample</b> (demonstration data, never yours).</dd></div>
           <div class="term" id="sample"><dt>Sample <a class="anchor" href="#sample">#</a></dt><dd>Demonstration data used to show how a screen works. It is always labelled sample and is never a customer&rsquo;s. Every illustration on this website is sample.</dd></div>
-          <div class="term" id="private-preview"><dt>Private preview <a class="anchor" href="#private-preview">#</a></dt><dd>Working software usable by named design partners, not generally available. Where ClearFend is today.</dd></div>
-          <div class="term" id="in-build"><dt>In build <a class="anchor" href="#in-build">#</a></dt><dd>Being built now, not yet usable. Shown as a chip wherever it applies, on the site and in the console.</dd></div>
-          <div class="term" id="planned"><dt>Planned <a class="anchor" href="#planned">#</a></dt><dd>On the roadmap, not started. The console calls the same thing <b>vision</b>. Nothing planned is sold as if it existed.</dd></div>
-          <div class="term" id="design-partner"><dt>Design partner <a class="anchor" href="#design-partner">#</a></dt><dd>A company running the console on its own estate during private preview, with direct access to the people building it and a say in what ships next. The way in is a read-only posture assessment.</dd></div>
+          <div class="term" id="in-the-console"><dt>In the console <a class="anchor" href="#in-the-console">#</a></dt><dd>A module on the console&rsquo;s main menu today, and what a design partner gets on day one: Confidence, Fix Queue, Estate, Controls, Evidence, Leadership summary and Sources.</dd></div>
+          <div class="term" id="private-preview"><dt>Private preview <a class="anchor" href="#private-preview">#</a></dt><dd>Built and working, but not yet on the console&rsquo;s main menu: we switch it on for a design partner on request. ClearFend as a whole is in private preview too: working software in private preview. We&rsquo;re choosing our first design partners now.</dd></div>
+          <div class="term" id="in-build"><dt>In build <a class="anchor" href="#in-build">#</a></dt><dd>Work under way that is not yet usable, such as the read-only source readers and auditor-grade evidence signing. Modules are never labelled this way; they use the three stage labels: <a href="#in-the-console">in the console</a>, <a href="#private-preview">private preview</a> and <a href="#planned">not built yet</a>.</dd></div>
+          <div class="term" id="planned"><dt>Not built yet (planned) <a class="anchor" href="#planned">#</a></dt><dd>Named, but not built. The console and this site both say <b>Not built yet</b>, and nothing unbuilt is sold as if it existed. Threat Modeling and Triage &amp; Threat Intel are here today.</dd></div>
+          <div class="term" id="design-partner"><dt>Design partner <a class="anchor" href="#design-partner">#</a></dt><dd>A company that runs the console on its own estate during private preview, with direct access to the people building it and a say in what ships next. We&rsquo;re choosing our first design partners now.</dd></div>
           <div class="term" id="read-only"><dt>Read-only <a class="anchor" href="#read-only">#</a></dt><dd>Access that can look but not change. Every connector ClearFend asks for is read-only; we never ask for passwords and never change anything in your environment.</dd></div>
           <div class="term" id="tenant"><dt>Tenant <a class="anchor" href="#tenant">#</a></dt><dd>Your company&rsquo;s own, isolated space in ClearFend. Isolation is enforced inside the database on every table, and a query with no tenant context returns nothing.</dd></div>
         </dl>
@@ -253,16 +724,31 @@
       <p class="empty" id="empty" hidden>No term matches that. Try a shorter word, or <a href="mailto:admin@clearfend.com?subject=Glossary%20suggestion">tell us what is missing</a>.</p>
     </div>
   </div>
+</div>
 </main>
 
 <footer>
   <div class="wrap">
-    <span><b>ClearFend</b> · <a href="index.html">clearfend.com</a> · <a href="mailto:admin@clearfend.com">admin@clearfend.com</a></span>
-    <span>Read-only. Plain English. Labelled honestly.</span>
+    <div class="fgrid">
+      <div class="fbrand"><a class="brand-link" href="index.html" aria-label="ClearFend home"><span class="brand" aria-hidden="true">Clear<span>Fend</span></span></a><p>Security and compliance for companies without a security team.</p></div>
+      <div><p class="fh">Platform</p><ul><li><a href="index.html#console">The Confidence Console</a></li><li><a href="index.html#estate">Estate</a></li><li><a href="index.html#modules">All modules</a></li></ul></div>
+      <div><p class="fh">Resources</p><ul><li><a href="glossary.html">Glossary</a></li><li><a href="index.html#trust">Trust &amp; security</a></li><li><a href="index.html#faq">FAQ</a></li><li><a href="index.html#pricing">Pricing</a></li></ul></div>
+      <div><p class="fh">Customers</p><ul><li><a href="index.html#partners">Design partners</a></li><li><a href="index.html#waitlist">Join the waitlist</a></li><li><a href="https://dev.clearfend.com/login">Sign in (preview)</a></li></ul></div>
+      <div><p class="fh">Company</p><ul><li><a href="index.html#about">About</a></li><li><a href="index.html#contact">Contact</a></li><li><a href="index.html#incident-report">Experiencing an incident?</a></li></ul></div>
+    </div>
+    <div class="foot"><span><b>ClearFend</b> · clearfend.com · <a href="mailto:admin@clearfend.com">admin@clearfend.com</a></span><span>Read-only. Plain English. Labelled honestly.</span></div>
   </div>
 </footer>
 
 <script>
+(function(){
+  var b = document.getElementById('menuBtn'), n = document.getElementById('subNav');
+  if(!b || !n) return;
+  function set(o){ b.setAttribute('aria-expanded', String(o)); b.setAttribute('aria-label', o ? 'Close menu' : 'Open menu'); n.classList.toggle('open', o); }
+  b.addEventListener('click', function(){ set(b.getAttribute('aria-expanded') !== 'true'); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && b.getAttribute('aria-expanded') === 'true'){ set(false); b.focus(); } });
+  document.addEventListener('click', function(e){ if(!e.target.closest('#siteHeader')) set(false); });
+})();
 (function(){
   var q = document.getElementById('q');
   var terms = Array.prototype.slice.call(document.querySelectorAll('.term'));
