@@ -162,6 +162,7 @@
   .brand-link:hover{text-decoration:none}
   .brand{font:600 22px/1 var(--display);letter-spacing:-.025em;color:#0f1b2e;white-space:nowrap}
   .brand > span{color:#0f9a8a}
+  svg.brand{display:block;overflow:visible;width:111px;height:28px}
   .nav-right{display:flex;align-items:center;gap:12px}
   .menu-btn{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--border-strong);background:var(--s1);color:var(--text);cursor:pointer;place-items:center}
   .menu-btn .ic{width:22px;height:22px}
@@ -390,6 +391,7 @@
     .hs-wrap.left .hs-card{left:12px;right:12px}
     .fq-r .hs-wrap{left:auto;right:6px;top:12px;transform:none}
   }
+  @media (max-width:520px){.hs-card{bottom:calc(84px + env(safe-area-inset-bottom))}}
   .cr-cap{display:flex;justify-content:space-between;gap:10px 20px;flex-wrap:wrap;margin-top:14px;font-size:var(--fs-sm);color:var(--cf-muted)}
 
   /* ladder (dark) */
@@ -713,7 +715,7 @@
 
 <header class="site" id="siteHeader">
   <div class="wrap navbar">
-    <a class="brand-link" href="#top" aria-label="ClearFend home"><span class="brand" aria-hidden="true">Clear<span>Fend</span></span></a>
+    <a class="brand-link" href="#top" aria-label="ClearFend home"><svg class="brand" viewBox="0 0 111 28" width="111" height="28" aria-hidden="true" focusable="false"><text x="0" y="21.5" font-family="Sora, Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-weight="600" font-size="22" letter-spacing="-0.55"><tspan fill="#0f1b2e">Clear</tspan><tspan fill="#0f9a8a">Fend</tspan></text></svg></a>
 
     <nav class="primary" id="primaryNav" aria-label="Primary">
       <ul>
@@ -1310,7 +1312,7 @@
   <div class="wrap">
     <div class="fgrid">
       <div class="fbrand">
-        <a class="brand-link" href="#top" aria-label="ClearFend home"><span class="brand" aria-hidden="true">Clear<span>Fend</span></span></a>
+        <a class="brand-link" href="#top" aria-label="ClearFend home"><svg class="brand" viewBox="0 0 111 28" width="111" height="28" aria-hidden="true" focusable="false"><text x="0" y="21.5" font-family="Sora, Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-weight="600" font-size="22" letter-spacing="-0.55"><tspan fill="#0f1b2e">Clear</tspan><tspan fill="#0f9a8a">Fend</tspan></text></svg></a>
         <p>Security and compliance for companies without a security team.</p>
       </div>
       <div class="fcol"><p class="fh">Platform</p><ul><li><a href="#console">The Confidence Console</a></li><li><a href="#fix-queue">Fix Queue</a></li><li><a href="#estate">Estate</a></li><li><a href="#m-controls">Controls</a></li><li><a href="#m-evidence">Evidence</a></li><li><a href="#m-sources">Sources</a></li></ul></div>
