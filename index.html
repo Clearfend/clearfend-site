@@ -904,8 +904,8 @@
       <p class="reveal">Are we OK, and what do we fix first?</p>
     </div>
     <div class="stats">
-      <div class="stat reveal"><div class="n warn mono"><span data-count="88" data-suffix="%">0%</span></div><div class="d">of SMB breaches involved ransomware</div><div class="src">Verizon DBIR, 2025</div></div>
-      <div class="stat reveal"><div class="n mono"><span data-count="115" data-prefix="~$" data-suffix="K">~$0K</span></div><div class="d">median ransom, among victims that paid</div><div class="src">Verizon DBIR, 2025</div></div>
+      <div class="stat reveal"><div class="n warn mono"><span data-count="88" data-suffix="%">88%</span></div><div class="d">of SMB breaches involved ransomware</div><div class="src">Verizon DBIR, 2025</div></div>
+      <div class="stat reveal"><div class="n mono"><span data-count="115" data-prefix="~$" data-suffix="K">~$115K</span></div><div class="d">median ransom, among victims that paid</div><div class="src">Verizon DBIR, 2025</div></div>
       <div class="stat many reveal">
         <svg class="many-art" viewBox="0 0 260 96" preserveAspectRatio="xMinYMid meet" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <g stroke="#d6deea" stroke-width="1.6"><rect x="6" y="6" width="44" height="20" rx="5"/><rect x="6" y="38" width="44" height="20" rx="5"/><rect x="6" y="70" width="44" height="20" rx="5"/><rect x="62" y="22" width="44" height="20" rx="5"/><rect x="62" y="54" width="44" height="20" rx="5"/></g>
@@ -1623,12 +1623,14 @@
     reveals.forEach(function(e){ ro.observe(e); });
   }
 
-  /* ---- number counters (cited stats only) ---- */
+  /* ---- number counters (cited stats only) ----
+     The real figure is written in the HTML, so crawlers, link previews,
+     no-JS readers and reduced-motion users always see it. With JS and
+     motion allowed, the figure counts up once as it scrolls into view. */
   function runCount(el){
     var target = parseFloat(el.getAttribute('data-count'));
     var pre = el.getAttribute('data-prefix') || '';
     var suf = el.getAttribute('data-suffix') || '';
-    if (RM){ el.textContent = pre + target + suf; return; }
     var start = null, dur = 1100;
     function step(ts){
       if(!start) start = ts;
@@ -1640,14 +1642,11 @@
     }
     requestAnimationFrame(step);
   }
-  var counters = document.querySelectorAll('[data-count]');
-  if (RM || !('IntersectionObserver' in window)) {
-    counters.forEach(function(el){ el.textContent = (el.getAttribute('data-prefix')||'') + el.getAttribute('data-count') + (el.getAttribute('data-suffix')||''); });
-  } else {
+  if (!RM && 'IntersectionObserver' in window) {
     var co = new IntersectionObserver(function(ents){
       ents.forEach(function(en){ if(en.isIntersecting){ runCount(en.target); co.unobserve(en.target); } });
     }, {threshold:.6});
-    counters.forEach(function(el){ co.observe(el); });
+    document.querySelectorAll('[data-count]').forEach(function(el){ co.observe(el); });
   }
 
   /* ---- header shadow on scroll ---- */
