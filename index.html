@@ -162,6 +162,7 @@
   .feat .f-link{font:600 13px/1 var(--font);color:var(--accent);margin-top:auto}
   .cols{display:grid;grid-template-columns:repeat(2,1fr);gap:6px 24px;align-content:start}
   .cols.three{grid-template-columns:repeat(3,1fr)}
+  .cols.four{grid-template-columns:repeat(4,1fr)}
   .col-h{grid-column:1 / -1;font:600 11px/1.3 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);padding:4px 10px 8px}
   .mi{display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:10px;color:var(--text);text-decoration:none;transition:background .15s}
   .mi:hover,.mi:focus-visible{background:var(--s2);color:var(--text);text-decoration:none}
@@ -179,13 +180,13 @@
     .menu-btn{display:grid}
     nav.primary{position:fixed;inset:0;top:0;z-index:70;background:var(--s1);display:none;overflow-y:auto;padding:0 0 40px}
     nav.primary.open{display:block}
-    nav.primary > ul{flex-direction:column;align-items:stretch;gap:0;padding:78px 16px 0}
+    nav.primary > ul{flex-direction:column;align-items:stretch;gap:0;padding:var(--drawer-top,78px) 16px 0}
     nav.primary li{border-bottom:1px solid var(--border)}
     .navlink{width:100%;justify-content:space-between;padding:16px 8px;font-size:16px;border-radius:0}
     .navlink:hover,.navlink[aria-expanded="true"]{background:none}
     .mega{position:static;box-shadow:none;border:0;background:var(--s2);border-radius:12px;margin:0 0 14px}
     .mega-inner,.mega-inner.rail,.mega-inner.simple{grid-template-columns:1fr;padding:14px;gap:14px}
-    .cols,.cols.three{grid-template-columns:1fr}
+    .cols,.cols.three,.cols.four{grid-template-columns:1fr}
     .feat .f-n b{font-size:28px}
     .mega-foot{flex-direction:column;align-items:flex-start}
     .drawer-cta{display:flex;flex-direction:column;gap:10px;padding:20px 24px 0}
@@ -208,6 +209,7 @@
   .hero-copy{display:flex;flex-direction:column;gap:24px}
   .pill{display:inline-flex;align-items:center;gap:8px;width:fit-content;font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent-text);background:var(--accent-weak);border:1px solid var(--accent-line);padding:7px 11px;border-radius:999px}
   .pill::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  @media (max-width:480px){.pill{font-size:10px;letter-spacing:.04em;padding:7px 10px}}
   .hero-form{display:flex;gap:10px;max-width:520px;background:var(--s1);border:1px solid var(--border-strong);border-radius:12px;padding:6px;box-shadow:var(--shadow-1)}
   .hero-form input{flex:1;min-width:0;border:0;background:transparent;padding:12px 14px;font:500 15px/1.2 var(--font);color:var(--text)}
   .hero-form input:focus{outline:none}
@@ -473,7 +475,7 @@
   @media (hover:hover) and (pointer:fine){.pop:hover .pop-card{opacity:1;visibility:visible;transform:none;transition-delay:0s}}
   @media (max-width:640px){
     .pop{display:flex;flex-direction:column;align-items:flex-start;max-width:100%}
-    .pop-card{position:static;display:none;max-width:100%;margin-top:10px}
+    .pop-card{position:static;display:none;width:auto;max-width:100%;margin-top:10px}
     .pop-card::before{display:none}
     .pop-btn[aria-expanded="true"] + .pop-card{display:block}
   }
@@ -708,17 +710,16 @@
                 <span class="f-kick">Featured · The Confidence Console</span>
                 <h4>One honest number, with the proof behind it.</h4>
                 <div class="f-n"><b class="mono">0–100</b><span>every input labelled: self-declared, observed, derived, or sample</span></div>
-                <p>A missing number never renders as zero. A control with no evidence shows stale, never green. The score is only as confident as what you have connected or declared, and it says so.</p>
-                <span class="f-link">See the console →</span>
+                                <span class="f-link">See the console →</span>
               </a>
               <div class="cols">
                 <div class="col-h">What the console gives you</div>
-                <a class="mi" href="#fix-queue"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-queue"/></svg></span><span><span class="t">Fix Queue</span><span class="d">One queue across every module, ranked by what an attacker can reach, with effort and consequence in plain English.</span></span></a>
-                <a class="mi" href="#estate"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-graph"/></svg></span><span><span class="t">Estate graph</span><span class="d">Every system, identity, vendor, AI agent and person as a node. Blast radius, crown jewels, choke points.</span></span></a>
-                <a class="mi" href="#evidence"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-packet"/></svg></span><span><span class="t">Evidence packets</span><span class="d">A tamper-evident record of what was true and when, exportable for an auditor or a customer.</span></span></a>
-                <a class="mi" href="#leadership"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-summary"/></svg></span><span><span class="t">Leadership summary</span><span class="d">A read-only one-pager: the score, movement since last time, top risks, decisions waiting. Every figure links to its source.</span></span></a>
-                <a class="mi" href="#connectors"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg></span><span><span class="t">Connectors <span class="chip build">In build</span></span><span class="d">Read-only sources you create and can revoke. Microsoft 365, Google Workspace, Okta and AWS are the first four.</span></span></a>
-                <a class="mi" href="#programs"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg></span><span><span class="t">Living programs</span><span class="d">Vendors, AI systems, machine identities and people each carry a lifecycle, a history, and a diff.</span></span></a>
+                <a class="mi" href="#fix-queue"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-queue"/></svg></span><span><span class="t">Fix Queue</span><span class="d">One queue, ranked by what an attacker can reach.</span></span></a>
+                <a class="mi" href="#estate"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-graph"/></svg></span><span><span class="t">Estate graph</span><span class="d">What can reach what: blast radius and choke points.</span></span></a>
+                <a class="mi" href="#evidence"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-packet"/></svg></span><span><span class="t">Evidence packets</span><span class="d">What was true, and when, for an auditor.</span></span></a>
+                <a class="mi" href="#leadership"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-summary"/></svg></span><span><span class="t">Leadership summary</span><span class="d">One page for the board, every figure sourced.</span></span></a>
+                <a class="mi" href="#connectors"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg></span><span><span class="t">Connectors <span class="chip build">In build</span></span><span class="d">Read-only, revocable: M365, Google, Okta, AWS.</span></span></a>
+                <a class="mi" href="#programs"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg></span><span><span class="t">Living programs</span><span class="d">Entities with a lifecycle, a history and a diff.</span></span></a>
               </div>
             </div>
           </div>
@@ -731,21 +732,21 @@
             <div class="mega-inner rail">
               <div class="rail-list">
                 <div class="col-h">By outcome</div>
-                <a class="mi" href="#know"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><span><span class="t">Know where you stand</span><span class="d">One score, one verdict, one map of what reaches what.</span></span></a>
-                <a class="mi" href="#fix"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-wrench"/></svg></span><span><span class="t">Fix what matters</span><span class="d">The three fixes that move the number, with a runbook each.</span></span></a>
-                <a class="mi" href="#prove"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></span><span><span class="t">Prove it</span><span class="d">Controls that drift when the estate contradicts them, and evidence that holds.</span></span></a>
+                <a class="mi" href="#know"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><span><span class="t">Know where you stand</span><span class="d">One score, one verdict, one map.</span></span></a>
+                <a class="mi" href="#fix"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-wrench"/></svg></span><span><span class="t">Fix what matters</span><span class="d">The three fixes that move the number.</span></span></a>
+                <a class="mi" href="#prove"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></span><span><span class="t">Prove it</span><span class="d">Controls that drift. Evidence that holds.</span></span></a>
               </div>
               <div class="cols three">
                 <div class="col-h">By module · status shown honestly</div>
-                <a class="mi" href="#m-exposure"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg></span><span><span class="t">Exposure <span class="chip preview">Preview</span></span><span class="d">What can an attacker reach? The estate graph and the queue it ranks.</span></span></a>
-                <a class="mi" href="#m-cloud"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-cloud"/></svg></span><span><span class="t">Cloud &amp; Identity <span class="chip preview">Preview</span></span><span class="d">Is our cloud configured safely? CIS-style checks over what you declare; AWS read connector in build.</span></span></a>
+                <a class="mi" href="#m-exposure"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg></span><span><span class="t">Exposure <span class="chip preview">Preview</span></span><span class="d">What can an attacker reach?</span></span></a>
+                <a class="mi" href="#m-cloud"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-cloud"/></svg></span><span><span class="t">Cloud &amp; Identity <span class="chip preview">Preview</span></span><span class="d">Is our cloud configured safely?</span></span></a>
                 <a class="mi" href="#m-data"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-data"/></svg></span><span><span class="t">Data &amp; Privacy <span class="chip preview">Preview</span></span><span class="d">Is our data protected, and where does it go?</span></span></a>
-                <a class="mi" href="#m-appsec"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span><span><span class="t">Application Security <span class="chip preview">Preview</span></span><span class="d">Is our code safe to ship? Secrets, dependencies and patterns in a repo you point at.</span></span></a>
-                <a class="mi" href="#m-pentest"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span><span><span class="t">Pen Test <span class="chip preview">Preview</span></span><span class="d">Can we be broken into? Authorized, scoped external tests of your own systems.</span></span></a>
-                <a class="mi" href="#m-human"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-people"/></svg></span><span><span class="t">Human Risk <span class="chip preview">Preview</span></span><span class="d">Will my team get phished? Real simulations, every person scored.</span></span></a>
-                <a class="mi" href="#m-tprm"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-vendor"/></svg></span><span><span class="t">Third-Party Risk <span class="chip preview">Preview</span></span><span class="d">Are our vendors safe? A living program with re-assessment and diff.</span></span></a>
-                <a class="mi" href="#m-compliance"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-clipboard"/></svg></span><span><span class="t">Compliance <span class="chip preview">Preview</span></span><span class="d">Are we audit-ready? SOC 2, ISO 27001, NIST CSF and HIPAA on one register, net of drift.</span></span></a>
-                <a class="mi" href="#m-ai"><span class="ic-box ai"><svg class="ic" aria-hidden="true"><use href="#i-ai"/></svg></span><span><span class="t">AI Estate <span class="chip preview">Preview</span></span><span class="d">What AI is running, and is it governed? Systems, agents, MCP servers and the identities behind them.</span></span></a>
+                <a class="mi" href="#m-appsec"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span><span><span class="t">Application Security <span class="chip preview">Preview</span></span><span class="d">Is our code safe to ship?</span></span></a>
+                <a class="mi" href="#m-pentest"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span><span><span class="t">Pen Test <span class="chip preview">Preview</span></span><span class="d">Can we be broken into?</span></span></a>
+                <a class="mi" href="#m-human"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-people"/></svg></span><span><span class="t">Human Risk <span class="chip preview">Preview</span></span><span class="d">Will my team get phished?</span></span></a>
+                <a class="mi" href="#m-tprm"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-vendor"/></svg></span><span><span class="t">Third-Party Risk <span class="chip preview">Preview</span></span><span class="d">Are our vendors safe?</span></span></a>
+                <a class="mi" href="#m-compliance"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-clipboard"/></svg></span><span><span class="t">Compliance <span class="chip preview">Preview</span></span><span class="d">Are we audit-ready?</span></span></a>
+                <a class="mi" href="#m-ai"><span class="ic-box ai"><svg class="ic" aria-hidden="true"><use href="#i-ai"/></svg></span><span><span class="t">AI Estate <span class="chip preview">Preview</span></span><span class="d">What AI is running, and is it governed?</span></span></a>
               </div>
               <div class="mega-foot">
                 <span class="legend"><span class="chip preview">Preview</span> running today for design partners &nbsp;<span class="chip build">In build</span> being built now &nbsp;<span class="chip planned">Planned</span> not started</span>
@@ -766,15 +767,15 @@
               <a class="feat" href="glossary.html">
                 <span class="f-kick">Featured · Glossary</span>
                 <h4>Every term we use, in plain English.</h4>
-                <p>Blast radius, crown jewel, drift, provenance, living program. If a word on the console needs a paragraph, the paragraph is here. Written for an office manager, not an analyst.</p>
+                <p>Blast radius, drift, provenance and more.</p>
                 <span class="f-link">Open the glossary →</span>
               </a>
               <div class="cols">
                 <div class="col-h">Read</div>
-                <a class="mi" href="glossary.html"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg></span><span><span class="t">Glossary</span><span class="d">Plain-English security terms, deep-linkable from the console.</span></span></a>
-                <a class="mi" href="#principles"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span><span><span class="t">Design principles</span><span class="d">Colour equals meaning. One glow, rationed. Critical must feel rare. Words equal truth.</span></span></a>
-                <a class="mi" href="#trust"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg></span><span><span class="t">Trust &amp; security</span><span class="d">How ClearFend protects your data: a closed database, tenant isolation by construction, AI that cannot act.</span></span></a>
-                <a class="mi" href="#status"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg></span><span><span class="t">Status</span><span class="d">What runs today, what is in build, and what is vision. Labelled, not dressed up.</span></span></a>
+                <a class="mi" href="glossary.html"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg></span><span><span class="t">Glossary</span><span class="d">Plain-English security terms.</span></span></a>
+                <a class="mi" href="#principles"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span><span><span class="t">Design principles</span><span class="d">Colour equals meaning. Words equal truth.</span></span></a>
+                <a class="mi" href="#trust"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg></span><span><span class="t">Trust &amp; security</span><span class="d">How we protect your data.</span></span></a>
+                <a class="mi" href="#status"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg></span><span><span class="t">Status</span><span class="d">What runs, what is in build, what is planned.</span></span></a>
               </div>
             </div>
           </div>
@@ -788,14 +789,14 @@
               <a class="feat" href="#partners">
                 <span class="f-kick">Design partners</span>
                 <h4>No logo wall. No testimonials. Not yet.</h4>
-                <p>Working software, running with design partners in private preview. Customers will appear here with their permission.</p>
+                <p>Customers will appear here with their permission.</p>
                 <span class="f-link">How the programme works →</span>
               </a>
               <div class="cols">
                 <div class="col-h">The programme</div>
-                <a class="mi" href="#partners"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-handshake"/></svg></span><span><span class="t">What a design partner gets</span><span class="d">The console on your own estate, direct access to the people building it, and a real say in what ships next.</span></span></a>
-                <a class="mi" href="#assessment"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><span><span class="t">How to join</span><span class="d">Start with a five-day, read-only posture assessment. Assessment customers come in as design partners.</span></span></a>
-                <a class="mi" href="#waitlist"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="t">Waitlist</span><span class="d">Early access in signup order, at the launch price exactly as published.</span></span></a>
+                <a class="mi" href="#partners"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-handshake"/></svg></span><span><span class="t">What a design partner gets</span><span class="d">The console on your estate, and a say in what ships.</span></span></a>
+                <a class="mi" href="#assessment"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><span><span class="t">How to join</span><span class="d">Start with a five-day, read-only assessment.</span></span></a>
+                <a class="mi" href="#waitlist"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="t">Waitlist</span><span class="d">Early access at the published launch price.</span></span></a>
               </div>
             </div>
           </div>
@@ -806,9 +807,9 @@
           <button class="navlink" type="button" aria-expanded="false" aria-controls="menu-company" id="btn-company">Company <svg class="ic chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
           <div class="mega" id="menu-company" role="region" aria-labelledby="btn-company">
             <div class="mega-inner simple">
-              <div class="cols four" style="grid-template-columns:repeat(4,1fr)">
-                <a class="mi" href="#about"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg></span><span><span class="t">About</span><span class="d">Why one honest number, and why the name is the product.</span></span></a>
-                <a class="mi" href="#contact"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="t">Contact</span><span class="d">admin@clearfend.com. A person reads it.</span></span></a>
+              <div class="cols four">
+                <a class="mi" href="#about"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg></span><span><span class="t">About</span><span class="d">Why one honest number.</span></span></a>
+                <a class="mi" href="#contact"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="t">Contact</span><span class="d">admin@clearfend.com, read by a person.</span></span></a>
                 <a class="mi" href="#careers"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-briefcase"/></svg></span><span><span class="t">Careers</span><span class="d">Open roles will be posted here when they become available.</span></span></a>
                 <a class="mi" href="#press"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-press"/></svg></span><span><span class="t">Press</span><span class="d">Press enquiries go to admin@clearfend.com.</span></span></a>
               </div>
@@ -1601,6 +1602,7 @@
       var open = typeof force === 'boolean' ? force : menuBtn.getAttribute('aria-expanded') !== 'true';
       menuBtn.setAttribute('aria-expanded', String(open));
       menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      if(open) nav.style.setProperty('--drawer-top', Math.round(header.getBoundingClientRect().bottom + 8) + 'px');
       nav.classList.toggle('open', open);
       header.classList.toggle('drawer-open', open);
       document.body.classList.toggle('no-scroll', open);
