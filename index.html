@@ -452,7 +452,9 @@
   .co .press-mark .mark svg{width:21px;height:21px}
   .co .press-mark b{font:700 18px/1 var(--display)}
   .incident{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;background:var(--s1);border:1px solid var(--border-strong);border-left:4px solid var(--high);border-radius:var(--r);padding:22px 24px;margin-top:24px;scroll-margin-top:130px}
-  .incident p{font-size:var(--fs-sm);color:var(--muted);line-height:1.6}
+  .incident p{font-size:var(--fs-sm);color:var(--muted);line-height:1.6;margin-top:4px}
+  .inc-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+  .incident{align-items:center}
   .incident .ic-box{background:rgba(245,129,31,.12);color:var(--high-text)}
 
   /* final cta */
@@ -473,6 +475,57 @@
   .fcol a:hover{color:var(--accent-strong)}
   .foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:22px;border-top:1px solid var(--border);font-size:var(--fs-xs);color:var(--faint)}
   .foot b{color:var(--muted);font-weight:600}
+
+  /* ── forms: shared bits ── */
+  textarea{width:100%;background:var(--s1);border:1px solid var(--border-strong);color:var(--text);padding:12px 13px;border-radius:var(--r-xs);font:400 14px/1.5 var(--font);resize:vertical;min-height:96px}
+  textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
+  input[aria-invalid="true"],select[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:var(--critical);box-shadow:0 0 0 3px rgba(229,72,77,.12)}
+  fieldset{border:0;margin:0;padding:0;min-width:0}
+  legend{font:600 11px/1.3 var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:0;margin-bottom:6px}
+  .req{color:var(--critical-text)}
+  .opt{text-transform:none;letter-spacing:0;font-weight:500;color:var(--faint)}
+  .err{font-size:var(--fs-xs);color:var(--critical-text);line-height:1.4;min-height:0}
+  .err:empty{display:none}
+  .radios{display:flex;gap:8px;flex-wrap:wrap}
+  .radio,.check{display:inline-flex;align-items:center;gap:8px;font:500 14px/1.2 var(--font);letter-spacing:0;text-transform:none;color:var(--text);border:1px solid var(--border-strong);border-radius:999px;padding:9px 14px;cursor:pointer;background:var(--s1)}
+  .radio input,.check input{width:16px;height:16px;margin:0;accent-color:var(--accent);box-shadow:none}
+  .radio:has(input:checked){border-color:var(--accent);background:var(--accent-weak);color:var(--accent-strong)}
+  .radio:has(input:focus-visible),.check:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+  fieldset[data-invalid="true"] .radio{border-color:var(--critical)}
+  .when{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .when input[type="datetime-local"]{flex:1 1 200px;width:auto}
+  .when input:disabled{opacity:.5}
+  .confirm{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+  .confirm[hidden]{display:none}
+  .confirm-msg{font-size:var(--fs-base);color:var(--text);line-height:1.55}
+  .confirm-msg:focus{outline:none}
+  .ok-big{width:44px;height:44px;border-radius:12px;background:rgba(34,165,101,.14);color:var(--low-text);display:grid;place-items:center}
+  .copy-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .copy-status{font-size:var(--fs-xs);color:var(--low-text);font-weight:600}
+  details.peek{width:100%}
+  details.peek summary{cursor:pointer;font:600 13px/1.3 var(--font);color:var(--accent)}
+  .composed{margin:10px 0 0;padding:12px 14px;background:var(--s2);border:1px solid var(--border);border-radius:var(--r-xs);font:500 12px/1.55 var(--mono);color:var(--text);white-space:pre-wrap;word-break:break-word;max-height:220px;overflow:auto}
+
+  /* ── incident modal ── */
+  dialog.modal{width:min(640px,calc(100vw - 24px));max-height:calc(100dvh - 24px);padding:0;border:1px solid var(--border-strong);border-radius:18px;background:var(--s1);color:var(--text);box-shadow:0 30px 80px rgba(16,24,40,.3);overflow:auto}
+  dialog.modal::backdrop{background:rgba(16,24,40,.45);backdrop-filter:blur(2px)}
+  dialog.modal[open]{animation:mIn .22s var(--ease)}
+  @keyframes mIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){dialog.modal[open]{animation:none}}
+  .m-head{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:12px;padding:16px 20px;background:var(--s1);border-bottom:1px solid var(--border)}
+  .m-head h2{font-size:var(--fs-lg);flex:1}
+  .ic-box.warn{background:rgba(245,129,31,.12);color:var(--high-text)}
+  .m-close{width:38px;height:38px;border-radius:10px;border:1px solid var(--border-strong);background:var(--s1);color:var(--text);display:grid;place-items:center;cursor:pointer}
+  .m-close:hover{border-color:var(--accent);color:var(--accent-strong)}
+  .m-close .ic{width:20px;height:20px}
+  .m-body{padding:18px 20px 20px}
+  .m-body form{display:flex;flex-direction:column;gap:14px}
+  .m-note{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;margin-bottom:16px;border-radius:var(--r-sm);background:rgba(245,129,31,.1);border:1px solid rgba(245,129,31,.35);color:var(--high-text);font-size:var(--fs-sm);font-weight:600;line-height:1.45}
+  .m-note .ic{width:18px;height:18px;margin-top:1px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:560px){.grid2{grid-template-columns:1fr}}
+  .m-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;width:100%;padding-top:6px}
+  @media (max-width:480px){.m-actions .btn{width:100%}}
 
   /* reveal */
   .reveal{opacity:0;transform:translateY(12px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
@@ -527,7 +580,7 @@
     <span class="tag">Security and compliance for companies without a security team</span>
     <span class="links">
       <a href="https://dev.clearfend.com/login"><svg class="ic" aria-hidden="true"><use href="#i-login"/></svg>Sign in</a>
-      <a href="#incident"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>Experiencing an incident?</a>
+      <a href="#incident" data-incident><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>Experiencing an incident?</a>
     </span>
   </div>
 </div>
@@ -661,7 +714,7 @@
       <div class="drawer-cta">
         <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&amp;body=Hi%20ClearFend%2C%0A%0AWe%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0AName%3A%0ACompany%3A%0ACompany%20size%3A%0AWhat%27s%20driving%20this%3A%0A">Get a demo</a>
         <a class="btn ghost" href="https://dev.clearfend.com/login">Sign in</a>
-        <a class="btn ghost" href="#incident">Experiencing an incident?</a>
+        <a class="btn ghost" href="#incident" data-incident>Experiencing an incident?</a>
       </div>
     </nav>
 
@@ -1087,17 +1140,18 @@
       <p class="reveal">Waitlist members get early access in signup order and the launch price exactly as published. That&rsquo;s the point of publishing it. Assessment customers skip the line as design partners.</p>
       <div class="promise reveal"><b>What we commit to:</b> first access at launch, at the published launch price, locked for your founding term. No spam in the meantime. We&rsquo;ll email you about access and nothing else.</div>
     </div>
-    <form id="waitlist-form" class="panel reveal" action="https://formspree.io/f/FORM_ID_PLACEHOLDER" method="POST">
-      <div class="fld"><label for="wl-email">Work email</label><input id="wl-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com"></div>
+    <div class="reveal">
+    <form id="waitlist-form" class="panel" action="mailto:admin@clearfend.com?subject=ClearFend%20waitlist" method="post" enctype="text/plain" novalidate>
+      <div class="fld"><label for="wl-email">Work email</label><input id="wl-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com" aria-describedby="wl-email-err"><p class="err" id="wl-email-err"></p></div>
       <div class="fld"><label for="wl-size">Company size</label>
-        <select id="wl-size" name="company_size" required>
+        <select id="wl-size" name="company_size">
           <option value="Under 25 people">Under 25 people</option>
           <option value="25–100 people" selected>25–100 people</option>
           <option value="101–250 people">101–250 people</option>
           <option value="251–500 people">251–500 people</option>
           <option value="Over 500 people">Over 500 people</option>
         </select></div>
-      <div class="fld"><label for="wl-trigger">What&rsquo;s driving this? (optional)</label>
+      <div class="fld"><label for="wl-trigger">What&rsquo;s driving this? <span class="opt">(optional)</span></label>
         <select id="wl-trigger" name="trigger">
           <option value="">Choose one…</option>
           <option>A customer is asking for SOC 2</option>
@@ -1108,8 +1162,16 @@
           <option>I’m an MSP</option>
         </select></div>
       <button class="btn primary full" type="submit">Join the waitlist</button>
-      <p class="form-note">No spam, no drip campaign: launch news and early access only. Prefer email? <a href="mailto:admin@clearfend.com?subject=Platform%20waitlist">admin@clearfend.com</a></p>
+      <p class="form-note">Opens an email to admin@clearfend.com. Launch news and early access only.</p>
     </form>
+    <div class="panel confirm" id="waitlist-done" hidden>
+      <span class="ok-big" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></span>
+      <p class="confirm-msg" tabindex="-1">Your email app opened with your waitlist request. If it didn't, email <a href="mailto:admin@clearfend.com?subject=ClearFend%20waitlist">admin@clearfend.com</a> directly.</p>
+      <div class="copy-row"><button class="btn ghost" type="button" data-copy="waitlist">Copy request text</button><span class="copy-status" role="status" aria-live="polite"></span></div>
+      <details class="peek"><summary>Show the request text</summary><pre class="composed" id="waitlist-composed"></pre></details>
+      <div class="m-actions"><button class="btn ghost" type="button" data-edit>Edit details</button></div>
+    </div>
+    </div>
   </div>
 </section>
 
@@ -1156,10 +1218,9 @@
 
     <div class="incident reveal" id="incident">
       <span class="ic-box lg"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg></span>
-      <div>
-        <h4>Experiencing an incident?</h4>
-        <p style="margin-top:6px"><b>ClearFend is not an incident-response provider</b> and does not run a 24/7 response line. If you are being attacked right now, call your cyber-insurance carrier&rsquo;s incident hotline (it is on your policy) or your incident-response retainer first. Isolate affected machines from the network, do not pay or negotiate before you have spoken to them, and preserve logs.</p>
-        <p style="margin-top:8px">If you are a design partner, email <a href="mailto:admin@clearfend.com?subject=INCIDENT">admin@clearfend.com</a> with &ldquo;INCIDENT&rdquo; in the subject and we will help you read your estate graph and Fix Queue for what the attacker could reach. Response times are best effort during business hours. <span class="ph">[CONFIRM: incident contact policy]</span></p>
+      <div class="inc-row">
+        <div><h4>Experiencing an incident?</h4><p>Send us the details and a person at admin@clearfend.com will read them.</p></div>
+        <a class="btn primary" href="#incident" data-incident>Report an incident</a>
       </div>
     </div>
   </div>
@@ -1193,7 +1254,7 @@
       <div class="fcol"><h4>Solutions</h4><ul><li><a href="#know">Know where you stand</a></li><li><a href="#fix">Fix what matters</a></li><li><a href="#prove">Prove it</a></li><li><a href="#modules">All modules</a></li><li><a href="#programs">Living programs</a></li></ul></div>
       <div class="fcol"><h4>Resources</h4><ul><li><a href="glossary.html">Glossary</a></li><li><a href="#principles">Design principles</a></li><li><a href="#trust">Trust &amp; security</a></li><li><a href="#status">Status</a></li><li><a href="#faq">FAQ</a></li><li><a href="#pricing">Pricing</a></li></ul></div>
       <div class="fcol"><h4>Customers</h4><ul><li><a href="#partners">Design partners</a></li><li><a href="#assessment">Posture assessment</a></li><li><a href="#waitlist">Waitlist</a></li><li><a href="https://dev.clearfend.com/login">Sign in</a></li></ul></div>
-      <div class="fcol"><h4>Company</h4><ul><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li><li><a href="#careers">Careers</a></li><li><a href="#press">Press kit</a></li><li><a href="#incident">Experiencing an incident?</a></li></ul></div>
+      <div class="fcol"><h4>Company</h4><ul><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li><li><a href="#careers">Careers</a></li><li><a href="#press">Press kit</a></li><li><a href="#incident" data-incident>Experiencing an incident?</a></li></ul></div>
     </div>
     <div class="foot">
       <span><b>ClearFend</b> · clearfend.com · <a href="mailto:admin@clearfend.com">admin@clearfend.com</a></span>
@@ -1201,6 +1262,55 @@
     </div>
   </div>
 </footer>
+
+<!-- ═══════════════ INCIDENT REPORT MODAL ═══════════════ -->
+<dialog class="modal" id="incident-modal" aria-labelledby="im-title" aria-describedby="im-note">
+  <div class="m-head">
+    <span class="ic-box warn" aria-hidden="true"><svg class="ic"><use href="#i-alert"/></svg></span>
+    <h2 id="im-title">Report an incident</h2>
+    <button class="m-close" type="button" data-close aria-label="Close incident report"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="m-body" data-view="form">
+    <p class="m-note" id="im-note"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>If you are in immediate danger or this is a crime in progress, contact local authorities.</p>
+    <form id="incident-form" novalidate>
+      <div class="grid2">
+        <div class="fld"><label for="ir-name">Your name <span class="req" aria-hidden="true">*</span></label><input id="ir-name" name="name" type="text" autocomplete="name" required aria-describedby="ir-name-err"><p class="err" id="ir-name-err"></p></div>
+        <div class="fld"><label for="ir-email">Work email <span class="req" aria-hidden="true">*</span></label><input id="ir-email" name="email" type="email" autocomplete="email" required aria-describedby="ir-email-err"><p class="err" id="ir-email-err"></p></div>
+        <div class="fld"><label for="ir-company">Company</label><input id="ir-company" name="company" type="text" autocomplete="organization"></div>
+        <div class="fld"><label for="ir-phone">Phone <span class="opt">(optional)</span></label><input id="ir-phone" name="phone" type="tel" autocomplete="tel"></div>
+      </div>
+      <div class="fld"><label for="ir-type">Incident type <span class="req" aria-hidden="true">*</span></label>
+        <select id="ir-type" name="type" required aria-describedby="ir-type-err">
+          <option value="">Choose one…</option>
+          <option>Ransomware or extortion</option>
+          <option>Account or email compromise</option>
+          <option>Data exposure or leak</option>
+          <option>Suspicious activity</option>
+          <option>Service outage or DDoS</option>
+          <option>Lost or stolen device</option>
+          <option>Other</option>
+        </select><p class="err" id="ir-type-err"></p></div>
+      <div class="fld"><label for="ir-when">When it started</label>
+        <div class="when"><input id="ir-when" name="started" type="datetime-local"><label class="check"><input id="ir-when-unsure" type="checkbox"> Not sure</label></div></div>
+      <fieldset class="fld" aria-describedby="ir-contain-err"><legend>Containment status <span class="req" aria-hidden="true">*</span></legend>
+        <div class="radios">
+          <label class="radio"><input type="radio" name="containment" value="Contained" required> Contained</label>
+          <label class="radio"><input type="radio" name="containment" value="Not contained"> Not contained</label>
+          <label class="radio"><input type="radio" name="containment" value="Unknown"> Unknown</label>
+        </div><p class="err" id="ir-contain-err"></p></fieldset>
+      <div class="fld"><label for="ir-systems">Systems affected</label><input id="ir-systems" name="systems" type="text" maxlength="200" placeholder="e.g. email, finance laptop, AWS account"></div>
+      <div class="fld"><label for="ir-what">What happened <span class="req" aria-hidden="true">*</span></label><textarea id="ir-what" name="what" rows="4" maxlength="1500" required aria-describedby="ir-what-err" placeholder="What you noticed, and anything you have already done."></textarea><p class="err" id="ir-what-err"></p></div>
+      <div class="m-actions"><p class="form-note"><span class="req" aria-hidden="true">*</span> Required. Opens an email to admin@clearfend.com.</p><button class="btn primary" type="submit">Compose report email</button></div>
+    </form>
+  </div>
+  <div class="m-body confirm" data-view="done" hidden>
+    <span class="ok-big" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></span>
+    <p class="confirm-msg" tabindex="-1">Your email app opened with the report. If it didn't, email <a href="mailto:admin@clearfend.com">admin@clearfend.com</a> directly.</p>
+    <div class="copy-row"><button class="btn ghost" type="button" data-copy="incident">Copy report text</button><span class="copy-status" role="status" aria-live="polite"></span></div>
+    <details class="peek"><summary>Show the report text</summary><pre class="composed" id="incident-composed"></pre></details>
+    <div class="m-actions"><button class="btn ghost" type="button" data-edit>Edit report</button><button class="btn primary" type="button" data-close>Done</button></div>
+  </div>
+</dialog>
 
 <script>
 (function(){
@@ -1356,22 +1466,39 @@
     });
   })();
 
-  /* ---- forms: placeholder endpoint -> pre-filled email ---- */
-  (function(){
-    var wl = document.getElementById('waitlist-form');
-    if(wl && wl.action.indexOf('FORM_ID_PLACEHOLDER') !== -1){
-      wl.addEventListener('submit', function(e){
-        e.preventDefault();
-        var email = document.getElementById('wl-email').value;
-        var size = document.getElementById('wl-size').value;
-        var trigger = document.getElementById('wl-trigger').value || 'not specified';
-        var body = 'Please add me to the ClearFend waitlist.\n\n' +
-                   'Email: ' + email + '\nCompany size: ' + size + '\nTrigger: ' + trigger;
-        window.location.href = 'mailto:admin@clearfend.com' +
-          '?subject=' + encodeURIComponent('Waitlist signup') +
-          '&body=' + encodeURIComponent(body);
-      });
+  /* ---- forms: every submit composes an email to admin@clearfend.com ---- */
+  var CF = window.ClearFend = window.ClearFend || {};
+  CF.TO = 'admin@clearfend.com';
+  CF.compose = function(subject, body){
+    return 'mailto:' + CF.TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  };
+  /* opening a mailto: hands off to the mail app; the page stays put */
+  CF.openMailto = function(href){ CF.lastMailto = href; window.location.href = href; };
+  CF.copy = function(text, statusEl){
+    function done(ok){ if(statusEl){ statusEl.textContent = ok ? 'Copied to clipboard.' : 'Copy failed. Select the text below and copy it.'; } }
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(fallback()); });
+    } else { done(fallback()); }
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly',''); ta.style.position = 'fixed'; ta.style.left = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      var ok = false; try { ok = document.execCommand('copy'); } catch(err) {}
+      document.body.removeChild(ta); return ok;
     }
+  };
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  function setErr(field, errEl, msg){
+    if(errEl) errEl.textContent = msg || '';
+    if(field){
+      if(field.tagName === 'FIELDSET'){ if(msg) field.setAttribute('data-invalid','true'); else field.removeAttribute('data-invalid'); }
+      else if(msg) field.setAttribute('aria-invalid','true'); else field.removeAttribute('aria-invalid');
+    }
+    return !msg;
+  }
+
+  (function(){
+    /* hero: work email -> demo request */
     var hf = document.getElementById('hero-form');
     if(hf){
       hf.addEventListener('submit', function(e){
@@ -1379,11 +1506,157 @@
         var email = document.getElementById('hero-email').value.trim();
         var body = 'Hi ClearFend,\n\nWe\'d like a demo of the Confidence Console.\n\n' +
                    'Work email: ' + email + '\nName:\nCompany:\nCompany size:\nWhat\'s driving this:\n';
-        window.location.href = 'mailto:admin@clearfend.com' +
-          '?subject=' + encodeURIComponent('ClearFend demo request') +
-          '&body=' + encodeURIComponent(body);
+        CF.openMailto(CF.compose('ClearFend demo request', body));
       });
     }
+
+    /* waitlist */
+    var wl = document.getElementById('waitlist-form');
+    var wlDone = document.getElementById('waitlist-done');
+    if(wl && wlDone){
+      var wlText = '';
+      var wlEmail = document.getElementById('wl-email');
+      wl.addEventListener('submit', function(e){
+        e.preventDefault();
+        var email = wlEmail.value.trim();
+        var ok = setErr(wlEmail, document.getElementById('wl-email-err'),
+          !email ? 'Enter your work email.' : (!EMAIL_RE.test(email) ? 'That email address doesn\'t look right.' : ''));
+        if(!ok){ wlEmail.focus(); return; }
+        var size = document.getElementById('wl-size').value;
+        var trigger = document.getElementById('wl-trigger').value || 'Not specified';
+        var subject = 'ClearFend waitlist';
+        wlText = 'Please add me to the ClearFend waitlist.\n\n' +
+                 'Work email: ' + email + '\nCompany size: ' + size + '\nWhat\'s driving this: ' + trigger + '\n';
+        var href = CF.compose(subject, wlText);
+        wl.setAttribute('data-mailto', href);
+        document.getElementById('waitlist-composed').textContent = 'To: ' + CF.TO + '\nSubject: ' + subject + '\n\n' + wlText;
+        wl.hidden = true; wlDone.hidden = false;
+        wlDone.querySelector('.confirm-msg').focus();
+        CF.openMailto(href);
+      });
+      wlEmail.addEventListener('input', function(){ if(wlEmail.getAttribute('aria-invalid')) setErr(wlEmail, document.getElementById('wl-email-err'), ''); });
+      wlDone.querySelector('[data-copy]').addEventListener('click', function(){
+        CF.copy('To: ' + CF.TO + '\nSubject: ClearFend waitlist\n\n' + wlText, wlDone.querySelector('.copy-status'));
+      });
+      wlDone.querySelector('[data-edit]').addEventListener('click', function(){
+        wlDone.hidden = true; wl.hidden = false; wlDone.querySelector('.copy-status').textContent = ''; wlEmail.focus();
+      });
+    }
+  })();
+
+  /* ---- incident report modal ---- */
+  (function(){
+    var dlg = document.getElementById('incident-modal');
+    var form = document.getElementById('incident-form');
+    if(!dlg || !form) return;
+    var formView = dlg.querySelector('[data-view="form"]');
+    var doneView = dlg.querySelector('[data-view="done"]');
+    var trigger = null, reportText = '', reportSubject = '';
+    var FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]:not([tabindex="-1"])';
+    var $ = function(id){ return document.getElementById(id); };
+    var unsure = $('ir-when-unsure'), when = $('ir-when');
+
+    function visible(el){ return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length); }
+    function open(from){
+      trigger = from || document.activeElement;
+      if(typeof dlg.showModal === 'function'){ if(!dlg.open) dlg.showModal(); } else { dlg.setAttribute('open',''); }
+      document.body.classList.add('no-scroll');
+      showView('form');
+      $('ir-name').focus();
+    }
+    function close(){
+      if(typeof dlg.close === 'function' && dlg.open) dlg.close(); else dlg.removeAttribute('open');
+    }
+    dlg.addEventListener('close', function(){
+      document.body.classList.remove('no-scroll');
+      var t = trigger; trigger = null;
+      if(t && document.contains(t) && visible(t)) t.focus();
+      else { var mb = $('menuBtn'); if(mb && visible(mb)) mb.focus(); else if(t && t.focus) t.focus(); }
+    });
+    function showView(v){
+      formView.hidden = v !== 'form'; doneView.hidden = v !== 'done';
+      doneView.querySelector('.copy-status').textContent = '';
+    }
+    /* Escape closes (native cancel), and we own it so focus return is consistent */
+    dlg.addEventListener('cancel', function(e){ e.preventDefault(); close(); });
+    dlg.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){ e.preventDefault(); e.stopPropagation(); close(); return; }
+      if(e.key !== 'Tab') return;
+      var f = Array.prototype.slice.call(dlg.querySelectorAll(FOCUSABLE)).filter(visible);
+      if(!f.length) return;
+      var first = f[0], last = f[f.length - 1], a = document.activeElement;
+      if(e.shiftKey && (a === first || !dlg.contains(a))){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && (a === last || !dlg.contains(a))){ e.preventDefault(); first.focus(); }
+    });
+    /* click on the backdrop closes */
+    dlg.addEventListener('click', function(e){
+      if(e.target !== dlg) return;
+      var r = dlg.getBoundingClientRect();
+      if(e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) close();
+    });
+    dlg.querySelectorAll('[data-close]').forEach(function(b){ b.addEventListener('click', close); });
+    dlg.querySelector('[data-edit]').addEventListener('click', function(){ showView('form'); $('ir-what').focus(); });
+    dlg.querySelector('[data-copy]').addEventListener('click', function(){
+      CF.copy('To: ' + CF.TO + '\nSubject: ' + reportSubject + '\n\n' + reportText, doneView.querySelector('.copy-status'));
+    });
+    unsure.addEventListener('change', function(){ when.disabled = unsure.checked; if(unsure.checked) when.value = ''; });
+
+    /* every "Experiencing an incident?" link opens the modal */
+    document.querySelectorAll('[data-incident]').forEach(function(a){
+      a.setAttribute('aria-haspopup','dialog');
+      a.addEventListener('click', function(e){ e.preventDefault(); open(a); });
+    });
+
+    function checkAll(){
+      var name = $('ir-name'), email = $('ir-email'), type = $('ir-type'), what = $('ir-what');
+      var fs = dlg.querySelector('fieldset'), contain = form.querySelector('input[name="containment"]:checked');
+      var bad = [];
+      if(!setErr(name, $('ir-name-err'), name.value.trim() ? '' : 'Enter your name.')) bad.push(name);
+      var ev = email.value.trim();
+      if(!setErr(email, $('ir-email-err'), !ev ? 'Enter your work email.' : (EMAIL_RE.test(ev) ? '' : 'That email address doesn\'t look right.'))) bad.push(email);
+      if(!setErr(type, $('ir-type-err'), type.value ? '' : 'Choose the closest incident type.')) bad.push(type);
+      if(!setErr(fs, $('ir-contain-err'), contain ? '' : 'Choose a containment status, or Unknown.')) bad.push(fs.querySelector('input'));
+      if(!setErr(what, $('ir-what-err'), what.value.trim() ? '' : 'Describe what happened, even briefly.')) bad.push(what);
+      return bad;
+    }
+    form.addEventListener('input', function(e){ if(form.getAttribute('data-tried')) checkAll(); });
+    form.addEventListener('change', function(e){ if(form.getAttribute('data-tried')) checkAll(); });
+
+    function fmtWhen(){
+      if(unsure.checked) return 'Not sure';
+      if(!when.value) return 'Not given';
+      var tz = '';
+      try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(err) {}
+      return when.value.replace('T',' ') + (tz ? ' (' + tz + ')' : ' (local time)');
+    }
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      form.setAttribute('data-tried','1');
+      var bad = checkAll();
+      if(bad.length){ bad[0].focus(); return; }
+      var v = function(id){ return $(id).value.trim(); };
+      var type = v('ir-type'), company = v('ir-company');
+      reportSubject = 'Incident report — ' + type + ' — ' + (company || 'Company not given');
+      reportText =
+        'INCIDENT REPORT (sent from clearfend.com)\n' +
+        '========================================\n\n' +
+        'Name:              ' + v('ir-name') + '\n' +
+        'Work email:        ' + v('ir-email') + '\n' +
+        'Company:           ' + (company || 'Not given') + '\n' +
+        'Phone:             ' + (v('ir-phone') || 'Not given') + '\n\n' +
+        'Incident type:     ' + type + '\n' +
+        'Started:           ' + fmtWhen() + '\n' +
+        'Containment:       ' + form.querySelector('input[name="containment"]:checked').value + '\n' +
+        'Systems affected:  ' + (v('ir-systems') || 'Not given') + '\n\n' +
+        'What happened:\n' + v('ir-what') + '\n';
+      var href = CF.compose(reportSubject, reportText);
+      form.setAttribute('data-mailto', href);
+      $('incident-composed').textContent = 'To: ' + CF.TO + '\nSubject: ' + reportSubject + '\n\n' + reportText;
+      showView('done');
+      doneView.querySelector('.confirm-msg').focus();
+      CF.openMailto(href);
+    });
+    CF.openIncident = open;
   })();
 })();
 </script>
