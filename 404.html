@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — ClearFend</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="This page isn't on clearfend.com. Go to the home page or the plain-English security glossary.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#ffffff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --canvas:#eef1f6; --s1:#ffffff; --s2:#f5f7fb; --s3:#eef2f8; --s4:#e6ecf4;
+    --border:#e7ebf2; --border-strong:#d6deea;
+    --text:#18202e; --muted:#5b6577; --faint:#5f6b7d; --on-accent:#ffffff;
+    --accent:#0a6b79; --accent-strong:#095e6b; --accent-weak:rgba(10,107,121,.1); --accent-line:rgba(10,107,121,.5); --accent-text:#095e6b;
+    --ai-text:#8a5a0b; --ai-tint:rgba(224,149,42,.12);
+    --shadow-1:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.05);
+    --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --display:'Sora','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --r:14px; --max:1200px;
+    --fs-xs:12px; --fs-sm:13.5px; --fs-base:15px; --fs-md:17px; --fs-lg:20px;
+    color-scheme:light;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:110px}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--s1);color:var(--text);font-family:var(--font);font-size:var(--fs-base);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{color:var(--accent-strong);text-decoration:underline;text-underline-offset:3px}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+  .skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:#fff;padding:8px 12px;border-radius:6px;font-weight:600;z-index:100}
+  .skip:focus{left:8px}
+  .mono{font-family:var(--mono)}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:var(--display);letter-spacing:-.02em;margin:0;text-wrap:balance}
+  h1{font-size:clamp(2rem,4vw,3rem);line-height:1.08;font-weight:700}
+  h2{font-size:var(--fs-lg);font-weight:600}
+  p{margin:0}
+  .eyebrow{font:600 var(--fs-xs)/1.3 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-text)}
+  .ic{width:24px;height:24px;flex:0 0 auto;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;font:600 13px/1 var(--font);padding:10px 14px;border:1px solid transparent;cursor:pointer;white-space:nowrap;text-decoration:none}
+  .btn:hover{text-decoration:none}
+  .btn.primary{background:var(--accent);color:#fff}
+  .btn.primary:hover{background:var(--accent-strong);color:#fff}
+  .btn.ghost{background:var(--s1);border-color:var(--border-strong);color:var(--text)}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent-strong)}
+
+  .util{background:var(--canvas);border-bottom:1px solid var(--border);font-size:var(--fs-xs);color:var(--muted)}
+  .util .wrap{display:flex;justify-content:space-between;align-items:center;min-height:34px;gap:16px}
+  .util a{color:var(--muted);font-weight:500;display:inline-flex;align-items:center;gap:6px;min-height:28px}
+  .util a:hover{color:var(--accent-strong)}
+  .util .links{display:flex;gap:18px;align-items:center;margin-left:auto}
+  .util .ic{width:15px;height:15px;stroke-width:1.8}
+  @media (max-width:700px){.util .tag{display:none}.util .links{justify-content:space-between;width:100%}}
+  header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .navbar{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px;position:relative}
+  .brand-link{display:inline-flex;align-items:center;text-decoration:none;border-radius:6px;min-height:32px}
+  .brand-link:hover{text-decoration:none}
+  .brand{font:600 22px/1 var(--display);letter-spacing:-.025em;color:#0f1b2e;white-space:nowrap}
+  .brand > span{color:#0f9a8a}
+  nav.sub{flex:1}
+  nav.sub ul{list-style:none;margin:0;padding:0;display:flex;gap:2px;align-items:center}
+  nav.sub a{display:inline-flex;align-items:center;font:500 14px/1 var(--font);color:var(--text);padding:10px 12px;border-radius:8px}
+  nav.sub a:hover,nav.sub a[aria-current="page"]{background:var(--s2);color:var(--accent-strong);text-decoration:none}
+  .nav-right{display:flex;gap:10px;align-items:center}
+  .menu-btn{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--border-strong);background:var(--s1);color:var(--text);cursor:pointer;place-items:center}
+  .menu-btn .x{display:none}.menu-btn[aria-expanded="true"] .x{display:block}.menu-btn[aria-expanded="true"] .bars{display:none}
+  @media (max-width:1023px){
+    .menu-btn{display:grid}
+    html.js nav.sub{display:none;position:absolute;left:0;right:0;top:100%;background:var(--s1);border-bottom:1px solid var(--border);box-shadow:0 24px 48px rgba(16,24,40,.12);padding:8px 16px 16px}
+    html.js nav.sub.open{display:block}
+    nav.sub ul{flex-direction:column;align-items:stretch}
+    nav.sub a{width:100%;padding:14px 8px;font-size:16px;border-bottom:1px solid var(--border);border-radius:0}
+    html:not(.js) .navbar{flex-wrap:wrap;height:auto;padding:12px 24px}
+    html:not(.js) nav.sub{order:3;flex-basis:100%}
+    html:not(.js) nav.sub ul{flex-direction:row;flex-wrap:wrap}
+    html:not(.js) nav.sub a{width:auto;border:0;font-size:14px;padding:8px}
+    html:not(.js) .menu-btn{display:none}
+  }
+  @media (max-width:520px){.nav-right .btn{padding:10px 12px}}
+  footer{border-top:1px solid var(--border);padding:44px 0 30px;background:var(--s1)}
+  .fgrid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:24px;margin-bottom:28px}
+  @media (max-width:900px){.fgrid{grid-template-columns:repeat(2,1fr)}.fgrid .fbrand{grid-column:1 / -1}}
+  .fbrand p{font-size:var(--fs-sm);color:var(--muted);margin-top:10px;max-width:36ch}
+  .fh{font:600 12px/1.3 var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+  .fgrid ul{list-style:none;margin:0;padding:0}
+  .fgrid ul a{font-size:var(--fs-sm);color:var(--muted);display:inline-flex;align-items:center;min-height:30px;text-decoration:underline;text-decoration-color:rgba(91,101,119,.35);text-underline-offset:3px}
+  .foot{display:flex;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding-top:18px;border-top:1px solid var(--border);font-size:var(--fs-xs);color:var(--faint)}
+  .foot a{text-decoration:underline;text-underline-offset:3px;display:inline-flex;min-height:26px;align-items:center}
+  .foot b{color:var(--muted)}
+
+  .nf{padding:96px 0 120px;background:radial-gradient(800px 400px at 90% -20%,rgba(45,225,198,.16),transparent 60%),var(--s1)}
+  .nf .code{font:700 13px/1 var(--mono);letter-spacing:.12em;color:var(--accent-text)}
+  .nf h1{margin:14px 0 16px;max-width:18ch}
+  .nf p{color:var(--muted);font-size:var(--fs-md);max-width:52ch;line-height:1.65}
+  .nf .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+  .nf .btn{padding:14px 20px;font-size:14px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-login" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M13 4h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-bars" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+</svg>
+<div class="util" role="region" aria-label="Utility links">
+    <div class="wrap">
+      <span class="tag">Security and compliance for companies without a security team</span>
+      <span class="links">
+        <a href="https://dev.clearfend.com/login"><svg class="ic" aria-hidden="true"><use href="#i-login"/></svg>Sign in (preview)</a>
+        <a href="/index.html#incident-report"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>Experiencing an incident?</a>
+      </span>
+    </div>
+</div>
+<header class="site" id="siteHeader">
+  <div class="wrap navbar">
+    <a class="brand-link" href="/" aria-label="ClearFend home"><span class="brand" aria-hidden="true">Clear<span>Fend</span></span></a>
+    <nav class="sub" id="subNav" aria-label="Primary"><ul><li><a href="/index.html#console">Platform</a></li><li><a href="/index.html#modules">Solutions</a></li><li><a href="/index.html#pricing">Pricing</a></li><li><a href="/glossary.html">Resources</a></li><li><a href="/index.html#partners">Customers</a></li><li><a href="/index.html#about">Company</a></li></ul></nav>
+    <div class="nav-right">
+      <a class="btn primary" href="/index.html#demo-request">Get a demo</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="subNav" aria-label="Open menu" id="menuBtn"><svg class="ic bars" aria-hidden="true"><use href="#i-bars"/></svg><svg class="ic x" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <section class="nf">
+    <div class="wrap">
+      <p class="code">404 · NOT FOUND</p>
+      <h1>This page isn&rsquo;t here.</h1>
+      <p>The link may be old, or the address mistyped. Nothing is broken on your side.</p>
+      <div class="row">
+        <a class="btn primary" href="/">Go to the home page</a>
+        <a class="btn ghost" href="/glossary.html">Open the glossary</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="fbrand"><a class="brand-link" href="/" aria-label="ClearFend home"><span class="brand" aria-hidden="true">Clear<span>Fend</span></span></a><p>Security and compliance for companies without a security team.</p></div>
+      <div><p class="fh">Platform</p><ul><li><a href="/index.html#console">The Confidence Console</a></li><li><a href="/index.html#estate">Estate</a></li><li><a href="/index.html#modules">All modules</a></li></ul></div>
+      <div><p class="fh">Resources</p><ul><li><a href="/glossary.html">Glossary</a></li><li><a href="/index.html#trust">Trust &amp; security</a></li><li><a href="/index.html#faq">FAQ</a></li><li><a href="/index.html#pricing">Pricing</a></li></ul></div>
+      <div><p class="fh">Customers</p><ul><li><a href="/index.html#partners">Design partners</a></li><li><a href="/index.html#waitlist">Join the waitlist</a></li><li><a href="https://dev.clearfend.com/login">Sign in (preview)</a></li></ul></div>
+      <div><p class="fh">Company</p><ul><li><a href="/index.html#about">About</a></li><li><a href="/index.html#contact">Contact</a></li><li><a href="/index.html#incident-report">Experiencing an incident?</a></li></ul></div>
+    </div>
+    <div class="foot"><span><b>ClearFend</b> · clearfend.com · <a href="mailto:admin@clearfend.com">admin@clearfend.com</a></span><span>Read-only. Plain English. Labelled honestly.</span></div>
+  </div>
+</footer>
+<script>
+(function(){
+  var b = document.getElementById('menuBtn'), n = document.getElementById('subNav');
+  if(!b || !n) return;
+  function set(o){ b.setAttribute('aria-expanded', String(o)); b.setAttribute('aria-label', o ? 'Close menu' : 'Open menu'); n.classList.toggle('open', o); }
+  b.addEventListener('click', function(){ set(b.getAttribute('aria-expanded') !== 'true'); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && b.getAttribute('aria-expanded') === 'true'){ set(false); b.focus(); } });
+  document.addEventListener('click', function(e){ if(!e.target.closest('#siteHeader')) set(false); });
+})();
+</script>
+</body>
+</html>
