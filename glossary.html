@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary — ClearFend. Every term we use, in plain English.</title>
+<meta name="description" content="The ClearFend glossary: blast radius, crown jewel, drift, provenance, living program and every other term on the Confidence Console, explained in plain English for people without a security team.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="theme-color" content="#ffffff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#eef1f6; --s1:#ffffff; --s2:#f5f7fb; --s3:#eef2f8; --s4:#e6ecf4;
+    --border:#e7ebf2; --border-strong:#d6deea;
+    --text:#18202e; --muted:#5b6577; --faint:#5f6b7d; --on-accent:#ffffff;
+    --accent:#0a6b79; --accent-strong:#095e6b; --accent-weak:rgba(10,107,121,.1); --accent-line:rgba(10,107,121,.5); --accent-text:#095e6b;
+    --ai-text:#8a5a0b; --ai-tint:rgba(224,149,42,.12);
+    --shadow-1:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.05);
+    --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --display:'Sora','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --r:14px; --max:1200px;
+    --fs-xs:12px; --fs-sm:13.5px; --fs-base:15px; --fs-md:17px; --fs-lg:20px;
+    color-scheme:light;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:110px}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--s1);color:var(--text);font-family:var(--font);font-size:var(--fs-base);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{color:var(--accent-strong);text-decoration:underline;text-underline-offset:3px}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+  .skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:#fff;padding:8px 12px;border-radius:6px;font-weight:600;z-index:100}
+  .skip:focus{left:8px}
+  .mono{font-family:var(--mono)}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:var(--display);letter-spacing:-.02em;margin:0;text-wrap:balance}
+  h1{font-size:clamp(2rem,4vw,3rem);line-height:1.08;font-weight:700}
+  h2{font-size:var(--fs-lg);font-weight:600}
+  p{margin:0}
+  .eyebrow{font:600 var(--fs-xs)/1.3 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-text)}
+  .ic{width:24px;height:24px;flex:0 0 auto;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;font:600 13px/1 var(--font);padding:10px 14px;border:1px solid transparent;cursor:pointer;white-space:nowrap;text-decoration:none}
+  .btn:hover{text-decoration:none}
+  .btn.primary{background:var(--accent);color:#fff}
+  .btn.primary:hover{background:var(--accent-strong);color:#fff}
+  .btn.ghost{background:var(--s1);border-color:var(--border-strong);color:var(--text)}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent-strong)}
+
+  header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .navbar{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
+  .brand-link{display:inline-flex;align-items:center;text-decoration:none;border-radius:6px}
+  .brand-link:hover{text-decoration:none}
+  .brand{font:600 22px/1 var(--display);letter-spacing:-.025em;color:#0f1b2e;white-space:nowrap}
+  .brand > span{color:#0f9a8a}
+  .nav-right{display:flex;gap:10px;align-items:center}
+  @media (max-width:600px){.nav-right .ghost{display:none}}
+
+  .hero{padding:64px 0 40px;background:radial-gradient(800px 400px at 90% -20%, rgba(45,225,198,.16), transparent 60%),var(--s1)}
+  .hero .lead{color:var(--muted);font-size:var(--fs-md);max-width:64ch;margin-top:16px;line-height:1.65}
+  .crumb{font-size:var(--fs-sm);color:var(--faint);margin-bottom:18px}
+  .search{margin-top:28px;display:flex;gap:10px;max-width:560px;background:var(--s1);border:1px solid var(--border-strong);border-radius:12px;padding:6px;box-shadow:var(--shadow-1)}
+  .search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
+  .search .ic{color:var(--faint);align-self:center;margin-left:10px}
+  .search input{flex:1;min-width:0;border:0;background:transparent;padding:12px 10px;font:500 15px/1.2 var(--font);color:var(--text)}
+  .search input:focus{outline:none}
+  .count{font-size:var(--fs-xs);color:var(--faint);margin-top:10px}
+
+  main{padding:40px 0 96px}
+  .layout{display:grid;grid-template-columns:220px 1fr;gap:48px;align-items:start}
+  @media (max-width:900px){.layout{grid-template-columns:1fr;gap:24px}}
+  .toc{position:sticky;top:96px;display:flex;flex-direction:column;gap:4px}
+  @media (max-width:900px){.toc{position:static;flex-direction:row;flex-wrap:wrap;gap:8px}}
+  .toc h2{font:600 11px/1.3 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:8px;width:100%}
+  .toc a{font-size:var(--fs-sm);color:var(--muted);padding:6px 10px;border-radius:8px}
+  .toc a:hover{background:var(--s2);color:var(--accent-strong);text-decoration:none}
+  .group{margin-bottom:44px;scroll-margin-top:110px}
+  .group > h2{padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .group > h2 .ic{color:var(--accent)}
+  dl{margin:0;display:flex;flex-direction:column;gap:8px}
+  .term{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;scroll-margin-top:110px;box-shadow:var(--shadow-1)}
+  .term:target{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
+  .term[hidden]{display:none}
+  dt{font:600 var(--fs-md)/1.3 var(--display);letter-spacing:-.01em;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  dt a.anchor{font:500 12px/1 var(--mono);color:var(--faint);opacity:0;transition:opacity .15s}
+  .term:hover dt a.anchor,.term:focus-within dt a.anchor{opacity:1}
+  dd{margin:8px 0 0;color:var(--muted);font-size:var(--fs-sm);line-height:1.65}
+  dd b{color:var(--text);font-weight:600}
+  .see{margin-top:8px;font-size:var(--fs-xs);color:var(--faint)}
+  .see a{font-weight:500}
+  .empty{padding:22px;border:1px dashed var(--border-strong);border-radius:var(--r);color:var(--muted);font-size:var(--fs-sm)}
+  .empty[hidden]{display:none}
+  .chip{display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:999px;border:1px solid var(--accent-line);color:var(--accent-text);background:var(--accent-weak);white-space:nowrap}
+  .chip.ai{color:var(--ai-text);border-color:rgba(224,149,42,.4);background:var(--ai-tint)}
+
+  footer{border-top:1px solid var(--border);padding:34px 0;font-size:var(--fs-xs);color:var(--faint)}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  footer b{color:var(--muted)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4-5"/><circle cx="12" cy="16" r="1.5"/><path d="M3 20h18"/></symbol>
+  <symbol id="i-graph" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="12" cy="13" r="2.4"/><circle cx="7" cy="19" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="M7 7.5l3.4 3.6M17 7.5l-3.4 3.6M10.6 15l-2.2 2.4M13.4 15l2.6 2.6"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-ai" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2.5"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/><path d="M10 12h4M12 10v4"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></symbol>
+</svg>
+
+<header class="site">
+  <div class="wrap navbar">
+    <a class="brand-link" href="index.html" aria-label="ClearFend home"><span class="brand" aria-hidden="true">Clear<span>Fend</span></span></a>
+    <div class="nav-right">
+      <a class="btn ghost" href="index.html">Back to the site</a>
+      <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&amp;body=Hi%20ClearFend%2C%0A%0AWe%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0AName%3A%0ACompany%3A%0ACompany%20size%3A%0AWhat%27s%20driving%20this%3A%0A">Get a demo</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="crumb"><a href="index.html">ClearFend</a> · Resources · Glossary</div>
+    <span class="eyebrow">Glossary</span>
+    <h1 style="margin-top:10px">Every term we use, in plain English.</h1>
+    <p class="lead">If a word on the console needs a paragraph, the paragraph is here. Written for an office manager, not an analyst. Each entry has its own link, so a first use on the console can point straight at it.</p>
+    <div class="search" role="search">
+      <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+      <label for="q" style="position:absolute;left:-9999px">Search terms</label>
+      <input id="q" type="search" placeholder="Search terms, e.g. drift, crown jewel, runbook" autocomplete="off">
+    </div>
+    <p class="count" id="count"></p>
+  </div>
+</section>
+
+<main id="main">
+  <div class="wrap layout">
+    <nav class="toc" aria-label="Glossary sections">
+      <h2>Sections</h2>
+      <a href="#g-number">The number</a>
+      <a href="#g-map">The map</a>
+      <a href="#g-work">The work</a>
+      <a href="#g-proof">The proof</a>
+      <a href="#g-ai">AI and machine identities</a>
+      <a href="#g-labels">The labels</a>
+    </nav>
+
+    <div id="terms">
+      <div class="group" id="g-number">
+        <h2><svg class="ic" aria-hidden="true"><use href="#i-gauge"/></svg>The number</h2>
+        <dl>
+          <div class="term" id="confidence-score"><dt>Confidence score <a class="anchor" href="#confidence-score">#</a></dt><dd>The one number on the front of the console, 0 to 100. It summarises how well your company is protected, based on what you have connected and what you have declared. Every input behind it carries a <a href="#provenance">provenance</a> label, and the score is only as confident as those inputs. A missing number never shows as zero.</dd></div>
+          <div class="term" id="confidence-console"><dt>Confidence Console <a class="anchor" href="#confidence-console">#</a></dt><dd>The name of the ClearFend product screen. It opens on the score, a plain-English verdict, and the three fixes that matter most.</dd></div>
+          <div class="term" id="verdict"><dt>Verdict <a class="anchor" href="#verdict">#</a></dt><dd>A sentence, next to the score, that says what the score means and what needs a decision this week. It is written for whoever runs the company, not for an analyst.</dd></div>
+          <div class="term" id="maturity-level"><dt>Maturity level (L1 to L5) <a class="anchor" href="#maturity-level">#</a></dt><dd>A five-rung ladder that places your score where outsiders hold you: <b>Exposed</b>, <b>Covered</b>, <b>Audit-Ready</b>, <b>Resilient</b>, <b>Adaptive</b>. You are the level whose requirements you fully meet. A one-time read can award at most Level 2; Level 3 needs proof that holds every day.</dd></div>
+          <div class="term" id="gates-not-averages"><dt>Gates, not averages <a class="anchor" href="#gates-not-averages">#</a></dt><dd>How the level is awarded. Every requirement of a level must hold; nothing is averaged. Great backups do not cancel out two admin accounts without MFA.</dd></div>
+          <div class="term" id="five-core-controls"><dt>Five core controls <a class="anchor" href="#five-core-controls">#</a></dt><dd>The five basics the first gate checks: multi-factor authentication, endpoint protection, backups, patching, and security training. All five must hold for Level 2.</dd></div>
+          <div class="term" id="posture-snapshot"><dt>Posture snapshot <a class="anchor" href="#posture-snapshot">#</a></dt><dd>A saved copy of the score and its inputs at a point in time. The console compares the two latest snapshots to tell you what changed since your last assessment.</dd></div>
+        </dl>
+      </div>
+
+      <div class="group" id="g-map">
+        <h2><svg class="ic" aria-hidden="true"><use href="#i-graph"/></svg>The map</h2>
+        <dl>
+          <div class="term" id="estate"><dt>Estate <a class="anchor" href="#estate">#</a></dt><dd>Everything you run and everyone who can act in your name: systems, cloud accounts, identities, keys, vendors, AI agents, people. The console is a map of it.</dd></div>
+          <div class="term" id="estate-graph"><dt>Estate graph <a class="anchor" href="#estate-graph">#</a></dt><dd>The map itself. Each thing in your estate is a node; each way one can reach another is an edge. Findings are ranked by how far along the edges an attacker could get.</dd></div>
+          <div class="term" id="blast-radius"><dt>Blast radius <a class="anchor" href="#blast-radius">#</a></dt><dd>For any node, how much an attacker could reach from it in a few hops, weighted by the open findings along the way. A deploy key that reaches your customer database has a large blast radius even if the key itself looks minor.</dd></div>
+          <div class="term" id="crown-jewel"><dt>Crown jewel <a class="anchor" href="#crown-jewel">#</a></dt><dd>A place where data or keys live: a database, a storage bucket, a cloud account, an admin identity. Crown jewels are what attack paths aim at, and anything that reaches one is treated as at least high severity.</dd></div>
+          <div class="term" id="choke-point"><dt>Choke point <a class="anchor" href="#choke-point">#</a></dt><dd>A node that most attack paths pass through on the way to a crown jewel. Fixing a choke point cuts many paths at once, so those fixes rise in the queue.</dd></div>
+          <div class="term" id="exposure"><dt>Exposure <a class="anchor" href="#exposure">#</a></dt><dd>The plain word for the question the graph answers: what can an attacker reach? The Exposure module is the estate graph and the queue it ranks.</dd></div>
+          <div class="term" id="connector"><dt>Connector <a class="anchor" href="#connector">#</a></dt><dd>A read-only link from the console to one of your systems, such as Microsoft 365 or AWS. You create it, it is time-boxed, and you can revoke it. Connectors are <a href="#in-build">in build</a>; until they land, most inputs are declared.</dd></div>
+          <div class="term" id="declaration"><dt>Declaration <a class="anchor" href="#declaration">#</a></dt><dd>Something a person tells the console rather than a connector reading it: which vendors you use, whether backups are tested, what AI is running. Declared inputs are labelled <b>self-declared</b> so nobody mistakes them for an observation.</dd></div>
+        </dl>
+      </div>
+
+      <div class="group" id="g-work">
+        <h2><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg>The work</h2>
+        <dl>
+          <div class="term" id="finding"><dt>Finding <a class="anchor" href="#finding">#</a></dt><dd>One specific thing that is wrong, tied to one node in your estate, with a severity, an effort estimate and a plain-English consequence. Findings are what the Fix Queue is made of.</dd></div>
+          <div class="term" id="fix-queue"><dt>Fix Queue <a class="anchor" href="#fix-queue">#</a></dt><dd>Every open finding from every module in one list, ranked by severity times what it can reach. The three at the top are the three fixes that matter. There is only ever one queue.</dd></div>
+          <div class="term" id="severity"><dt>Severity <a class="anchor" href="#severity">#</a></dt><dd>Critical, high, medium, low, or info. Five colours, no more. Critical is reserved and should feel rare.</dd></div>
+          <div class="term" id="runbook"><dt>Runbook <a class="anchor" href="#runbook">#</a></dt><dd>The ordered fix steps for one finding, grounded in a control register rather than improvised. The console downloads it as a document; filing it into a ticketing system is a later connector.</dd></div>
+          <div class="term" id="risk-register"><dt>Risk Register <a class="anchor" href="#risk-register">#</a></dt><dd>The list of risks you have chosen to carry rather than fix right now, each with an owner, a treatment and a date. It answers &ldquo;what have we accepted, and who signed for it?&rdquo;</dd></div>
+          <div class="term" id="proposed-risk"><dt>Proposed risk <a class="anchor" href="#proposed-risk">#</a></dt><dd>A risk a module has raised but nobody has owned yet. It waits in the register as &ldquo;awaiting review&rdquo; until a person sets an owner and a treatment.</dd></div>
+          <div class="term" id="living-program"><dt>Living program <a class="anchor" href="#living-program">#</a></dt><dd>A capability that remembers every entity it governs, one row per vendor, AI system, key or person, drives each through a lifecycle, keeps an append-only history, and shows what changed and why. Its gaps land in the Fix Queue, its residual risk in the Risk Register.</dd></div>
+          <div class="term" id="lifecycle"><dt>Lifecycle <a class="anchor" href="#lifecycle">#</a></dt><dd>The states an entity moves through in a living program, for example a vendor: prospective, assessed, re-assess, offboarded. Every move is recorded.</dd></div>
+          <div class="term" id="diff"><dt>Diff (what changed) <a class="anchor" href="#diff">#</a></dt><dd>The comparison between an entity&rsquo;s last assessment and this one, listing every change with a reason, regressions first. A living program shows the diff, not just the new score.</dd></div>
+          <div class="term" id="regression"><dt>Regression <a class="anchor" href="#regression">#</a></dt><dd>A change for the worse: a control that stopped holding, a vendor that lost a certification, a key that went stale. Regressions are always listed first.</dd></div>
+          <div class="term" id="phishability"><dt>Phishability <a class="anchor" href="#phishability">#</a></dt><dd>Part of a person&rsquo;s human-risk score: how often they clicked in your own simulations, minus how often they reported, plus how stale their training is. It is measured from real clicks, never a training-completion percentage.</dd></div>
+          <div class="term" id="design-gap"><dt>Design gap <a class="anchor" href="#design-gap">#</a></dt><dd>A control missing from a system&rsquo;s design, found before any code or scan. It comes from the secure-by-design assessment.</dd></div>
+        </dl>
+      </div>
+
+      <div class="group" id="g-proof">
+        <h2><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>The proof</h2>
+        <dl>
+          <div class="term" id="control"><dt>Control <a class="anchor" href="#control">#</a></dt><dd>A specific safeguard, written in plain English, that a framework expects you to have, such as &ldquo;admin accounts require a second factor&rdquo;. ClearFend keeps 28 of them on one register and maps each to SOC 2, ISO 27001, NIST CSF and HIPAA.</dd></div>
+          <div class="term" id="attestation"><dt>Attestation <a class="anchor" href="#attestation">#</a></dt><dd>A person stating that a control is in place, partial, or not in place. An attestation is self-declared until a connector observes it.</dd></div>
+          <div class="term" id="drift"><dt>Drift <a class="anchor" href="#drift">#</a></dt><dd>When a control you attested as in place is contradicted by a live finding in your estate. The control shows as <b>drifted</b> and counts as a gap until the finding closes. No control is silently green while the estate says otherwise.</dd></div>
+          <div class="term" id="readiness"><dt>Readiness <a class="anchor" href="#readiness">#</a></dt><dd>How close you are to passing an audit for a given framework, scored net of drift. It is a readiness view, not a certificate: an auditor still has to look.</dd></div>
+          <div class="term" id="evidence-packet"><dt>Evidence packet <a class="anchor" href="#evidence-packet">#</a></dt><dd>An export of what was true and when: the current state of your five core controls, your open findings, and the audit trail, re-verified before it leaves. It is what you hand an auditor or a customer.</dd></div>
+          <div class="term" id="audit-trail"><dt>Audit trail <a class="anchor" href="#audit-trail">#</a></dt><dd>The append-only log of every change made through the console. Each entry is chained to the one before it, so an edit or a deletion would break the chain and be detected.</dd></div>
+          <div class="term" id="stale"><dt>Stale <a class="anchor" href="#stale">#</a></dt><dd>What a control shows when its evidence has expired or nothing is watching it. Stale is never shown as green.</dd></div>
+          <div class="term" id="leadership-summary"><dt>Leadership summary <a class="anchor" href="#leadership-summary">#</a></dt><dd>A read-only one-pager for the board or a customer: the score and its movement, the top risks in plain English, resolved findings, and decisions waiting on an owner. Every figure links to the screen it came from.</dd></div>
+          <div class="term" id="fix-once-prove-three-ways"><dt>Fix once, prove three ways <a class="anchor" href="#fix-once-prove-three-ways">#</a></dt><dd>One fix in your estate closes a finding, clears the drift on the control it implicated, and writes a line in the evidence packet. You never record the same thing twice.</dd></div>
+        </dl>
+      </div>
+
+      <div class="group" id="g-ai">
+        <h2><svg class="ic" aria-hidden="true"><use href="#i-ai"/></svg>AI and machine identities</h2>
+        <dl>
+          <div class="term" id="ai-estate"><dt>AI estate <a class="anchor" href="#ai-estate">#</a></dt><dd>Every AI system your company runs or relies on: LLM apps, copilots, agents, MCP servers, and the identities behind them. The AI Estate module inventories and governs them as a living program.</dd></div>
+          <div class="term" id="machine-identity"><dt>Machine identity (non-human identity) <a class="anchor" href="#machine-identity">#</a></dt><dd>Anything that can act in your name without being a person: a service account, an API key, an OAuth grant, an agent&rsquo;s credential. Each one should have an owner, a scope and a rotation date. The ones that are ownerless and privileged rise to the top of the queue.</dd></div>
+          <div class="term" id="shadow-ai"><dt>Shadow AI <a class="anchor" href="#shadow-ai">#</a></dt><dd>An AI tool in use that nobody approved. It is still part of your estate, so it is still on the map.</dd></div>
+          <div class="term" id="mcp-server"><dt>MCP server <a class="anchor" href="#mcp-server">#</a></dt><dd>A small service that gives an AI agent access to a tool or a data source. Each one is a door into your estate and is governed like any other system.</dd></div>
+          <div class="term" id="reader-only-ai"><dt>Reader-only AI <a class="anchor" href="#reader-only-ai">#</a></dt><dd>How ClearFend&rsquo;s own AI works. It can read findings and write an explanation or a runbook, with citations, but it has no tools and no path to change a number or touch a system. Every request to act is refused by design.</dd></div>
+          <div class="term" id="grounded"><dt>Grounded (explanation) <a class="anchor" href="#grounded">#</a></dt><dd>An AI explanation whose severity, consequence and fix come from a maintained register, not from the model&rsquo;s imagination, with the evidence it cites listed alongside.</dd></div>
+        </dl>
+      </div>
+
+      <div class="group" id="g-labels">
+        <h2><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg>The labels</h2>
+        <dl>
+          <div class="term" id="provenance"><dt>Provenance <a class="anchor" href="#provenance">#</a></dt><dd>Where a number came from. Every figure on the console carries one of four words: <b>self-declared</b> (a person attested it), <b>observed</b> (a live connector read it), <b>derived</b> (the console computed it from those), or <b>sample</b> (demonstration data, never yours).</dd></div>
+          <div class="term" id="sample"><dt>Sample <a class="anchor" href="#sample">#</a></dt><dd>Demonstration data used to show how a screen works. It is always labelled sample and is never a customer&rsquo;s. Every illustration on this website is sample.</dd></div>
+          <div class="term" id="private-preview"><dt>Private preview <a class="anchor" href="#private-preview">#</a></dt><dd>Working software usable by named design partners, not generally available. Where ClearFend is today.</dd></div>
+          <div class="term" id="in-build"><dt>In build <a class="anchor" href="#in-build">#</a></dt><dd>Being built now, not yet usable. Shown as a chip wherever it applies, on the site and in the console.</dd></div>
+          <div class="term" id="planned"><dt>Planned <a class="anchor" href="#planned">#</a></dt><dd>On the roadmap, not started. The console calls the same thing <b>vision</b>. Nothing planned is sold as if it existed.</dd></div>
+          <div class="term" id="design-partner"><dt>Design partner <a class="anchor" href="#design-partner">#</a></dt><dd>A company running the console on its own estate during private preview, with direct access to the people building it and a say in what ships next. The way in is a read-only posture assessment.</dd></div>
+          <div class="term" id="read-only"><dt>Read-only <a class="anchor" href="#read-only">#</a></dt><dd>Access that can look but not change. Every connector ClearFend asks for is read-only; we never ask for passwords and never change anything in your environment.</dd></div>
+          <div class="term" id="tenant"><dt>Tenant <a class="anchor" href="#tenant">#</a></dt><dd>Your company&rsquo;s own, isolated space in ClearFend. Isolation is enforced inside the database on every table, and a query with no tenant context returns nothing.</dd></div>
+        </dl>
+      </div>
+      <p class="empty" id="empty" hidden>No term matches that. Try a shorter word, or <a href="mailto:admin@clearfend.com?subject=Glossary%20suggestion">tell us what is missing</a>.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><b>ClearFend</b> · <a href="index.html">clearfend.com</a> · <a href="mailto:admin@clearfend.com">admin@clearfend.com</a></span>
+    <span>Read-only. Plain English. Labelled honestly.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var q = document.getElementById('q');
+  var terms = Array.prototype.slice.call(document.querySelectorAll('.term'));
+  var groups = Array.prototype.slice.call(document.querySelectorAll('.group'));
+  var count = document.getElementById('count');
+  var empty = document.getElementById('empty');
+  function apply(){
+    var s = (q.value || '').trim().toLowerCase();
+    var shown = 0;
+    terms.forEach(function(t){
+      var hit = !s || t.textContent.toLowerCase().indexOf(s) !== -1;
+      t.hidden = !hit; if(hit) shown++;
+    });
+    groups.forEach(function(g){ g.hidden = !g.querySelector('.term:not([hidden])'); });
+    count.textContent = shown + ' of ' + terms.length + ' terms' + (s ? ' match “' + q.value.trim() + '”' : '');
+    empty.hidden = shown !== 0;
+  }
+  q.addEventListener('input', apply);
+  apply();
+  /* deep link: open the section of the targeted term even if a search hid it */
+  window.addEventListener('hashchange', function(){ q.value = ''; apply(); });
+})();
+</script>
+</body>
+</html>
