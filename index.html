@@ -16,19 +16,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet">
 
 <!-- ============================================================
-     CTA WIRING (every CTA ships as an honest placeholder)
+     CTA WIRING
      ============================================================
-     1) "Get a demo" / "Request a walkthrough" — a mailto: link to
-        admin@clearfend.com. To go live, keep the mailto or swap the href
-        for a Cal.com / SavvyCal booking link. Search this file for
-        "BOOKING-CTA".
-     2) The hero email field and the waitlist <form id="waitlist-form">
-        post to a placeholder endpoint. Replace the action with a
-        Formspree/Tally endpoint. Until then, a script at the bottom
-        intercepts submit and falls back to a pre-filled mailto
-        (search FORM_ID_PLACEHOLDER).
-     3) Anything in square brackets like [BOOKING LINK] is a visibly
-        marked placeholder for a fact we do not have yet.
+     Every contact path is an email to admin@clearfend.com:
+     - "Get a demo" links are mailto: links with a prefilled subject/body.
+     - The hero email field, the waitlist form and the incident report
+       modal compose a mailto: in the script at the bottom of this file,
+       then show a confirmation with a copy-to-clipboard fallback.
      ============================================================ -->
 
 <style>
@@ -665,16 +659,14 @@
         </li>
       </ul>
       <div class="drawer-cta">
-        <!-- BOOKING-CTA -->
-        <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%3A">Get a demo</a>
+        <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&amp;body=Hi%20ClearFend%2C%0A%0AWe%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0AName%3A%0ACompany%3A%0ACompany%20size%3A%0AWhat%27s%20driving%20this%3A%0A">Get a demo</a>
         <a class="btn ghost" href="https://dev.clearfend.com/login">Sign in</a>
         <a class="btn ghost" href="#incident">Experiencing an incident?</a>
       </div>
     </nav>
 
     <div class="nav-right">
-      <!-- BOOKING-CTA -->
-      <a class="btn primary sm" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%3A">Get a demo</a>
+      <a class="btn primary sm" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&amp;body=Hi%20ClearFend%2C%0A%0AWe%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0AName%3A%0ACompany%3A%0ACompany%20size%3A%0AWhat%27s%20driving%20this%3A%0A">Get a demo</a>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="primaryNav" aria-label="Open menu" id="menuBtn"><svg class="ic bars" aria-hidden="true"><use href="#i-bars"/></svg><svg class="ic x" aria-hidden="true"><use href="#i-x"/></svg></button>
     </div>
   </div>
@@ -689,10 +681,9 @@
       <span class="pill">The Confidence Console · private preview</span>
       <h1>Know if your company is secure. Fix what matters. Prove it.</h1>
       <p class="lead">ClearFend gives companies without a security team <b>one honest security number</b>, the <b>fixes that actually move it</b>, and the <b>proof behind it</b>: connect your estate read-only, and every figure on screen says where it came from.</p>
-      <form class="hero-form" id="hero-form" action="https://formspree.io/f/FORM_ID_PLACEHOLDER" method="POST" aria-label="Request a demo">
+      <form class="hero-form" id="hero-form" action="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request" method="post" enctype="text/plain" aria-label="Request a demo">
         <label for="hero-email" class="visually-hidden" style="position:absolute;left:-9999px">Work email</label>
         <input id="hero-email" name="email" type="email" required autocomplete="email" placeholder="Work email">
-        <input type="hidden" name="intent" value="demo">
         <button class="btn primary" type="submit">Get a demo</button>
       </form>
       <p class="micro">Read-only by default. No agents to install. Plain English throughout. A person replies.</p>
@@ -954,8 +945,7 @@
           <p class="commit reveal">We never change anything in your environment. Access is revoked the day we deliver.</p>
         </div>
         <div class="cta-row reveal" style="margin-top:18px">
-          <!-- BOOKING-CTA -->
-          <a class="btn primary" href="mailto:admin@clearfend.com?subject=Posture%20Assessment%20%E2%80%94%20scoping%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20to%20scope%20a%20posture%20assessment.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20accounts%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%3A">Scope an assessment</a>
+            <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20posture%20assessment%20request&amp;body=Hi%20ClearFend%2C%0A%0AWe%27d%20like%20to%20scope%20a%20read-only%20posture%20assessment.%0A%0AName%3A%0ACompany%3A%0ACompany%20size%3A%0AWhat%27s%20driving%20this%3A%0A">Scope an assessment</a>
           <a class="btn ghost" href="#waitlist">Join the waitlist</a>
         </div>
       </div>
@@ -1153,7 +1143,7 @@
     </div>
     <div class="company">
       <div class="co reveal" id="about"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg></span><h4>About</h4><p>ClearFend builds the security and compliance console for companies without a security team. The product sells one honest security number and the proof behind it, and every rule we work by exists to keep that sentence true: nothing is claimed that the evidence does not show, sample data is labelled sample, and anything not generally available says so.</p><p>We run our own estate through the same console. Our own Fix Queue is worked and our own evidence is what an auditor will see.</p></div>
-      <div class="co reveal" id="contact"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span><h4>Contact</h4><p>One address, read by a person: <a href="mailto:admin@clearfend.com">admin@clearfend.com</a>.</p><p>For a demo, an assessment, the waitlist, press, or a security concern about ClearFend itself, use the same address with a clear subject line. Security reports get a reply first.</p><p><span class="ph">[BOOKING LINK]</span> for a live calendar, once one is set up.</p></div>
+      <div class="co reveal" id="contact"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span><h4>Contact</h4><p>One address, read by a person: <a href="mailto:admin@clearfend.com">admin@clearfend.com</a>.</p><p>For a demo, an assessment, the waitlist, press, or a security concern about ClearFend itself, use the same address with a clear subject line. Security reports get a reply first.</p></div>
       <div class="co reveal" id="careers"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-briefcase"/></svg></span><h4>Careers</h4><p>We are not hiring yet. <span class="ph">[CONFIRM: hiring status]</span></p><p>When that changes, the roles will be listed here with the salary band and the interview steps, in the same plain English as everything else. If you would like to hear when it does, email <a href="mailto:admin@clearfend.com?subject=Careers">admin@clearfend.com</a> with &ldquo;Careers&rdquo; in the subject.</p></div>
       <div class="co reveal" id="press"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-press"/></svg></span><h4>Press kit</h4>
         <div class="press-mark"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#04120f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span><b>ClearFend</b></div>
@@ -1181,8 +1171,7 @@
     <h2>One honest number. Then the fixes that matter.</h2>
     <p>See the Confidence Console on your own estate, read-only. Or start with a five-day assessment and come in as a design partner.</p>
     <div class="cta-row">
-      <!-- BOOKING-CTA -->
-      <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&body=Hi%20ClearFend%20%E2%80%94%20we%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0ACompany%3A%0AHeadcount%3A%0AIdentity%20platform%20(M365%20%2F%20Google%20Workspace%20%2F%20Okta)%3A%0ACloud%20(AWS%20%2F%20Azure%20%2F%20GCP)%3A%0AWhat%27s%20driving%20this%3A">Get a demo</a>
+      <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&amp;body=Hi%20ClearFend%2C%0A%0AWe%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0AName%3A%0ACompany%3A%0ACompany%20size%3A%0AWhat%27s%20driving%20this%3A%0A">Get a demo</a>
       <a class="btn ghost" href="#waitlist">Join the waitlist</a>
     </div>
   </div>
@@ -1384,12 +1373,12 @@
       });
     }
     var hf = document.getElementById('hero-form');
-    if(hf && hf.action.indexOf('FORM_ID_PLACEHOLDER') !== -1){
+    if(hf){
       hf.addEventListener('submit', function(e){
         e.preventDefault();
-        var email = document.getElementById('hero-email').value;
-        var body = 'Hi ClearFend — we\'d like a demo of the Confidence Console.\n\n' +
-                   'Email: ' + email + '\nCompany:\nHeadcount:\nIdentity platform (M365 / Google Workspace / Okta):\nCloud (AWS / Azure / GCP):\nWhat\'s driving this:';
+        var email = document.getElementById('hero-email').value.trim();
+        var body = 'Hi ClearFend,\n\nWe\'d like a demo of the Confidence Console.\n\n' +
+                   'Work email: ' + email + '\nName:\nCompany:\nCompany size:\nWhat\'s driving this:\n';
         window.location.href = 'mailto:admin@clearfend.com' +
           '?subject=' + encodeURIComponent('ClearFend demo request') +
           '&body=' + encodeURIComponent(body);
