@@ -10,6 +10,7 @@
 <meta property="og:type" content="website">
 <!-- TODO before launch: add an og:image (1200x630 PNG). -->
 <meta property="og:url" content="https://clearfend.com/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="theme-color" content="#ffffff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -97,7 +98,6 @@
   .chip.planned{color:var(--faint);border-color:var(--border-strong);background:var(--s2)}
   .chip.sample{color:var(--faint);border-style:dashed}
   .chip.sample::before{display:none}
-  .ph{font:600 11px/1 var(--mono);color:var(--high-text);background:rgba(245,129,31,.12);border:1px dashed rgba(245,129,31,.5);padding:3px 6px;border-radius:5px;white-space:nowrap}
 
   /* buttons */
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r-sm);font:600 14px/1 var(--font);padding:14px 20px;border:1px solid transparent;cursor:pointer;white-space:nowrap;text-decoration:none;transition:background .15s,border-color .15s,color .15s,transform .15s,box-shadow .15s}
@@ -121,13 +121,10 @@
   header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);transition:box-shadow .2s}
   header.site.scrolled{box-shadow:0 8px 30px rgba(16,24,40,.08)}
   .navbar{display:flex;align-items:center;justify-content:space-between;height:68px;gap:24px}
-  .brand{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none}
-  .brand:hover{color:var(--text);text-decoration:none}
-  .mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#2de1c6,#0a6b79);display:grid;place-items:center;box-shadow:0 1px 2px rgba(16,24,40,.12);flex:0 0 auto}
-  .mark svg{width:17px;height:17px}
-  .brand-name{font:700 17px/1 var(--display);letter-spacing:-.01em}
-  .brand-sub{display:block;font:600 9.5px/1 var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:4px}
-  @media (max-width:480px){.brand-sub{display:none}}
+  .brand-link{display:inline-flex;align-items:center;text-decoration:none;border-radius:6px}
+  .brand-link:hover{text-decoration:none}
+  .brand{font:600 22px/1 var(--display);letter-spacing:-.025em;color:#0f1b2e;white-space:nowrap}
+  .brand > span{color:#0f9a8a}
   .nav-right{display:flex;align-items:center;gap:12px}
   .menu-btn{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--border-strong);background:var(--s1);color:var(--text);cursor:pointer;place-items:center}
   .menu-btn .ic{width:22px;height:22px}
@@ -196,7 +193,7 @@
     /* backdrop-filter would make the sticky header the containing block for the fixed drawer; drop it while open */
     header.site.drawer-open{z-index:80;backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--s1)}
     header.site.drawer-open .nav-right{position:relative;z-index:90}
-    header.site.drawer-open .brand{position:relative;z-index:90}
+    header.site.drawer-open .brand-link{position:relative;z-index:90}
     .mega{max-height:none;overflow:visible}
   }
   @media (min-width:1024px){.drawer-cta{display:none}}
@@ -217,8 +214,6 @@
   .hero-form:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
   @media (max-width:520px){.hero-form{flex-direction:column;padding:8px}.hero-form .btn{width:100%}}
   .micro{font-size:var(--fs-xs);color:var(--faint)}
-  .honest{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--border-strong);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--s2);font-size:var(--fs-sm);color:var(--muted);line-height:1.55;max-width:60ch}
-  .honest b{color:var(--text)}
 
   /* the drawn console */
   .console{position:relative}
@@ -282,24 +277,7 @@
   /* console section */
   .split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
   @media (max-width:980px){.split{grid-template-columns:1fr}}
-  .feature-list{display:flex;flex-direction:column;gap:6px}
-  .fl{display:flex;gap:14px;align-items:flex-start;padding:14px;border-radius:12px;scroll-margin-top:130px}
-  .fl:target{background:var(--s2);box-shadow:inset 0 0 0 1px var(--accent-line)}
-  .fl h4{font-size:var(--fs-base)}
-  .fl p{font-size:var(--fs-sm);color:var(--muted);line-height:1.55;margin-top:3px}
 
-  /* ladder */
-  .ladder{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:8px}
-  @media (max-width:900px){.ladder{grid-template-columns:1fr}}
-  .rung{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:18px;position:relative;box-shadow:var(--shadow-1)}
-  .rung .l{font:700 11px/1 var(--mono);letter-spacing:.1em;color:var(--faint)}
-  .rung .n{font:600 15px/1.2 var(--display);color:var(--text);margin:8px 0 6px}
-  .rung .d{font-size:var(--fs-sm);color:var(--muted);line-height:1.5}
-  .rung.gate{border-color:var(--accent-line);background:linear-gradient(180deg,var(--accent-weak),var(--s1) 70%)}
-  .rung.gate .l{color:var(--accent-text)}
-  .rung .tag{position:absolute;top:12px;right:12px;font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent-text);background:var(--accent-weak);padding:3px 6px;border-radius:4px}
-  .note{margin-top:20px;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--border-strong);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--s1);font-size:var(--fs-sm);color:var(--muted);line-height:1.55}
-  .note b{color:var(--text)}
 
   /* how it works */
   .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative}
@@ -307,9 +285,6 @@
   .step3{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:26px;box-shadow:var(--shadow-1);scroll-margin-top:130px;display:flex;flex-direction:column;gap:12px}
   .step3 .k{font:700 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-text)}
   .step3 p{font-size:var(--fs-sm);color:var(--muted);line-height:1.6}
-  .step3 ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
-  .step3 li{font-size:var(--fs-sm);color:var(--muted);padding-left:18px;position:relative;line-height:1.5}
-  .step3 li::before{content:'';position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:2px;background:var(--accent-weak);border:1px solid var(--accent-line)}
   .step3 .art{height:120px;border-radius:12px;background:var(--s2);border:1px solid var(--border);display:grid;place-items:center;overflow:hidden}
   .step3 .art svg{width:100%;height:100%}
 
@@ -334,16 +309,16 @@
   .mods{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   @media (max-width:980px){.mods{grid-template-columns:repeat(2,1fr)}}
   @media (max-width:600px){.mods{grid-template-columns:1fr}}
-  .mod{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow-1);scroll-margin-top:130px;transition:border-color .2s,transform .2s}
-  .mod:hover{border-color:var(--accent-line);transform:translateY(-2px)}
-  .mod:target{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
   .mod .m-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-  .mod .m-n{font:600 15px/1.3 var(--display);color:var(--text);letter-spacing:-.01em;margin-top:8px}
-  .mod .m-q{font-size:var(--fs-sm);color:var(--muted);line-height:1.5}
+  .mod .m-n{font:600 15px/1.3 var(--display);color:var(--text);letter-spacing:-.01em;margin-top:6px}
+  .mod .back .m-n{margin-top:0}
+  .mod .m-q{font-size:var(--fs-sm);color:var(--muted);line-height:1.5;padding-right:34px}
   .mod .m-q::before{content:'\201C';color:var(--accent)}
   .mod .m-q::after{content:'\201D';color:var(--accent)}
-  .mod .m-note{font-size:var(--fs-xs);color:var(--faint);line-height:1.5;padding-top:8px;border-top:1px solid var(--border);margin-top:auto}
-  .mod.ai{border-color:var(--ai-border)}
+  .mod .m-note{font-size:var(--fs-sm);color:var(--text);line-height:1.55}
+  .mod.ai .face{border-color:var(--ai-border)}
+  .mod:target .face{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
+  .flip:hover .face.front{border-color:var(--accent-line)}
 
   /* living programs */
   .programs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
@@ -360,18 +335,11 @@
   .diff b{color:var(--text)}
   .diff .delta{font-family:var(--mono);color:var(--critical-text);font-weight:700}
   .diff.good{border-left-color:var(--low)} .diff.good .delta{color:var(--low-text)}
-  .diff .lbl{font:600 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);border:1px dashed var(--border-strong);padding:2px 5px;border-radius:4px;margin-left:6px;vertical-align:middle}
+
 
   /* partners */
   .start{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
   @media (max-width:900px){.start{grid-template-columns:1fr}}
-  .steps{display:flex;flex-direction:column;gap:10px}
-  .step{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;padding:16px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-1)}
-  .step .k{width:30px;height:30px;border-radius:8px;background:var(--accent-weak);display:grid;place-items:center;font:700 12px/1 var(--mono);color:var(--accent-text)}
-  .step .t{font-weight:600;color:var(--text)}
-  .step .s{font-size:var(--fs-sm);color:var(--muted);margin-top:3px;line-height:1.5}
-  .commit{margin-top:6px;font-weight:600;color:var(--text);font-size:14px}
-  .nolog{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px dashed var(--border-strong);border-radius:var(--r-sm);font-size:var(--fs-sm);color:var(--muted);line-height:1.55;margin-top:18px}
 
   /* pricing */
   .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -379,32 +347,21 @@
   .tier{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow-1)}
   .tier.hi{border-color:var(--accent-line);box-shadow:0 0 0 3px var(--accent-weak),var(--shadow-1)}
   .tier .t-name{font:600 var(--fs-lg)/1.2 var(--display)}
-  .tier .t-for{font-size:var(--fs-sm);color:var(--muted)}
   .tier .t-price{font:600 13px/1.3 var(--mono);color:var(--accent-text);letter-spacing:.02em}
-  .tier ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
-  .tier li{font-size:var(--fs-sm);color:var(--muted);padding-left:22px;position:relative;line-height:1.5}
-  .tier li::before{content:'';position:absolute;left:0;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent-line)}
   .tier .t-tag{font:700 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-text);width:fit-content;background:var(--accent-weak);padding:5px 8px;border-radius:5px}
-  .price-note{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  @media (max-width:900px){.price-note{grid-template-columns:1fr}}
-  .pn{padding:16px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--s1);font-size:var(--fs-sm);color:var(--muted);line-height:1.55}
-  .pn b{color:var(--text);display:block;margin-bottom:4px;font-family:var(--display);font-weight:600}
 
   /* trust */
   .trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   @media (max-width:900px){.trust-grid{grid-template-columns:1fr}}
-  .tr{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--shadow-1);display:flex;flex-direction:column;gap:10px}
-  .tr p{font-size:var(--fs-sm);color:var(--muted);line-height:1.6}
-  .tr .how{font-size:var(--fs-xs);color:var(--faint);padding-top:10px;border-top:1px solid var(--border);margin-top:auto;line-height:1.5}
 
   /* principles */
   .princ{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
   @media (max-width:980px){.princ{grid-template-columns:repeat(2,1fr)}}
   @media (max-width:600px){.princ{grid-template-columns:1fr}}
-  .pr{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:22px;box-shadow:var(--shadow-1)}
+  .pr .face{min-height:128px}
   .pr .num{font:700 11px/1 var(--mono);color:var(--accent-text);letter-spacing:.1em}
-  .pr h4{margin:10px 0 6px}
-  .pr p{font-size:var(--fs-sm);color:var(--muted);line-height:1.55}
+  .pr .p-t{font:600 var(--fs-md)/1.3 var(--display);color:var(--text);letter-spacing:-.02em;padding-right:26px}
+  .pr .p-b{font-size:var(--fs-sm);color:var(--text);line-height:1.55}
   .swatches{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
   .sw{width:26px;height:26px;border-radius:7px;border:1px solid rgba(16,24,40,.08)}
 
@@ -412,11 +369,7 @@
   .status{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   @media (max-width:900px){.status{grid-template-columns:1fr}}
   .st{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--shadow-1)}
-  .st h3{margin:14px 0 10px;font-size:var(--fs-md)}
-  .st ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
-  .st li{font-size:var(--fs-sm);color:var(--muted);line-height:1.5;padding-left:16px;position:relative}
-  .st li::before{content:'·';position:absolute;left:2px;color:var(--faint);font-weight:700}
-  .st p{font-size:var(--fs-sm);color:var(--faint);margin-top:12px;line-height:1.5}
+  .status{align-items:start}
 
   /* waitlist */
   .wl{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
@@ -427,8 +380,6 @@
   input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
   .fld{display:flex;flex-direction:column;gap:6px}
   .form-note{font-size:var(--fs-xs);color:var(--faint);line-height:1.5}
-  .promise{padding:16px 18px;border:1px solid var(--border-strong);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--s1);font-size:var(--fs-sm);color:var(--muted);line-height:1.6;margin-top:18px}
-  .promise b{color:var(--text)}
 
   /* faq */
   .faq{display:flex;flex-direction:column;gap:8px;max-width:840px}
@@ -448,9 +399,8 @@
   .co:target{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
   .co p{font-size:var(--fs-sm);color:var(--muted);line-height:1.6}
   .co .press-mark{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--s2)}
-  .co .press-mark .mark{width:40px;height:40px;border-radius:11px}
-  .co .press-mark .mark svg{width:21px;height:21px}
-  .co .press-mark b{font:700 18px/1 var(--display)}
+  .co .press-mark .pm-mark{width:40px;height:40px;flex:0 0 auto}
+  .co .press-mark .pm-mark svg{width:40px;height:40px;display:block}
   .incident{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;background:var(--s1);border:1px solid var(--border-strong);border-left:4px solid var(--high);border-radius:var(--r);padding:22px 24px;margin-top:24px;scroll-margin-top:130px}
   .incident p{font-size:var(--fs-sm);color:var(--muted);line-height:1.6;margin-top:4px}
   .inc-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
@@ -475,6 +425,162 @@
   .fcol a:hover{color:var(--accent-strong)}
   .foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:22px;border-top:1px solid var(--border);font-size:var(--fs-xs);color:var(--faint)}
   .foot b{color:var(--muted);font-weight:600}
+
+  /* ═══ progressive disclosure ═══ */
+  .hint{font-size:var(--fs-xs);color:var(--faint)}
+  summary{list-style:none}
+  summary::-webkit-details-marker{display:none}
+  .plus{width:28px;height:28px;border-radius:50%;border:1px solid var(--border-strong);background:var(--s1);display:grid;place-items:center;color:var(--accent);flex:0 0 auto;transition:transform .25s var(--ease),background .2s,border-color .2s}
+  .plus .ic{width:15px;height:15px;stroke-width:2.2}
+  details[open] > summary .plus{transform:rotate(45deg);background:var(--accent-weak);border-color:var(--accent-line)}
+  .x-body{color:var(--muted);font-size:var(--fs-sm);line-height:1.6;display:flex;flex-direction:column;gap:10px}
+  .x-body p{color:var(--muted)}
+  details[open] > .x-body{animation:xIn .3s var(--ease)}
+  @keyframes xIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+  .ticks{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+  .ticks li{padding-left:20px;position:relative;line-height:1.5}
+  .ticks li::before{content:'';position:absolute;left:0;top:5px;width:11px;height:11px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent-line)}
+  .how{font-size:var(--fs-xs);color:var(--faint)!important;padding-top:8px;border-top:1px solid var(--border)}
+
+  /* expandable card */
+  details.xcard{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-1);transition:border-color .2s,box-shadow .2s,transform .2s;scroll-margin-top:130px}
+  details.xcard:hover{border-color:var(--accent-line);transform:translateY(-2px);box-shadow:var(--shadow-2)}
+  details.xcard[open]{border-color:var(--accent-line);box-shadow:0 0 0 3px var(--accent-weak),var(--shadow-1);transform:none}
+  details.xcard > summary{cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:18px;border-radius:var(--r)}
+  details.xcard:hover > summary .plus{border-color:var(--accent-line)}
+  .x-t{font:600 15px/1.3 var(--display);color:var(--text);letter-spacing:-.01em;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .x-s{display:block;font-size:var(--fs-sm);color:var(--muted);line-height:1.4;margin-top:3px}
+  details.xcard > .x-body{padding:0 18px 18px 72px}
+  @media (max-width:600px){details.xcard > .x-body{padding:0 18px 18px}}
+
+  /* inline "more" disclosure */
+  details.more > summary{cursor:pointer;display:inline-flex;align-items:center;gap:8px;font:600 13px/1.2 var(--font);color:var(--accent-strong);padding:5px 12px 5px 5px;border-radius:999px;background:var(--accent-weak);width:fit-content;transition:background .2s}
+  details.more > summary:hover{background:rgba(10,107,121,.16)}
+  details.more > summary .plus{width:22px;height:22px;border:0}
+  details.more > summary .plus .ic{width:13px;height:13px}
+  details.more > .x-body{padding-top:12px}
+
+  /* popover: hover peek on desktop, click/tap/Enter to pin */
+  .pop{position:relative;display:inline-flex}
+  .pop-btn{display:inline-flex;align-items:center;gap:8px;font:600 13px/1.2 var(--font);color:var(--text);background:var(--s1);border:1px solid var(--border-strong);border-radius:999px;padding:7px 13px 7px 9px;cursor:pointer;transition:border-color .15s,background .15s}
+  .pop-btn .ic{width:16px;height:16px;color:var(--accent)}
+  .pop-btn:hover,.pop-btn[aria-expanded="true"]{border-color:var(--accent-line);background:var(--accent-weak)}
+  .pop-btn.chipbtn{padding:0;border:0;background:none;border-radius:999px}
+  .pop-btn.chipbtn:hover .chip,.pop-btn.chipbtn[aria-expanded="true"] .chip{box-shadow:0 0 0 3px var(--accent-weak)}
+  .pop-card{position:absolute;left:0;top:calc(100% + 8px);z-index:30;width:max-content;max-width:min(340px,80vw);padding:11px 14px;background:#18202e;color:#fff;border-radius:10px;font:500 13px/1.5 var(--font);letter-spacing:0;text-transform:none;text-align:left;box-shadow:var(--shadow-2);opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .18s,transform .18s,visibility 0s linear .18s;pointer-events:none}
+  .pop-card::before{content:'';position:absolute;left:18px;top:-5px;width:10px;height:10px;background:#18202e;transform:rotate(45deg)}
+  .pop-btn[aria-expanded="true"] + .pop-card{opacity:1;visibility:visible;transform:none;transition-delay:0s;pointer-events:auto}
+  @media (hover:hover) and (pointer:fine){.pop:hover .pop-card{opacity:1;visibility:visible;transform:none;transition-delay:0s}}
+  @media (max-width:640px){
+    .pop{display:flex;flex-direction:column;align-items:flex-start;max-width:100%}
+    .pop-card{position:static;display:none;max-width:100%;margin-top:10px}
+    .pop-card::before{display:none}
+    .pop-btn[aria-expanded="true"] + .pop-card{display:block}
+  }
+  @media (prefers-reduced-motion:reduce){.pop-card,details[open] > .x-body{transition:none;animation:none;transform:none}}
+
+  /* flip card: hover peeks on desktop, click/tap/Enter pins */
+  .flip-cell{display:flex;scroll-margin-top:130px;border-radius:var(--r)}
+  .flip{flex:1;display:block;width:100%;margin:0;padding:0;border:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;perspective:1100px;border-radius:var(--r)}
+  .flip-in{display:grid;height:100%;transition:transform .6s var(--ease);transform-style:preserve-3d}
+  .face{grid-area:1 / 1;display:flex;flex-direction:column;gap:8px;padding:20px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-1);-webkit-backface-visibility:hidden;backface-visibility:hidden;position:relative;transition:border-color .2s}
+  .face.back{transform:rotateY(180deg);visibility:hidden;transition:visibility 0s linear .3s;background:linear-gradient(160deg,var(--brand-tint),var(--s1) 70%);border-color:var(--accent-line)}
+  .flip[aria-expanded="true"] .flip-in{transform:rotateY(180deg)}
+  .flip[aria-expanded="true"] .face.back{visibility:visible;transition-delay:0s}
+  @media (hover:hover) and (pointer:fine){
+    .flip:hover .flip-in{transform:rotateY(180deg)}
+    .flip:hover .face.back{visibility:visible;transition-delay:0s}
+  }
+  .flip:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .turn{position:absolute;right:14px;bottom:14px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;color:var(--faint);background:var(--s2);transition:color .2s,background .2s}
+  .turn .ic{width:14px;height:14px;stroke-width:2}
+  .flip:hover .turn,.flip:focus-visible .turn{color:var(--accent);background:var(--accent-weak)}
+  @media (prefers-reduced-motion:reduce){
+    .flip-in{transition:none;transform:none!important}
+    .face{-webkit-backface-visibility:visible;backface-visibility:visible}
+    .face.back{transform:none;transition:none}
+    .flip[aria-expanded="true"] .face.front{visibility:hidden}
+  }
+  @media (prefers-reduced-motion:reduce) and (hover:hover) and (pointer:fine){.flip:hover .face.front{visibility:hidden}}
+
+  /* hero extras */
+  .assure{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .as{display:inline-flex;align-items:center;gap:7px;font:500 13px/1 var(--font);color:var(--muted);padding:7px 11px 7px 9px;border-radius:999px;background:var(--s2);border:1px solid var(--border)}
+  .as .ic{width:15px;height:15px;color:var(--accent)}
+
+  /* console capabilities + ladder */
+  .caps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start}
+  @media (max-width:980px){.caps{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:640px){.caps{grid-template-columns:1fr}}
+  .ladder-card{margin-top:28px;display:grid;grid-template-columns:1fr 1.7fr;gap:32px;align-items:end;padding:28px;border-radius:var(--r);border:1px solid var(--border);background:linear-gradient(160deg,var(--brand-tint),var(--s1) 55%);box-shadow:var(--shadow-1)}
+  .ladder-card h3{margin:10px 0 6px}
+  @media (max-width:900px){.ladder-card{grid-template-columns:1fr;align-items:start}}
+  .stairs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:end}
+  .rung-b{height:var(--h);display:flex;flex-direction:column;justify-content:flex-end;gap:5px;padding:10px 12px;border-radius:10px 10px 4px 4px;border:1px solid var(--border-strong);background:var(--s1);text-align:left;cursor:pointer;font:inherit;color:var(--text);box-shadow:var(--shadow-1);transition:transform .2s var(--ease),border-color .2s,background .2s,color .2s}
+  .rung-b .l{font:700 10.5px/1 var(--mono);color:var(--faint);letter-spacing:.1em}
+  .rung-b .n{font:600 13.5px/1.2 var(--display);letter-spacing:-.01em}
+  .rung-b.gate{border-color:var(--accent-line)}
+  .rung-b:hover{transform:translateY(-3px);border-color:var(--accent)}
+  .rung-b[aria-expanded="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  .rung-b[aria-expanded="true"] .l{color:rgba(255,255,255,.75)}
+  .reveal .rung-b{transform:scaleY(.2);transform-origin:bottom;opacity:0;transition:transform .5s var(--ease) calc(var(--i) * 70ms),opacity .4s calc(var(--i) * 70ms),border-color .2s,background .2s}
+  .reveal.in .rung-b{transform:none;opacity:1}
+  .reveal.in .rung-b:hover{transform:translateY(-3px)}
+  @media (max-width:600px){.stairs{grid-template-columns:1fr;align-items:stretch}.rung-b{height:auto;flex-direction:row;align-items:center;gap:10px;margin-left:calc(var(--i) * 12px)}}
+  .ladder-cap{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--s1);border:1px solid var(--accent-line);font-size:var(--fs-sm);color:var(--muted);line-height:1.5;animation:xIn .25s var(--ease)}
+  .ladder-cap b{color:var(--text)}
+
+  /* problem visual */
+  .stat.many{display:flex;flex-direction:column;justify-content:space-between}
+  .many-art{width:100%;height:74px;margin-bottom:4px}
+  .stat.many .d b{font-family:var(--display)}
+
+  /* drawn lines animate in */
+  .reveal .draw{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 1.3s var(--ease) .15s}
+  .reveal.in .draw{stroke-dashoffset:0}
+  .fan .o{opacity:0;transform:translateY(8px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+  .fan.in .o{opacity:1;transform:none}
+  .fan.in .o:nth-child(2){transition-delay:.12s}.fan.in .o:nth-child(3){transition-delay:.24s}
+  .prog .stage{opacity:0;transition:opacity .4s var(--ease)}
+  .prog.in .stage{opacity:1}
+  .prog.in .stage:nth-of-type(2){transition-delay:.1s}.prog.in .stage:nth-of-type(3){transition-delay:.2s}.prog.in .stage:nth-of-type(4){transition-delay:.3s}
+  @media (prefers-reduced-motion:reduce){.reveal .draw{stroke-dashoffset:0;transition:none}.fan .o,.prog .stage,.reveal .rung-b{opacity:1;transform:none;transition:none}}
+
+  /* partners */
+  .tiles{display:flex;flex-direction:column;gap:12px}
+  .timeline{list-style:none;margin:0;padding:0 0 0 6px;display:flex;flex-direction:column;gap:0;position:relative}
+  .timeline::before{content:'';position:absolute;left:14px;top:18px;bottom:18px;width:2px;background:linear-gradient(var(--accent-line),var(--border))}
+  .timeline li{position:relative;padding:6px 0}
+  .timeline details.more > summary{background:none;padding:6px 8px 6px 0;gap:14px;width:100%;border-radius:10px;font-size:var(--fs-base)}
+  .timeline details.more > summary:hover{background:none}
+  .timeline .dot{width:18px;height:18px;border-radius:50%;background:var(--s1);border:2px solid var(--accent);position:relative;z-index:1;flex:0 0 auto;transition:background .2s}
+  .timeline details[open] .dot,.timeline summary:hover .dot{background:var(--accent)}
+  .tl-t{font:600 15px/1.3 var(--display);color:var(--text);flex:1}
+  .tl-k{font:600 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent-text);background:var(--accent-weak);padding:5px 8px;border-radius:6px}
+  .timeline details.more > .x-body{padding:4px 0 6px 32px}
+
+  /* pricing extras */
+  .tier .t-price{margin-bottom:auto}
+  .promises{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+
+  /* trust framework row */
+  .fw{margin:-18px 0 28px}
+  .fw-btn{border-radius:14px;padding:10px 14px;gap:12px;flex-wrap:wrap;background:var(--s2)}
+  .fw-l{font:600 11px/1.2 var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+  .fw-chips{display:flex;gap:6px;flex-wrap:wrap}
+  .fwc{font:600 11.5px/1 var(--mono);letter-spacing:.02em;color:var(--text);background:var(--s1);border:1px solid var(--border-strong);padding:6px 9px;border-radius:7px}
+  .trust-grid{align-items:start}
+
+  /* status visual */
+  .st{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+  .st h3{margin:0}
+  .st-bar{display:flex;gap:5px;width:100%}
+  .st-bar i{flex:1;height:6px;border-radius:4px;background:var(--s4)}
+  .st-bar.on i{background:var(--accent)}
+  .st-bar.mid i:first-child{background:var(--medium)}.st-bar.mid i:nth-child(2){background:rgba(224,166,58,.45)}
+  .st .x-body p{margin-top:0;color:var(--muted)}
+  .co details.more{margin-top:2px}
+  .co .x-body .press-mark{margin-bottom:2px}
 
   /* ── forms: shared bits ── */
   textarea{width:100%;background:var(--s1);border:1px solid var(--border-strong);color:var(--text);padding:12px 13px;border-radius:var(--r-xs);font:400 14px/1.5 var(--font);resize:vertical;min-height:96px}
@@ -572,6 +678,8 @@
   <symbol id="i-bars" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
   <symbol id="i-login" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M13 4h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-turn" viewBox="0 0 24 24"><path d="M4 11a8 8 0 0 1 14-4.5L20 9"/><path d="M20 4v5h-5"/><path d="M20 13a8 8 0 0 1-14 4.5L4 15"/><path d="M4 20v-5h5"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
 </svg>
 
@@ -587,10 +695,7 @@
 
 <header class="site" id="siteHeader">
   <div class="wrap navbar">
-    <a class="brand" href="#top" aria-label="ClearFend home">
-      <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#04120f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
-      <span><span class="brand-name">ClearFend</span><span class="brand-sub">Confidence Console</span></span>
-    </a>
+    <a class="brand-link" href="#top" aria-label="ClearFend home"><span class="brand" aria-hidden="true">Clear<span>Fend</span></span></a>
 
     <nav class="primary" id="primaryNav" aria-label="Primary">
       <ul>
@@ -683,7 +788,7 @@
               <a class="feat" href="#partners">
                 <span class="f-kick">Design partners</span>
                 <h4>No logo wall. No testimonials. Not yet.</h4>
-                <p>ClearFend is working software running with design partners in private preview. When we have customers and numbers worth showing, they will be here with their permission. Until then, this page says so.</p>
+                <p>Working software, running with design partners in private preview. Customers will appear here with their permission.</p>
                 <span class="f-link">How the programme works →</span>
               </a>
               <div class="cols">
@@ -704,8 +809,8 @@
               <div class="cols four" style="grid-template-columns:repeat(4,1fr)">
                 <a class="mi" href="#about"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg></span><span><span class="t">About</span><span class="d">Why one honest number, and why the name is the product.</span></span></a>
                 <a class="mi" href="#contact"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="t">Contact</span><span class="d">admin@clearfend.com. A person reads it.</span></span></a>
-                <a class="mi" href="#careers"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-briefcase"/></svg></span><span><span class="t">Careers</span><span class="d">Not hiring yet. We will say so here when that changes.</span></span></a>
-                <a class="mi" href="#press"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-press"/></svg></span><span><span class="t">Press kit</span><span class="d">The mark, the name rationale, and the palette.</span></span></a>
+                <a class="mi" href="#careers"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-briefcase"/></svg></span><span><span class="t">Careers</span><span class="d">Open roles will be posted here when they become available.</span></span></a>
+                <a class="mi" href="#press"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-press"/></svg></span><span><span class="t">Press</span><span class="d">Press enquiries go to admin@clearfend.com.</span></span></a>
               </div>
             </div>
           </div>
@@ -732,22 +837,26 @@
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="pill">The Confidence Console · private preview</span>
-      <h1>Know if your company is secure. Fix what matters. Prove it.</h1>
-      <p class="lead">ClearFend gives companies without a security team <b>one honest security number</b>, the <b>fixes that actually move it</b>, and the <b>proof behind it</b>: connect your estate read-only, and every figure on screen says where it came from.</p>
+      <h1>Know if you&rsquo;re secure. Fix what matters. Prove it.</h1>
+      <p class="lead">One honest security number, the fixes that move it, and the proof behind it.</p>
       <form class="hero-form" id="hero-form" action="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request" method="post" enctype="text/plain" aria-label="Request a demo">
-        <label for="hero-email" class="visually-hidden" style="position:absolute;left:-9999px">Work email</label>
+        <label for="hero-email" style="position:absolute;left:-9999px">Work email</label>
         <input id="hero-email" name="email" type="email" required autocomplete="email" placeholder="Work email">
         <button class="btn primary" type="submit">Get a demo</button>
       </form>
-      <p class="micro">Read-only by default. No agents to install. Plain English throughout. A person replies.</p>
-      <div class="honest">
-        <span class="ic-box" style="width:28px;height:28px;border-radius:7px" aria-hidden="true"><svg class="ic" style="width:16px;height:16px"><use href="#i-info"/></svg></span>
-        <p><b>Labelled honestly.</b> ClearFend is working software running with design partners. It is not generally available yet. Everything on this page says which is which: what runs today, what is in build, and what is vision.</p>
+      <div class="assure">
+        <span class="as"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg>Read-only</span>
+        <span class="as"><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg>Nothing installed</span>
+        <span class="as"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg>Plain English</span>
+        <span class="pop">
+          <button class="pop-btn" type="button" aria-expanded="false" aria-controls="pop-honest"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg>Labelled honestly</button>
+          <span class="pop-card" id="pop-honest">Working software with design partners, not generally available. Every section says what runs today, what is in build, and what is planned.</span>
+        </span>
       </div>
     </div>
 
     <!-- The console, drawn. Sample data, labelled sample. -->
-    <div class="console" aria-label="Illustration of the ClearFend Confidence Console, showing sample data">
+    <div class="console reveal" aria-label="Illustration of the ClearFend Confidence Console, showing sample data">
       <svg class="blob" viewBox="0 0 600 460" aria-hidden="true" preserveAspectRatio="none">
         <defs><linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2de1c6" stop-opacity=".28"/><stop offset="1" stop-color="#2f6bff" stop-opacity=".06"/></linearGradient></defs>
         <path d="M80 120c40-90 200-110 320-70s180 150 150 250-160 150-300 130S20 320 40 220c10-40 20-60 40-100z" fill="url(#bg1)"/>
@@ -762,26 +871,25 @@
           <div class="tile">
             <div class="t-l"><span>Confidence</span><span>sample</span></div>
             <div class="score" role="img" aria-label="Sample confidence score of 62 out of 100">
-              <svg viewBox="0 0 104 104"><circle cx="52" cy="52" r="44" fill="none" stroke="#e6ecf4" stroke-width="8"/><circle cx="52" cy="52" r="44" fill="none" stroke="#0a6b79" stroke-width="8" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="105"/></svg>
+              <svg viewBox="0 0 104 104"><circle cx="52" cy="52" r="44" fill="none" stroke="#e6ecf4" stroke-width="8"/><circle class="arc" cx="52" cy="52" r="44" fill="none" stroke="#0a6b79" stroke-width="8" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="105"/></svg>
               <div><div class="n">62</div><div class="of">OF 100</div></div>
             </div>
-            <div class="t-s">from what you connected and declared, never a questionnaire alone</div>
-            <div class="t-lvl"><b>Level 2 · Covered</b>next gate: Level 3 · Audit-Ready</div>
+            <div class="t-lvl"><b>Level 2 · Covered</b>next: Audit-Ready</div>
           </div>
           <div class="verdict">
             <div class="v-l">Verdict</div>
-            <h4>Mostly. Three fixes need a decision this week; one is critical.</h4>
-            <p>Your five core controls hold except one: two admin accounts have no second factor. A deploy key reaches your customer database in two hops. Nothing else changed since last week.</p>
+            <h4>Mostly. Three fixes need a decision.</h4>
+            <p>Two admin accounts have no second factor.</p>
           </div>
           <div class="queue">
-            <div class="q-h"><span class="q-l">The three fixes that matter</span><span class="q-hint">ranked by what an attacker can reach</span></div>
-            <div class="qrow"><span class="k">1</span><span class="sev sev-critical">crit</span><span class="q-t">Scope down the CI/CD deploy key</span><span class="q-e">runbook · ~60 min</span></div>
-            <div class="qrow"><span class="k">2</span><span class="sev sev-high">high</span><span class="q-t">Enforce MFA on two admin accounts</span><span class="q-e">runbook · ~20 min</span></div>
-            <div class="qrow"><span class="k">3</span><span class="sev sev-ai">ai</span><span class="q-t">Ownerless agent token with admin scope</span><span class="q-e">runbook · ~30 min</span></div>
+            <div class="q-h"><span class="q-l">The three fixes that matter</span><span class="q-hint">ranked by reach</span></div>
+            <div class="qrow"><span class="k">1</span><span class="sev sev-critical">crit</span><span class="q-t">Scope down the CI/CD deploy key</span><span class="q-e">runbook</span></div>
+            <div class="qrow"><span class="k">2</span><span class="sev sev-high">high</span><span class="q-t">Enforce MFA on two admin accounts</span><span class="q-e">runbook</span></div>
+            <div class="qrow"><span class="k">3</span><span class="sev sev-ai">ai</span><span class="q-t">Ownerless agent token with admin scope</span><span class="q-e">runbook</span></div>
           </div>
         </div>
       </div>
-      <span class="chip sample csample">illustration · sample data, not a customer</span>
+      <span class="chip sample csample">illustration · not a customer</span>
     </div>
   </div>
 </section>
@@ -791,15 +899,23 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow plain reveal">The problem</span>
-      <h2 class="reveal">You bought tools. Nobody can tell you if you&rsquo;re actually OK.</h2>
-      <p class="reveal">Companies our size run a stack of disconnected security tools and still can&rsquo;t answer the only question the board, the customer and the auditor are asking: <b>how good is our security, really, and what should we fix first?</b></p>
+      <h2 class="reveal">You bought tools. Still no answer.</h2>
+      <p class="reveal">Are we OK, and what do we fix first?</p>
     </div>
     <div class="stats">
-      <div class="stat reveal"><div class="n warn mono"><span data-count="88" data-suffix="%">0%</span></div><div class="d">of breaches at small and mid-sized businesses involved ransomware</div><div class="src">Verizon Data Breach Investigations Report, 2025</div></div>
-      <div class="stat reveal"><div class="n mono"><span data-count="115" data-prefix="~$" data-suffix="K">~$0K</span></div><div class="d">median ransom payment, among victims that paid</div><div class="src">Verizon Data Breach Investigations Report, 2025</div></div>
-      <div class="stat reveal"><div class="n mono">1</div><div class="d">question every tool in the stack fails to answer on its own: are we OK, and what do we fix first?</div><div class="src">Not a statistic. The reason ClearFend exists.</div></div>
+      <div class="stat reveal"><div class="n warn mono"><span data-count="88" data-suffix="%">0%</span></div><div class="d">of SMB breaches involved ransomware</div><div class="src">Verizon DBIR, 2025</div></div>
+      <div class="stat reveal"><div class="n mono"><span data-count="115" data-prefix="~$" data-suffix="K">~$0K</span></div><div class="d">median ransom, among victims that paid</div><div class="src">Verizon DBIR, 2025</div></div>
+      <div class="stat many reveal">
+        <svg class="many-art" viewBox="0 0 260 96" preserveAspectRatio="xMinYMid meet" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <g stroke="#d6deea" stroke-width="1.6"><rect x="6" y="6" width="44" height="20" rx="5"/><rect x="6" y="38" width="44" height="20" rx="5"/><rect x="6" y="70" width="44" height="20" rx="5"/><rect x="62" y="22" width="44" height="20" rx="5"/><rect x="62" y="54" width="44" height="20" rx="5"/></g>
+          <g class="draw" stroke="#0a6b79" stroke-opacity=".55" stroke-width="1.4"><path d="M50 16c60 0 90 32 138 32"/><path d="M50 48h138"/><path d="M50 80c60 0 90-32 138-32"/><path d="M106 32c40 0 50 16 82 16"/><path d="M106 64c40 0 50-16 82-16"/></g>
+          <circle cx="220" cy="48" r="30" stroke="#e6ecf4" stroke-width="7"/>
+          <path class="draw" d="M220 18a30 30 0 0 1 28 40" stroke="#0a6b79" stroke-width="7"/>
+          <path d="M220 48l10-12" stroke="#18202e" stroke-width="2"/><circle cx="220" cy="48" r="3" fill="#18202e"/>
+        </svg>
+        <div class="d"><b>Many tools. No single answer.</b></div><div class="src">The reason ClearFend exists.</div>
+      </div>
     </div>
-    <p class="lead reveal" style="margin-top:36px">You don&rsquo;t need another tool. You need <b>one console that answers the question and shows its work</b>: every finding ranked by what an attacker can reach, every fix moving a real number, every control proven by what is actually true in your estate, and every figure labelled with where it came from.</p>
   </div>
 </section>
 
@@ -808,31 +924,47 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow reveal">The Confidence Console</span>
-      <h2 class="reveal">Above the fold: one number, one verdict, three fixes.</h2>
-      <p class="reveal">The dashboard opens on the score with its provenance, a plain-English verdict, the three fixes that matter most, and what changed since your last assessment. Everything else lives below the fold. Every figure links to the screen it came from.</p>
+      <h2 class="reveal">One number. One verdict. Three fixes.</h2>
+      <p class="reveal">Every figure says where it came from. Open any card for how.</p>
     </div>
-    <div class="split">
-      <div class="feature-list">
-        <div class="fl" id="confidence"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-gauge"/></svg></span><div><h4>Confidence score, with provenance</h4><p>0–100, from your connected sources and what you declare. Each input is marked self-declared, observed, derived or sample. Nothing is shown as live unless a live source wrote it.</p></div></div>
-        <div class="fl" id="fix-queue"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-queue"/></svg></span><div><h4>Fix Queue</h4><p>One queue across compliance, vendors, AI systems, machine identities, people, code and cloud. Ranked by severity times reach. Each item carries a runbook: the ordered fix steps, grounded in a control register, not improvised.</p></div></div>
-        <div class="fl" id="estate"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-graph"/></svg></span><div><h4>Estate graph</h4><p>What can reach what. Crown jewels are the places data and keys live; choke points are the nodes most attack paths pass through. The queue ranks on this graph, so a fix that cuts a path moves the number.</p></div></div>
-        <div class="fl" id="evidence"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-packet"/></svg></span><div><h4>Evidence packets</h4><p>An append-only, hash-chained audit record plus the current state of your five core controls and open findings, exportable by the account owner. A control with expired evidence shows stale, never green.</p></div></div>
-        <div class="fl" id="leadership"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-summary"/></svg></span><div><h4>Leadership summary</h4><p>A read-only one-pager for the board or a customer: score and movement, top risks in plain English, resolved findings, decisions waiting on an owner. Prints to a single page.</p></div></div>
-        <div class="fl" id="connectors"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg></span><div><h4>Connectors <span class="chip build">In build</span></h4><p>Read-only sources you create and can revoke: Microsoft 365, Google Workspace, Okta, AWS. Until they land, the console runs on what you declare and on the modules that probe directly, and labels it that way.</p></div></div>
+    <div class="caps">
+      <details class="xcard reveal" id="confidence"><summary><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-gauge"/></svg></span><span><span class="x-t">Confidence score</span><span class="x-s">0–100, with provenance</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="x-body"><p>Built from your connected sources and what you declare. Each input is marked self-declared, observed, derived or sample. Nothing shows as live unless a live source wrote it.</p></div></details>
+      <details class="xcard reveal" id="fix-queue"><summary><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-queue"/></svg></span><span><span class="x-t">Fix Queue</span><span class="x-s">One queue, ranked by reach</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="x-body"><p>Compliance, vendors, AI, machine identities, people, code and cloud in one list, ranked by severity times reach. Each item carries a runbook grounded in a control register.</p></div></details>
+      <details class="xcard reveal" id="estate"><summary><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-graph"/></svg></span><span><span class="x-t">Estate graph</span><span class="x-s">What can reach what</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="x-body"><p>Crown jewels are where data and keys live; choke points are where attack paths converge. The queue ranks on this graph, so a fix that cuts a path moves the number.</p></div></details>
+      <details class="xcard reveal" id="evidence"><summary><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-packet"/></svg></span><span><span class="x-t">Evidence packets</span><span class="x-s">What was true, and when</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="x-body"><p>An append-only, hash-chained record plus the state of your core controls and open findings, exportable by the account owner. Expired evidence shows stale, never green.</p></div></details>
+      <details class="xcard reveal" id="leadership"><summary><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-summary"/></svg></span><span><span class="x-t">Leadership summary</span><span class="x-s">One page for the board</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="x-body"><p>Score and movement, top risks in plain English, resolved findings and decisions waiting on an owner. Read-only, and every figure links to its source.</p></div></details>
+      <details class="xcard reveal" id="connectors"><summary><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg></span><span><span class="x-t">Connectors <span class="chip build">In build</span></span><span class="x-s">Read-only, revocable</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="x-body"><p>Microsoft 365, Google Workspace, Okta and AWS first. Until they land, the console runs on what you declare and on modules that probe directly, and labels it that way.</p></div></details>
+    </div>
+
+    <div class="ladder-card reveal">
+      <div>
+        <span class="eyebrow">Where you stand</span>
+        <h3>Levels are gates, not averages.</h3>
+        <p class="hint">Choose a rung.</p>
+        <span class="pop" style="margin-top:14px">
+          <button class="pop-btn" type="button" aria-expanded="false" aria-controls="pop-l2"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg>Why a snapshot stops at Level 2</button>
+          <span class="pop-card" id="pop-l2">Level 3 needs proof that holds every day. Until continuous evidence is real, our engine caps itself at Level 2.</span>
+        </span>
       </div>
       <div>
-        <div class="card tinted" style="gap:16px">
-          <span class="eyebrow">Where you stand</span>
-          <h3>Levels are gates, not averages.</h3>
-          <p>Your maturity level places the score on a five-rung ladder outsiders hold you to. You are the level whose requirements you <b>fully</b> meet. Great backups don&rsquo;t cancel out two admin accounts without MFA.</p>
-          <div class="ladder" style="grid-template-columns:1fr;gap:8px">
-            <div class="rung" style="padding:12px 14px"><div class="l">L1</div><div class="n">Exposed</div><div class="d">Basic gaps are open and nobody has been assigned to look.</div></div>
-            <div class="rung" style="padding:12px 14px"><div class="l">L2</div><div class="n">Covered</div><div class="d">The five core controls hold. The next questionnaire stops being a guess.</div></div>
-            <div class="rung gate" style="padding:12px 14px"><span class="tag">continuous</span><div class="l">L3</div><div class="n">Audit-Ready</div><div class="d">Controls proven every day, not set up once. What an auditor assumes.</div></div>
-            <div class="rung" style="padding:12px 14px"><div class="l">L4 · L5</div><div class="n">Resilient · Adaptive</div><div class="d">Detect, respond, recover, and exercise it. Most companies never need L5, and we&rsquo;ll say so.</div></div>
-          </div>
-          <div class="note" style="margin-top:4px"><span aria-hidden="true">→</span><p><b>A snapshot can honestly award at most Level 2.</b> Level 3 needs proof that holds every day. That is what a console watching your estate exists to do, and it is why our engine caps itself at L2 until continuous evidence is real.</p></div>
+        <div class="stairs">
+          <button class="rung-b" type="button" style="--h:64px;--i:0" aria-expanded="false" aria-controls="cap-l1"><span class="l">L1</span><span class="n">Exposed</span></button>
+          <button class="rung-b" type="button" style="--h:92px;--i:1" aria-expanded="false" aria-controls="cap-l2"><span class="l">L2</span><span class="n">Covered</span></button>
+          <button class="rung-b gate" type="button" style="--h:120px;--i:2" aria-expanded="false" aria-controls="cap-l3"><span class="l">L3</span><span class="n">Audit-Ready</span></button>
+          <button class="rung-b" type="button" style="--h:148px;--i:3" aria-expanded="false" aria-controls="cap-l4"><span class="l">L4</span><span class="n">Resilient</span></button>
+          <button class="rung-b" type="button" style="--h:176px;--i:4" aria-expanded="false" aria-controls="cap-l5"><span class="l">L5</span><span class="n">Adaptive</span></button>
         </div>
+        <p class="ladder-cap" id="cap-l1" hidden><b>Exposed.</b> Basic gaps are open and nobody is assigned to look.</p>
+        <p class="ladder-cap" id="cap-l2" hidden><b>Covered.</b> The five core controls hold. The next questionnaire stops being a guess.</p>
+        <p class="ladder-cap" id="cap-l3" hidden><b>Audit-Ready.</b> Controls proven every day, not set up once. What an auditor assumes.</p>
+        <p class="ladder-cap" id="cap-l4" hidden><b>Resilient.</b> You can detect, respond and recover, and have shown it.</p>
+        <p class="ladder-cap" id="cap-l5" hidden><b>Adaptive.</b> Exercised and improving. Most companies never need it, and we&rsquo;ll say so.</p>
       </div>
     </div>
   </div>
@@ -844,61 +976,60 @@
     <div class="sec-head center">
       <span class="eyebrow reveal">How it works</span>
       <h2 class="reveal">Assess. Fix. Prove.</h2>
-      <p class="reveal">Three verbs, one loop. Everything in ClearFend is one of them, and every fix feeds the next assessment.</p>
     </div>
     <div class="steps3">
-      <div class="step3 reveal" id="know">
+      <div class="step3 reveal" id="know" data-disclose>
         <div class="art" aria-hidden="true">
           <svg viewBox="0 0 300 120" fill="none" stroke="#0a6b79" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="60" cy="60" r="34" stroke="#d6deea" stroke-width="8"/><path d="M60 26a34 34 0 0 1 32 22" stroke-width="8"/>
+            <circle cx="60" cy="60" r="34" stroke="#d6deea" stroke-width="8"/><path class="draw" d="M60 26a34 34 0 0 1 32 22" stroke-width="8"/>
             <circle cx="170" cy="40" r="7"/><circle cx="230" cy="30" r="7"/><circle cx="210" cy="85" r="7" fill="#2de1c6" fill-opacity=".35"/><circle cx="260" cy="70" r="7"/>
-            <path d="M176 43l28 36M237 34l-21 45M217 84l36-12"/>
+            <path class="draw" d="M176 43l28 36M237 34l-21 45M217 84l36-12"/>
           </svg>
         </div>
         <span class="k">01 · Know where you stand</span>
-        <h3>Connect read-only, declare what we can&rsquo;t see, get the number.</h3>
-        <p>You create time-boxed, read-only access. The modules probe what they can and ask you to declare the rest. The console returns one score, one verdict, and a map of what reaches what.</p>
-        <ul><li>Every figure labelled with its provenance</li><li>Nothing installed, nothing changed</li><li>Access revocable by you, any time</li></ul>
+        <h3>Connect read-only. Get the number.</h3>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>How</summary>
+          <div class="x-body"><p>You create time-boxed, read-only access. Modules probe what they can and ask you to declare the rest. You get one score, one verdict and a map of what reaches what.</p><ul class="ticks"><li>Nothing installed, nothing changed</li><li>Access revocable by you, any time</li></ul></div></details>
       </div>
-      <div class="step3 reveal" id="fix">
+      <div class="step3 reveal" id="fix" data-disclose>
         <div class="art" aria-hidden="true">
           <svg viewBox="0 0 300 120" fill="none" stroke="#0a6b79" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <rect x="30" y="22" width="240" height="20" rx="6" stroke="#e5484d"/><rect x="30" y="50" width="240" height="20" rx="6" stroke="#f5811f"/><rect x="30" y="78" width="240" height="20" rx="6" stroke="#d6deea"/>
-            <path d="M42 32h60M42 60h80M42 88h50" stroke="#d6deea" stroke-width="4"/>
-            <path d="M236 28l5 5 9-9" stroke="#22a565" stroke-width="2.2"/>
+            <path class="draw" d="M42 32h60M42 60h80M42 88h50" stroke="#d6deea" stroke-width="4"/>
+            <path class="draw" d="M236 28l5 5 9-9" stroke="#22a565" stroke-width="2.2"/>
           </svg>
         </div>
         <span class="k">02 · Fix what matters</span>
-        <h3>Work the three fixes that move the number, runbook in hand.</h3>
-        <p>The Fix Queue ranks every open finding by severity times what it can reach. Each one comes with a runbook and the consequence in plain English. Risks you choose to carry go to the Risk Register with an owner and a date.</p>
-        <ul><li>One queue across every module</li><li>Regressions surface first</li><li>AI explains with citations; it cannot act</li></ul>
+        <h3>Work the three fixes that matter.</h3>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>How</summary>
+          <div class="x-body"><p>Every open finding is ranked by severity times reach, with a runbook and the consequence in plain English. Risks you choose to carry go to the Risk Register with an owner and a date.</p><ul class="ticks"><li>Regressions surface first</li><li>AI explains with citations; it cannot act</li></ul></div></details>
       </div>
-      <div class="step3 reveal" id="prove">
+      <div class="step3 reveal" id="prove" data-disclose>
         <div class="art" aria-hidden="true">
           <svg viewBox="0 0 300 120" fill="none" stroke="#0a6b79" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M150 18l40 16v26c0 24-17 44-40 52-23-8-40-28-40-52V34z"/><path d="M134 62l11 11 22-22" stroke-width="2.2"/>
-            <path d="M40 40h60M40 60h50M40 80h56" stroke="#d6deea" stroke-width="4"/><path d="M204 40h56M204 60h50M204 80h56" stroke="#d6deea" stroke-width="4"/>
+            <path d="M150 18l40 16v26c0 24-17 44-40 52-23-8-40-28-40-52V34z"/><path class="draw" d="M134 62l11 11 22-22" stroke-width="2.2"/>
+            <path class="draw" d="M40 40h60M40 60h50M40 80h56" stroke="#d6deea" stroke-width="4"/><path class="draw" d="M204 40h56M204 60h50M204 80h56" stroke="#d6deea" stroke-width="4"/>
           </svg>
         </div>
         <span class="k">03 · Prove it</span>
-        <h3>Controls that drift when the estate contradicts them. Evidence that holds.</h3>
-        <p>Attest a control is in place; if a live finding later contradicts it, the control shows drifted and counts as a gap until the finding closes. The evidence packet records what was true and when, in a chain that cannot be edited.</p>
-        <ul><li>SOC 2, ISO 27001, NIST CSF, HIPAA on one register</li><li>No silent green</li><li>A one-page leadership summary, every figure sourced</li></ul>
+        <h3>Controls that drift. Evidence that holds.</h3>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>How</summary>
+          <div class="x-body"><p>If a live finding contradicts a control you attested, the control shows drifted and counts as a gap until the finding closes. The evidence packet records what was true and when.</p><ul class="ticks"><li>SOC 2, ISO 27001, NIST CSF, HIPAA on one register</li><li>No silent green</li></ul></div></details>
       </div>
     </div>
 
-    <div class="split" style="margin-top:64px" id="loop">
+    <div class="split" style="margin-top:72px" id="loop">
       <div class="sec-head" style="margin-bottom:0">
         <span class="eyebrow reveal">The signature move</span>
         <h2 class="reveal">Fix once. Prove three ways.</h2>
-        <p class="reveal">One fix in your estate is simultaneously a <b>closed finding</b>, a <b>control that stops drifting</b>, and a <b>line in your evidence packet</b>. You never write the same thing down twice, and an auditor never sees a control that is only true on paper.</p>
+        <p class="reveal">One fix closes the finding, clears the drift, and adds evidence.</p>
       </div>
       <div class="fan reveal">
-        <div class="fix"><span class="ok" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></span><div><div class="f-t">Fix verified · MFA enforced on admin accounts</div><div class="f-s">observed by a connector, not self-attested <span class="chip sample" style="margin-left:6px">sample</span></div></div></div>
+        <div class="fix"><span class="ok" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></span><div><div class="f-t">Fix verified · MFA enforced on admins</div><div class="f-s">observed by a connector <span class="chip sample" style="margin-left:6px">sample</span></div></div></div>
         <div class="out">
-          <div class="o"><div class="o-l">Fix Queue</div><div class="o-t">2 admin accounts without MFA</div><span class="o-s closed">finding closed</span></div>
-          <div class="o"><div class="o-l">Compliance</div><div class="o-t">SOC 2 CC6.1 · logical access</div><span class="o-s pass">drift cleared · in place</span></div>
-          <div class="o"><div class="o-l">Evidence</div><div class="o-t">Packet updated with the observation and timestamp</div><span class="o-s pkt">+1 evidence line</span></div>
+          <div class="o"><div class="o-l">Fix Queue</div><div class="o-t">Admins without MFA</div><span class="o-s closed">finding closed</span></div>
+          <div class="o"><div class="o-l">Compliance</div><div class="o-t">SOC 2 CC6.1</div><span class="o-s pass">drift cleared</span></div>
+          <div class="o"><div class="o-l">Evidence</div><div class="o-t">Packet updated</div><span class="o-s pkt">+1 evidence line</span></div>
         </div>
       </div>
     </div>
@@ -910,22 +1041,63 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow reveal">Modules</span>
-      <h2 class="reveal">Every module answers one plain question. Every status is honest.</h2>
-      <p class="reveal">All of them feed the same estate graph, the same Fix Queue and the same Risk Register, so a fix in one place moves the number everywhere it should. <span class="chip preview">Preview</span> means running today for design partners. <span class="chip build">In build</span> means being built now. <span class="chip planned">Planned</span> means not started.</p>
+      <h2 class="reveal">One plain question per module.</h2>
+      <div class="legend reveal">
+        <span class="pop"><button class="pop-btn chipbtn" type="button" aria-expanded="false" aria-controls="pop-preview"><span class="chip preview">Preview</span></button><span class="pop-card" id="pop-preview">Running today for design partners.</span></span>
+        <span class="pop"><button class="pop-btn chipbtn" type="button" aria-expanded="false" aria-controls="pop-build"><span class="chip build">In build</span></button><span class="pop-card" id="pop-build">Being built now.</span></span>
+        <span class="pop"><button class="pop-btn chipbtn" type="button" aria-expanded="false" aria-controls="pop-planned"><span class="chip planned">Planned</span></button><span class="pop-card" id="pop-planned">Not started.</span></span>
+        <span class="hint">Flip a card for the honest detail.</span>
+      </div>
     </div>
     <div class="mods">
-      <div class="mod reveal" id="m-exposure"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Exposure</div><div class="m-q">What can an attacker reach?</div><div class="m-note">The estate graph: blast radius, crown jewels, choke points. Edges come from what modules and connectors write.</div></div>
-      <div class="mod reveal" id="m-cloud"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-cloud"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Cloud &amp; Identity</div><div class="m-q">Is our cloud configured safely?</div><div class="m-note">CIS-style checks over what you declare today. The AWS read-role connector exists and is not yet wired to this surface.</div></div>
-      <div class="mod reveal" id="m-data"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-data"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Data &amp; Privacy</div><div class="m-q">Is our data protected, and where does it go?</div><div class="m-note">Declared data estate, assessed. Records of processing and obligations are not modelled yet.</div></div>
-      <div class="mod reveal" id="m-appsec"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Application Security</div><div class="m-q">Is our code safe to ship?</div><div class="m-note">Secrets, dependencies and risky patterns in a GitHub repo you point at. Pull-request gating is not wired.</div></div>
-      <div class="mod reveal" id="m-pentest"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Pen Test</div><div class="m-q">Can we be broken into?</div><div class="m-note">Automated external tests against targets you prove you own. Real network probes; not a human red team.</div></div>
-      <div class="mod reveal" id="m-human"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-people"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Human Risk</div><div class="m-q">Will my team get phished?</div><div class="m-note">Real simulations from your own mail, every person scored on clicks, reports and access. Roster typed, not yet read from a directory.</div></div>
-      <div class="mod reveal" id="m-tprm"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-vendor"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Third-Party Risk</div><div class="m-q">Are our vendors safe?</div><div class="m-note">A living program: inventory, assess, re-assess when the landscape moves, and see the diff.</div></div>
-      <div class="mod reveal" id="m-compliance"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-clipboard"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">Compliance</div><div class="m-q">Are we audit-ready?</div><div class="m-note">28 plain-English controls mapped to SOC 2, ISO 27001, NIST CSF and HIPAA, scored net of drift. A readiness view, not a certificate.</div></div>
-      <div class="mod ai reveal" id="m-ai"><div class="m-h"><span class="ic-box ai"><svg class="ic" aria-hidden="true"><use href="#i-ai"/></svg></span><span class="chip preview">Preview</span></div><div class="m-n">AI Estate &amp; machine identities</div><div class="m-q">What AI is running, and is it governed?</div><div class="m-note">Two living programs: AI systems (apps, agents, MCP servers) and the service accounts, keys and grants behind them.</div></div>
-      <div class="mod reveal" id="m-threat"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span><span class="chip planned">Planned</span></div><div class="m-n">Threat Modeling</div><div class="m-q">What would an attacker do to this design?</div><div class="m-note">A secure-by-design fit-gap assessment exists behind the API. The dedicated screen is not built.</div></div>
-      <div class="mod reveal" id="m-operate"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg></span><span class="chip planned">Planned</span></div><div class="m-n">Triage &amp; Threat Intel</div><div class="m-q">Is something happening right now?</div><div class="m-note">Today: analyses an alert you paste. No ingestion, queue, case or on-call. Labelled planned until that changes.</div></div>
-      <div class="mod reveal" id="m-connectors"><div class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg></span><span class="chip build">In build</span></div><div class="m-n">Connectors</div><div class="m-q">What is actually watching, and how fresh is it?</div><div class="m-note">Read-only Microsoft 365, Google Workspace, Okta and AWS readers. One reader built, not yet wired.</div></div>
+      <div class="flip-cell mod reveal" id="m-exposure"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg></span><span class="chip preview">Preview</span></span><span class="m-n">Exposure</span><span class="m-q">What can an attacker reach?</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="m-h"><span class="m-n">Exposure</span><span class="chip preview">Preview</span></span><span class="m-note">The estate graph: blast radius, crown jewels, choke points. Edges come from what modules and connectors write.</span></span>
+      </span></button></div>
+      <div class="flip-cell mod reveal" id="m-cloud"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-cloud"/></svg></span><span class="chip preview">Preview</span></span><span class="m-n">Cloud &amp; Identity</span><span class="m-q">Is our cloud configured safely?</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="m-h"><span class="m-n">Cloud &amp; Identity</span><span class="chip preview">Preview</span></span><span class="m-note">CIS-style checks over what you declare today. The AWS read-role connector exists and is not yet wired here.</span></span>
+      </span></button></div>
+      <div class="flip-cell mod reveal" id="m-data"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-data"/></svg></span><span class="chip preview">Preview</span></span><span class="m-n">Data &amp; Privacy</span><span class="m-q">Is our data protected, and where does it go?</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="m-h"><span class="m-n">Data &amp; Privacy</span><span class="chip preview">Preview</span></span><span class="m-note">Declared data estate, assessed. Records of processing and obligations are not modelled yet.</span></span>
+      </span></button></div>
+      <div class="flip-cell mod reveal" id="m-appsec"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span><span class="chip preview">Preview</span></span><span class="m-n">Application Security</span><span class="m-q">Is our code safe to ship?</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="m-h"><span class="m-n">Application Security</span><span class="chip preview">Preview</span></span><span class="m-note">Secrets, dependencies and risky patterns in a GitHub repo you point at. Pull-request gating is not wired.</span></span>
+      </span></button></div>
+      <div class="flip-cell mod reveal" id="m-pentest"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span><span class="chip preview">Preview</span></span><span class="m-n">Pen Test</span><span class="m-q">Can we be broken into?</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="m-h"><span class="m-n">Pen Test</span><span class="chip preview">Preview</span></span><span class="m-note">Automated external tests against targets you prove you own. Real network probes; not a human red team.</span></span>
+      </span></button></div>
+      <div class="flip-cell mod reveal" id="m-human"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-people"/></svg></span><span class="chip preview">Preview</span></span><span class="m-n">Human Risk</span><span class="m-q">Will my team get phished?</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="m-h"><span class="m-n">Human Risk</span><span class="chip preview">Preview</span></span><span class="m-note">Real simulations from your own mail, every person scored. Roster typed, not yet read from a directory.</span></span>
+      </span></button></div>
+      <div class="flip-cell mod reveal" id="m-tprm"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-vendor"/></svg></span><span class="chip preview">Preview</span></span><span class="m-n">Third-Party Risk</span><span class="m-q">Are our vendors safe?</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="m-h"><span class="m-n">Third-Party Risk</span><span class="chip preview">Preview</span></span><span class="m-note">A living program: inventory, assess, re-assess when the landscape moves, and see the diff.</span></span>
+      </span></button></div>
+      <div class="flip-cell mod reveal" id="m-compliance"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-clipboard"/></svg></span><span class="chip preview">Preview</span></span><span class="m-n">Compliance</span><span class="m-q">Are we audit-ready?</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="m-h"><span class="m-n">Compliance</span><span class="chip preview">Preview</span></span><span class="m-note">Plain-English controls mapped to SOC 2, ISO 27001, NIST CSF and HIPAA, scored net of drift. A readiness view, not a certificate.</span></span>
+      </span></button></div>
+      <div class="flip-cell mod ai reveal" id="m-ai"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="m-h"><span class="ic-box ai"><svg class="ic" aria-hidden="true"><use href="#i-ai"/></svg></span><span class="chip preview">Preview</span></span><span class="m-n">AI Estate</span><span class="m-q">What AI is running, and is it governed?</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="m-h"><span class="m-n">AI Estate</span><span class="chip preview">Preview</span></span><span class="m-note">AI systems (apps, agents, MCP servers) and the service accounts, keys and grants behind them.</span></span>
+      </span></button></div>
+      <div class="flip-cell mod reveal" id="m-threat"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span><span class="chip planned">Planned</span></span><span class="m-n">Threat Modeling</span><span class="m-q">What would an attacker do to this design?</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="m-h"><span class="m-n">Threat Modeling</span><span class="chip planned">Planned</span></span><span class="m-note">A secure-by-design fit-gap assessment exists behind the API. The dedicated screen is not built.</span></span>
+      </span></button></div>
+      <div class="flip-cell mod reveal" id="m-operate"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg></span><span class="chip planned">Planned</span></span><span class="m-n">Triage &amp; Threat Intel</span><span class="m-q">Is something happening right now?</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="m-h"><span class="m-n">Triage &amp; Threat Intel</span><span class="chip planned">Planned</span></span><span class="m-note">Today it analyses an alert you paste. No ingestion, queue, case or on-call yet.</span></span>
+      </span></button></div>
+      <div class="flip-cell mod reveal" id="m-connectors"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="m-h"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg></span><span class="chip build">In build</span></span><span class="m-n">Connectors</span><span class="m-q">What is watching, and how fresh is it?</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="m-h"><span class="m-n">Connectors</span><span class="chip build">In build</span></span><span class="m-note">Read-only Microsoft 365, Google Workspace, Okta and AWS readers. One reader built, not yet wired.</span></span>
+      </span></button></div>
     </div>
   </div>
 </section>
@@ -935,37 +1107,37 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow reveal">Not dashboards. Living programs.</span>
-      <h2 class="reveal">A program remembers every entity, and tells you what changed.</h2>
-      <p class="reveal">A dashboard shows a number. A living program keeps one row per vendor, AI system, key or person, drives it through a lifecycle, keeps an append-only history, and shows the diff, regressions first. Its gaps land in your Fix Queue, its residual risk in your Risk Register, and every entity is a node on the estate graph. The examples below are illustrative and labelled sample.</p>
+      <h2 class="reveal">Programs that remember what changed.</h2>
+      <p class="reveal">One row per entity, a lifecycle, a history, and the diff.</p>
     </div>
     <div class="programs">
       <div class="prog reveal">
         <span class="eyebrow plain">Third-Party Risk</span>
-        <h3>Vendors assessed, and re-assessed as the landscape moves.</h3>
-        <p>Inventory every vendor, assess each one, then amend the assessment when their landscape changes: a new sub-processor, a breach, a lost certification. The program shows the diff, not just the new score.</p>
+        <h3>Vendors, re-assessed as they change.</h3>
         <div class="life"><span class="stage">prospective</span><span class="arrow">›</span><span class="stage on">assessed</span><span class="arrow">›</span><span class="stage warn">re-assess</span><span class="arrow">›</span><span class="stage">offboarded</span></div>
-        <div class="diff"><b>What changed:</b> <span class="delta">▲ regressed</span> — vendor added an offshore sub-processor and its SOC 2 report lapsed. Two gaps routed to your Fix Queue.<span class="lbl">sample</span></div>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>What changed <span class="chip sample">sample</span></summary>
+          <div class="x-body"><p>A new sub-processor, a breach or a lost certification triggers a re-assessment. The program shows the diff, not just the new score.</p><div class="diff"><span class="delta">▲ regressed</span> — offshore sub-processor added, SOC 2 report lapsed. Two gaps routed to your Fix Queue.</div></div></details>
       </div>
       <div class="prog reveal">
         <span class="eyebrow ai">AI Estate &amp; machine identities</span>
-        <h3>Every AI system and every machine identity, inventoried and governed.</h3>
-        <p>Your LLM apps, agents, copilots and MCP servers, plus the service accounts, API keys, OAuth grants and agent credentials behind them. Flagged for what matters: ownerless and privileged, over-scoped, stale, never rotated.</p>
+        <h3>Every agent and key, owned.</h3>
         <div class="life"><span class="stage ai">provisioned</span><span class="arrow">›</span><span class="stage on">active</span><span class="arrow">›</span><span class="stage warn">needs review</span><span class="arrow">›</span><span class="stage">deprovisioned</span></div>
-        <div class="diff"><b>Finding:</b> <span class="delta">critical</span> — ownerless service account with admin scope, key unrotated for 18 months, still in daily use.<span class="lbl">sample</span></div>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>What changed <span class="chip sample">sample</span></summary>
+          <div class="x-body"><p>LLM apps, agents and MCP servers, plus the service accounts, API keys and OAuth grants behind them. Flagged when ownerless and privileged, over-scoped, stale or never rotated.</p><div class="diff"><span class="delta">critical</span> — ownerless service account with admin scope, key never rotated, still in daily use.</div></div></details>
       </div>
       <div class="prog reveal">
         <span class="eyebrow plain">Compliance · continuous drift</span>
-        <h3>A control you attested drifts the moment your estate contradicts it.</h3>
-        <p>SOC 2, ISO 27001, NIST CSF and HIPAA on one register. Readiness is scored net of drift: if a live finding implicates a control you attested, the control shows as drifted and counts as a gap until the finding closes.</p>
+        <h3>Attested controls that can drift.</h3>
         <div class="life"><span class="stage">not in place</span><span class="arrow">›</span><span class="stage">partial</span><span class="arrow">›</span><span class="stage on">in place</span><span class="arrow">›</span><span class="stage warn">drifted</span></div>
-        <div class="diff"><b>Drift detected:</b> <span class="delta">CC6.1</span> — attested in place, but two admin accounts without MFA are open in your Fix Queue.<span class="lbl">sample</span></div>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>What changed <span class="chip sample">sample</span></summary>
+          <div class="x-body"><p>Readiness is scored net of drift across SOC 2, ISO 27001, NIST CSF and HIPAA on one register.</p><div class="diff"><span class="delta">CC6.1</span> — attested in place, but two admin accounts without MFA are open in your Fix Queue.</div></div></details>
       </div>
       <div class="prog reveal">
         <span class="eyebrow plain">Human Risk · the person engine</span>
-        <h3>Every person scored on phishability, access and behaviour, from real clicks.</h3>
-        <p>Not a training-completion percentage. Each person&rsquo;s score is anchored to their actual clicks and reports in your own simulations, weighted by the access they hold. A repeat clicker with admin access rises to the top.</p>
+        <h3>People scored on real clicks.</h3>
         <div class="life"><span class="stage">onboarding</span><span class="arrow">›</span><span class="stage on">active</span><span class="arrow">›</span><span class="stage warn">at risk</span><span class="arrow">›</span><span class="stage">offboarded</span></div>
-        <div class="diff good"><b>Training completed:</b> <span class="delta">▼ risk down</span> — the person re-scored and the coaching gap left your Fix Queue.<span class="lbl">sample</span></div>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>What changed <span class="chip sample">sample</span></summary>
+          <div class="x-body"><p>Not a training-completion percentage: clicks and reports in your own simulations, weighted by the access each person holds.</p><div class="diff good"><span class="delta">▼ risk down</span> — training completed, the person re-scored, and the coaching gap left your Fix Queue.</div></div></details>
       </div>
     </div>
   </div>
@@ -976,29 +1148,28 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow reveal">Customers · design partners</span>
-      <h2 class="reveal">No logo wall. No testimonials. Not yet.</h2>
-      <p class="reveal">ClearFend is working software running with design partners in private preview. We are early and we won&rsquo;t pretend otherwise: there are no customer names, counts or quotes on this page because we don&rsquo;t publish what we can&rsquo;t stand behind. When we have numbers worth showing, they will be here with permission.</p>
+      <h2 class="reveal">No logo wall. Not yet.</h2>
+      <p class="reveal">Working software, running with design partners in private preview.</p>
     </div>
     <div class="start">
-      <div>
-        <div class="cards two" style="gap:12px">
-          <div class="card reveal"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-handshake"/></svg></span><h4>What a design partner gets</h4><p>The console on your own estate, read-only. Direct access to the people building it. A real say in what ships next, and the launch price locked for your founding term.</p></div>
-          <div class="card reveal"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><h4>What we ask in return</h4><p>Honest feedback, a fortnightly call while you are onboarding, and patience with what is labelled in build. Nothing else.</p></div>
-        </div>
-        <div class="nolog reveal"><svg class="ic" style="color:var(--faint)" aria-hidden="true"><use href="#i-info"/></svg><p><b>Who it suits.</b> Companies of roughly 25 to 500 people with a SOC 2 request, a customer questionnaire, a board asking &ldquo;are we OK?&rdquo;, or AI and agents to govern, and no security team to do it.</p></div>
+      <div class="tiles">
+        <details class="xcard reveal"><summary><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-handshake"/></svg></span><span><span class="x-t">What a partner gets</span><span class="x-s">The console on your estate</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="x-body"><p>Read-only access to the console on your own estate, direct access to the people building it, a real say in what ships next, and the launch price locked for your founding term.</p></div></details>
+        <details class="xcard reveal"><summary><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><span><span class="x-t">What we ask</span><span class="x-s">Honest feedback</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="x-body"><p>A fortnightly call while you onboard, and patience with what is labelled in build. Nothing else.</p></div></details>
+        <details class="xcard reveal"><summary><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-people"/></svg></span><span><span class="x-t">Who it suits</span><span class="x-s">No security team, real pressure</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+          <div class="x-body"><p>Companies of roughly 25 to 500 people facing a SOC 2 request, a customer questionnaire, a board asking &ldquo;are we OK?&rdquo;, or AI and agents to govern.</p></div></details>
       </div>
       <div id="assessment">
         <span class="eyebrow plain reveal">How to join</span>
-        <h3 class="reveal" style="margin:10px 0 8px">Start with a read-only posture assessment.</h3>
-        <p class="reveal" style="color:var(--muted);font-size:var(--fs-sm);line-height:1.6;margin-bottom:16px">Five business days, read-only, nothing installed. You get your confidence score and maturity level, your top ten fixes in plain English, a framework gap view, an executive one-pager and a delivery call. Assessment customers come into the console as design partners with their estate already mapped. <b>Fixed price, quoted in writing before you sign.</b></p>
-        <div class="steps">
-          <div class="step reveal"><span class="k">1</span><div><div class="t">A 30-minute credentials session</div><div class="s">You create time-boxed, read-only access with us on a call. You see exactly what it can and can&rsquo;t do. Nothing is installed anywhere.</div></div></div>
-          <div class="step reveal"><span class="k">2</span><div><div class="t">We scan, and a human reviews</div><div class="s">Vetted read-only posture checks across Microsoft 365, Google Workspace, Okta and your cloud. Findings translated into business language and ranked by what an attacker can reach.</div></div></div>
-          <div class="step reveal"><span class="k">3</span><div><div class="t">Delivery on day five</div><div class="s">Full report, executive one-pager, and a 45-minute call walking your team through the fix order. Access revocation begins the same day.</div></div></div>
-          <p class="commit reveal">We never change anything in your environment. Access is revoked the day we deliver.</p>
-        </div>
-        <div class="cta-row reveal" style="margin-top:18px">
-            <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20posture%20assessment%20request&amp;body=Hi%20ClearFend%2C%0A%0AWe%27d%20like%20to%20scope%20a%20read-only%20posture%20assessment.%0A%0AName%3A%0ACompany%3A%0ACompany%20size%3A%0AWhat%27s%20driving%20this%3A%0A">Scope an assessment</a>
+        <h3 class="reveal" style="margin:10px 0 18px">Start with a read-only assessment.</h3>
+        <ol class="timeline">
+          <li class="reveal"><details class="more"><summary><span class="dot" aria-hidden="true"></span><span class="tl-t">Credentials session</span><span class="tl-k">Day 1</span></summary><div class="x-body"><p>On a 30-minute call you create time-boxed, read-only access and see exactly what it can and can&rsquo;t do.</p></div></details></li>
+          <li class="reveal"><details class="more"><summary><span class="dot" aria-hidden="true"></span><span class="tl-t">We scan, a human reviews</span><span class="tl-k">Days 2–4</span></summary><div class="x-body"><p>Read-only posture checks across Microsoft 365, Google Workspace, Okta and your cloud, translated into business language and ranked by reach.</p></div></details></li>
+          <li class="reveal"><details class="more"><summary><span class="dot" aria-hidden="true"></span><span class="tl-t">Delivery and walkthrough</span><span class="tl-k">Day 5</span></summary><div class="x-body"><p>Your score and level, top fixes, a framework gap view, an executive one-pager and a walkthrough call. Access revocation begins the same day. Fixed price, quoted in writing first.</p></div></details></li>
+        </ol>
+        <div class="cta-row reveal" style="margin-top:20px">
+          <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20posture%20assessment%20request&amp;body=Hi%20ClearFend%2C%0A%0AWe%27d%20like%20to%20scope%20a%20read-only%20posture%20assessment.%0A%0AName%3A%0ACompany%3A%0ACompany%20size%3A%0AWhat%27s%20driving%20this%3A%0A">Scope an assessment</a>
           <a class="btn ghost" href="#waitlist">Join the waitlist</a>
         </div>
       </div>
@@ -1011,36 +1182,36 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow reveal">Pricing</span>
-      <h2 class="reveal">Plain pricing, published before launch. No quote wall.</h2>
-      <p class="reveal">Three tiers, priced per user. The numbers publish on this page before general availability, volume bands included. Until then, the shape of each tier is below and the waitlist locks in the launch price.</p>
+      <h2 class="reveal">Plain pricing, published before launch.</h2>
+      <p class="reveal">Three tiers, priced per user. No quote wall.</p>
     </div>
     <div class="tiers">
       <div class="tier reveal">
         <span class="t-tag">Free</span>
         <div class="t-name">Know where you stand</div>
-        <div class="t-for">For any company that wants the honest number.</div>
         <div class="t-price mono">free · always</div>
-        <ul><li>Your confidence score and maturity level</li><li>The read-only posture check, re-runnable</li><li>Your top fixes, in plain English</li></ul>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>What&rsquo;s included</summary>
+          <div class="x-body"><ul class="ticks"><li>Your confidence score and maturity level</li><li>The read-only posture check, re-runnable</li><li>Your top fixes, in plain English</li></ul></div></details>
       </div>
       <div class="tier hi reveal">
         <span class="t-tag">Team</span>
         <div class="t-name">The console, continuously</div>
-        <div class="t-for">For companies with a SOC 2 request, a customer questionnaire, or a board asking.</div>
         <div class="t-price mono">per user · published at launch</div>
-        <ul><li>Continuous monitoring of your estate as connectors land</li><li>Fix Queue, Risk Register, estate graph</li><li>Compliance with continuous drift, on every framework</li><li>Evidence packets you can hand an auditor</li></ul>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>What&rsquo;s included</summary>
+          <div class="x-body"><ul class="ticks"><li>Continuous monitoring as connectors land</li><li>Fix Queue, Risk Register, estate graph</li><li>Compliance with continuous drift</li><li>Evidence packets for your auditor</li></ul></div></details>
       </div>
       <div class="tier reveal">
         <span class="t-tag">Complete</span>
         <div class="t-name">Every living program</div>
-        <div class="t-for">For companies that want the whole security lifecycle in one place.</div>
         <div class="t-price mono">per user · published at launch</div>
-        <ul><li>Everything in Team</li><li>Third-Party Risk, AI Estate &amp; machine identities, Human Risk</li><li>Pen test, application security, threat modeling <span class="chip planned" style="vertical-align:middle">planned</span></li><li>An AI security team with human escalation <span class="chip build" style="vertical-align:middle">in build</span></li></ul>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>What&rsquo;s included</summary>
+          <div class="x-body"><ul class="ticks"><li>Everything in Team</li><li>Third-Party Risk, AI Estate, Human Risk</li><li>Pen test, application security, threat modeling <span class="chip planned">planned</span></li><li>An AI security team with human escalation <span class="chip build">in build</span></li></ul></div></details>
       </div>
     </div>
-    <div class="price-note">
-      <div class="pn reveal"><b>Every number published.</b> No &ldquo;contact sales&rdquo; below enterprise scale. If a number isn&rsquo;t on this page at launch, we don&rsquo;t charge it.</div>
-      <div class="pn reveal"><b>Renewals capped, in the contract.</b> Renewal increases will be contractually capped and enforced in billing from day one, so the price you join at doesn&rsquo;t ambush you at month 13.</div>
-      <div class="pn reveal"><b>Waitlist locks the launch price.</b> Join below and you get first access at the published launch price, locked for your founding term.</div>
+    <div class="promises reveal">
+      <span class="pop"><button class="pop-btn" type="button" aria-expanded="false" aria-controls="pop-p1"><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg>Every number published</button><span class="pop-card" id="pop-p1">No &ldquo;contact sales&rdquo; below enterprise scale. If a number isn&rsquo;t on this page at launch, we don&rsquo;t charge it.</span></span>
+      <span class="pop"><button class="pop-btn" type="button" aria-expanded="false" aria-controls="pop-p2"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Renewals capped</button><span class="pop-card" id="pop-p2">Renewal increases will be capped in the contract and enforced in billing from day one.</span></span>
+      <span class="pop"><button class="pop-btn" type="button" aria-expanded="false" aria-controls="pop-p3"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>Waitlist locks the launch price</button><span class="pop-card" id="pop-p3">First access at the published launch price, locked for your founding term.</span></span>
     </div>
   </div>
 </section>
@@ -1050,16 +1221,32 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow reveal">Trust &amp; security</span>
-      <h2 class="reveal">How ClearFend protects your data.</h2>
-      <p class="reveal">Each claim below is something the code enforces today, with a plain sentence on how. Anything we are still building is labelled. We do not yet hold a SOC 2 report of our own; when an auditor is engaged we will say so here. <span class="ph">[CONFIRM: audit status]</span></p>
+      <h2 class="reveal">How we protect your data.</h2>
+      <p class="reveal">Enforced in code today. Anything in build is labelled.</p>
+    </div>
+    <div class="fw reveal">
+      <span class="pop">
+        <button class="pop-btn fw-btn" type="button" aria-expanded="false" aria-controls="pop-fw">
+          <span class="fw-l">Built to align with</span>
+          <span class="fw-chips"><span class="fwc">SOC 2</span><span class="fwc">ISO 27001</span><span class="fwc">NIST CSF</span><span class="fwc">NIST AI RMF</span><span class="fwc">ITIL</span></span>
+          <svg class="ic" aria-hidden="true"><use href="#i-info"/></svg>
+        </button>
+        <span class="pop-card" id="pop-fw">Built to align with SOC 2, ISO 27001, NIST CSF, the NIST AI Risk Management Framework, and ITIL practices.</span>
+      </span>
     </div>
     <div class="trust-grid">
-      <div class="tr reveal"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg></span><h4>A closed database</h4><p>Your data lives in a database with no public endpoint anywhere. The ClearFend API is its only client. People reach data through an audited migration path, never from a laptop.</p><div class="how">How: the database sits on an internal network with no published port; every human path goes through the migrator.</div></div>
-      <div class="tr reveal"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></span><h4>Tenant isolation by construction</h4><p>Every table that holds your data enforces row-level security that fails closed: with no tenant context, a query returns nothing and a write is refused. A cross-tenant canary runs in our CI on every change.</p><div class="how">How: FORCE row-level security on every tenant table; a sealed, verified tenant entry is the only door.</div></div>
-      <div class="tr reveal"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><h4>Read-only access you control</h4><p>You create the access, it is time-boxed, and you can revoke it any time. We never ask for passwords and never change anything in your environment. No agents on laptops today.</p><div class="how">How: connectors are read-only by design; an endpoint agent is in build and will be labelled when it ships.</div></div>
-      <div class="tr reveal"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-packet"/></svg></span><h4>An audit trail that cannot be edited</h4><p>Every change made through the console is written to an append-only log where each entry is chained to the previous one. The evidence packet re-verifies the chain before it exports.</p><div class="how">How: a hash-chained audit log with an append-only trigger; verified on every evidence export.</div></div>
-      <div class="tr reveal"><span class="ic-box ai"><svg class="ic" aria-hidden="true"><use href="#i-ai"/></svg></span><h4>AI that explains and cannot act</h4><p>Our AI writes explanations and runbooks with citations to the evidence. It has no tools and no path to change a number or touch a system. Prompts are scrubbed of emails, tokens and keys before they leave.</p><div class="how">How: reader-only agents behind one gateway; every side-effect request is refused by design.</div></div>
-      <div class="tr reveal"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-data"/></svg></span><h4>Your data leaves when we do</h4><p>Isolated per tenant, never sold, never shared, never used to benchmark anyone else. Assessment scan output is deleted within 30 days of delivery, sooner on request, in writing.</p><div class="how">In build: per-customer encryption keys for connector secrets. Today those secrets are envelope-encrypted inside the service; customer-held keys are not yet shipped, so we do not claim them.</div></div>
+      <details class="xcard reveal"><summary><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg></span><span><span class="x-t">A closed database</span><span class="x-s">No public endpoint</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="x-body"><p>The ClearFend API is the database&rsquo;s only client. People reach data through an audited migration path, never from a laptop.</p><p class="how">How: an internal network with no published port; every human path goes through the migrator.</p></div></details>
+      <details class="xcard reveal"><summary><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></span><span><span class="x-t">Tenant isolation</span><span class="x-s">Fails closed, by construction</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="x-body"><p>With no tenant context, a query returns nothing and a write is refused. A cross-tenant canary runs in CI on every change.</p><p class="how">How: FORCE row-level security on every tenant table; a sealed, verified tenant entry is the only door.</p></div></details>
+      <details class="xcard reveal"><summary><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><span><span class="x-t">Read-only access</span><span class="x-s">Yours to revoke</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="x-body"><p>Time-boxed and revocable any time. We never ask for passwords and never change anything in your environment. No agents on laptops today.</p><p class="how">How: connectors are read-only by design; an endpoint agent is in build and will be labelled when it ships.</p></div></details>
+      <details class="xcard reveal"><summary><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-packet"/></svg></span><span><span class="x-t">Tamper-evident audit trail</span><span class="x-s">Append-only, chained</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="x-body"><p>Every change through the console is chained to the one before. The evidence packet re-verifies the chain before it exports.</p><p class="how">How: a hash-chained log with an append-only trigger, verified on every export.</p></div></details>
+      <details class="xcard reveal"><summary><span class="ic-box ai"><svg class="ic" aria-hidden="true"><use href="#i-ai"/></svg></span><span><span class="x-t">AI that cannot act</span><span class="x-s">Explains, with citations</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="x-body"><p>No tools and no path to change a number or touch a system. Prompts are scrubbed of emails, tokens and keys before they leave.</p><p class="how">How: reader-only agents behind one gateway; every side-effect request is refused by design.</p></div></details>
+      <details class="xcard reveal"><summary><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-data"/></svg></span><span><span class="x-t">Your data stays yours</span><span class="x-s">Never sold or shared</span></span><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="x-body"><p>Never used to benchmark anyone else. Assessment scan output is deleted within 30 days of delivery, sooner on request.</p><p class="how">In build: customer-held keys for connector secrets. Today those secrets are envelope-encrypted inside the service, so we do not claim customer-held keys.</p></div></details>
     </div>
   </div>
 </section>
@@ -1070,17 +1257,41 @@
     <div class="sec-head">
       <span class="eyebrow reveal">Design principles</span>
       <h2 class="reveal">Colour equals meaning. Words equal truth.</h2>
-      <p class="reveal">The console is a command centre, not a marketing dashboard. These are the rules every screen follows, and this site follows them too.</p>
+      <p class="reveal">The rules every console screen follows.</p>
     </div>
     <div class="princ">
-      <div class="pr reveal"><div class="num">01</div><h4>Colour equals meaning, never mood</h4><p>Five severity colours and no more. Red means critical, and critical must feel rare. Nothing is tinted for decoration.</p><div class="swatches" aria-label="Severity palette"><span class="sw" style="background:#e5484d" title="Critical"></span><span class="sw" style="background:#f5811f" title="High"></span><span class="sw" style="background:#e0a63a" title="Medium"></span><span class="sw" style="background:#22a565" title="Low / pass"></span><span class="sw" style="background:#2f6bff" title="Info"></span><span class="sw" style="background:#e0952a" title="AI"></span></div></div>
-      <div class="pr reveal"><div class="num">02</div><h4>One glow, rationed</h4><p>Teal is the one accent. In the console it is reserved for the score, the live dot and the active item, so when it appears it means something.</p></div>
-      <div class="pr reveal"><div class="num">03</div><h4>Depth from lines and steps, not blur</h4><p>Hairline borders and surface steps carry the structure. Hierarchy comes from weight, not from colour.</p></div>
-      <div class="pr reveal"><div class="num">04</div><h4>Every number says where it came from</h4><p>Self-declared, observed, derived or sample, on every figure. A missing number cannot render as zero. Missing evidence shows stale, never green.</p></div>
-      <div class="pr reveal"><div class="num">05</div><h4>Plain English, always</h4><p>Every surface must read in business-consequence language an office manager understands. Never a jargon wall; if a term needs a paragraph, it links to the <a href="glossary.html">glossary</a>.</p></div>
-      <div class="pr reveal"><div class="num">06</div><h4>Numbers are mono and tabular</h4><p>A 71 and an 88 take the same width, so the eye can compare them. Sora for headings, Inter for text, JetBrains Mono for numerals.</p></div>
-      <div class="pr reveal"><div class="num">07</div><h4>Honest status on everything</h4><p>Anything not generally available carries one of three labels: in build, private preview, or vision. Nothing is dressed as more than it is.</p></div>
-      <div class="pr reveal"><div class="num">08</div><h4>ClearFend runs ClearFend</h4><p>Our own estate is a tenant, our own Fix Queue is worked, and our own evidence is what an auditor will see.</p></div>
+      <div class="flip-cell pr reveal"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="num">01</span><span class="p-t">Colour equals meaning</span><span class="swatches" aria-hidden="true"><span class="sw" style="background:#e5484d"></span><span class="sw" style="background:#f5811f"></span><span class="sw" style="background:#e0a63a"></span><span class="sw" style="background:#22a565"></span><span class="sw" style="background:#2f6bff"></span><span class="sw" style="background:#e0952a"></span></span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="num">01</span><span class="p-b">Five severity colours and no more. Red means critical, and critical must feel rare.</span></span>
+      </span></button></div>
+      <div class="flip-cell pr reveal"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="num">02</span><span class="p-t">One glow, rationed</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="num">02</span><span class="p-b">Teal is the one accent, reserved for the score, the live dot and the active item.</span></span>
+      </span></button></div>
+      <div class="flip-cell pr reveal"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="num">03</span><span class="p-t">Lines, not blur</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="num">03</span><span class="p-b">Hairline borders and surface steps carry the structure. Hierarchy comes from weight.</span></span>
+      </span></button></div>
+      <div class="flip-cell pr reveal"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="num">04</span><span class="p-t">Every number is sourced</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="num">04</span><span class="p-b">Self-declared, observed, derived or sample. Missing evidence shows stale, never green.</span></span>
+      </span></button></div>
+      <div class="flip-cell pr reveal"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="num">05</span><span class="p-t">Plain English, always</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="num">05</span><span class="p-b">Business-consequence language an office manager understands. Terms link to the glossary.</span></span>
+      </span></button></div>
+      <div class="flip-cell pr reveal"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="num">06</span><span class="p-t">Numbers are tabular</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="num">06</span><span class="p-b">A 71 and an 88 take the same width, so the eye can compare them.</span></span>
+      </span></button></div>
+      <div class="flip-cell pr reveal"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="num">07</span><span class="p-t">Honest status</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="num">07</span><span class="p-b">Anything not generally available says preview, in build, or planned.</span></span>
+      </span></button></div>
+      <div class="flip-cell pr reveal"><button class="flip" type="button" aria-expanded="false"><span class="flip-in">
+        <span class="face front"><span class="num">08</span><span class="p-t">ClearFend runs ClearFend</span><span class="turn" aria-hidden="true"><svg class="ic"><use href="#i-turn"/></svg></span></span>
+        <span class="face back"><span class="num">08</span><span class="p-b">Our own estate is a tenant, and our own Fix Queue is worked.</span></span>
+      </span></button></div>
     </div>
   </div>
 </section>
@@ -1090,42 +1301,29 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow reveal">Status · labelled honestly</span>
-      <h2 class="reveal">What runs today, what is in build, and what is vision.</h2>
-      <p class="reveal">The whole product is built on saying things plainly, so this page does too. Nothing below is dressed up as more than it is.</p>
+      <h2 class="reveal">What runs, what&rsquo;s in build, what&rsquo;s planned.</h2>
     </div>
     <div class="status">
       <div class="st reveal">
-        <span class="chip preview">Running today · private preview</span>
-        <h3>The Confidence Console, with design partners</h3>
-        <ul>
-          <li>Confidence score with provenance, Fix Queue, Risk Register, estate graph, leadership summary</li>
-          <li>Compliance register with continuous drift: SOC 2, ISO 27001, NIST CSF, HIPAA</li>
-          <li>Third-Party Risk, AI Estate &amp; machine identities, Human Risk as living programs</li>
-          <li>Evidence packets, application security, pen test, cloud, data and dependency assessments</li>
-        </ul>
-        <p>Working software, running for design partners. Not generally available. Most inputs are declared today; the score is labelled accordingly.</p>
+        <div class="st-bar on" aria-hidden="true"><i></i><i></i><i></i></div>
+        <span class="chip preview">Preview · running today</span>
+        <h3>The console, with design partners</h3>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>What&rsquo;s included</summary>
+          <div class="x-body"><ul class="ticks"><li>Confidence score, Fix Queue, Risk Register, estate graph, leadership summary</li><li>Compliance register with continuous drift</li><li>Third-Party Risk, AI Estate and Human Risk programs</li><li>Evidence packets, application security, pen test, cloud and data assessments</li></ul><p>Not generally available. Most inputs are declared today, and the score is labelled accordingly.</p></div></details>
       </div>
       <div class="st reveal">
+        <div class="st-bar mid" aria-hidden="true"><i></i><i></i><i></i></div>
         <span class="chip build">In build</span>
         <h3>Closing the loop end to end</h3>
-        <ul>
-          <li>Read-only connectors: Microsoft 365, Google Workspace, Okta, AWS</li>
-          <li>The score computed from observed findings and control state, not a declared row</li>
-          <li>Endpoint agent, so the estate graph sees the laptops too</li>
-          <li>An AI security operations layer with human escalation included</li>
-          <li>General availability, with every price published first</li>
-        </ul>
-        <p>Being built now. We&rsquo;ll ship each piece when it&rsquo;s real, not before.</p>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>What&rsquo;s included</summary>
+          <div class="x-body"><ul class="ticks"><li>Read-only connectors: Microsoft 365, Google Workspace, Okta, AWS</li><li>The score computed from observed findings, not a declared row</li><li>An endpoint agent, so the graph sees laptops</li><li>AI security operations with human escalation</li><li>General availability, every price published first</li></ul></div></details>
       </div>
       <div class="st reveal">
-        <span class="chip planned">Vision · labelled as such</span>
-        <h3>Governing the AI estate, by a vendor that governs its own</h3>
-        <ul>
-          <li>Every agent, MCP server and machine identity governed on the same graph as everything else</li>
-          <li>Living programs across every capability, each with a lifecycle and a memory</li>
-          <li>Proof that holds every day, so Level 3 is reachable honestly</li>
-        </ul>
-        <p>Direction, not product. When any of it ships, it moves left on this page.</p>
+        <div class="st-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <span class="chip planned">Planned · vision</span>
+        <h3>Governing the AI estate</h3>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>What&rsquo;s included</summary>
+          <div class="x-body"><ul class="ticks"><li>Every agent, MCP server and machine identity on the same graph</li><li>Living programs across every capability</li><li>Proof that holds every day, so Level 3 is reachable honestly</li></ul><p>Direction, not product. When any of it ships, it moves left.</p></div></details>
       </div>
     </div>
   </div>
@@ -1136,9 +1334,12 @@
   <div class="wrap wl">
     <div class="sec-head" style="margin-bottom:0">
       <span class="eyebrow reveal">The waitlist</span>
-      <h2 class="reveal">Be first when the console opens up.</h2>
-      <p class="reveal">Waitlist members get early access in signup order and the launch price exactly as published. That&rsquo;s the point of publishing it. Assessment customers skip the line as design partners.</p>
-      <div class="promise reveal"><b>What we commit to:</b> first access at launch, at the published launch price, locked for your founding term. No spam in the meantime. We&rsquo;ll email you about access and nothing else.</div>
+      <h2 class="reveal">Be first when the console opens.</h2>
+      <p class="reveal">Early access in signup order, at the published launch price.</p>
+      <span class="pop reveal" style="margin-top:6px">
+        <button class="pop-btn" type="button" aria-expanded="false" aria-controls="pop-promise"><svg class="ic" aria-hidden="true"><use href="#i-handshake"/></svg>What we commit to</button>
+        <span class="pop-card" id="pop-promise">First access at launch, at the published launch price, locked for your founding term. We&rsquo;ll email you about access and nothing else.</span>
+      </span>
     </div>
     <div class="reveal">
     <form id="waitlist-form" class="panel" action="mailto:admin@clearfend.com?subject=ClearFend%20waitlist" method="post" enctype="text/plain" novalidate>
@@ -1179,7 +1380,7 @@
 <section id="faq">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow reveal">Straight answers</span>
+      <span class="eyebrow reveal">FAQ</span>
       <h2 class="reveal">Questions a skeptic would ask</h2>
     </div>
     <div class="faq">
@@ -1201,19 +1402,22 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow reveal">Company</span>
-      <h2 class="reveal">Clear tells you where you stand. Fend does something about it.</h2>
+      <h2 class="reveal">Clear tells you. Fend fixes it.</h2>
     </div>
     <div class="company">
-      <div class="co reveal" id="about"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg></span><h4>About</h4><p>ClearFend builds the security and compliance console for companies without a security team. The product sells one honest security number and the proof behind it, and every rule we work by exists to keep that sentence true: nothing is claimed that the evidence does not show, sample data is labelled sample, and anything not generally available says so.</p><p>We run our own estate through the same console. Our own Fix Queue is worked and our own evidence is what an auditor will see.</p></div>
-      <div class="co reveal" id="contact"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span><h4>Contact</h4><p>One address, read by a person: <a href="mailto:admin@clearfend.com">admin@clearfend.com</a>.</p><p>For a demo, an assessment, the waitlist, press, or a security concern about ClearFend itself, use the same address with a clear subject line. Security reports get a reply first.</p></div>
-      <div class="co reveal" id="careers"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-briefcase"/></svg></span><h4>Careers</h4><p>We are not hiring yet. <span class="ph">[CONFIRM: hiring status]</span></p><p>When that changes, the roles will be listed here with the salary band and the interview steps, in the same plain English as everything else. If you would like to hear when it does, email <a href="mailto:admin@clearfend.com?subject=Careers">admin@clearfend.com</a> with &ldquo;Careers&rdquo; in the subject.</p></div>
-      <div class="co reveal" id="press"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-press"/></svg></span><h4>Press kit</h4>
-        <div class="press-mark"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#04120f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span><b>ClearFend</b></div>
-        <p><b>The name.</b> Two real words, one meaning. <b>Clear</b> is knowing: plain English, one honest number, nothing hidden behind a quote wall. <b>Fend</b> is fixing: fend off, defend; something that hardens systems, not paperwork. Read as a verb phrase, clear-fend means defend clearly. Spelled as it is said, two syllables, easy on a call and in a browser bar.</p>
-        <p><b>The mark.</b> A shield with a check, teal on deep blue-charcoal. Teal <span class="mono">#2de1c6</span> is the one accent on dark; <span class="mono">#0a6b79</span> is its light-theme counterpart. Type: Sora for headings, Inter for text, JetBrains Mono for numerals.</p>
-        <div class="swatches" aria-label="Brand palette"><span class="sw" style="background:#080b12" title="Canvas, dark"></span><span class="sw" style="background:#2de1c6" title="Accent, dark theme"></span><span class="sw" style="background:#0a6b79" title="Accent, light theme"></span><span class="sw" style="background:#eef1f6" title="Canvas, light"></span><span class="sw" style="background:#18202e" title="Text, light theme"></span></div>
-        <p><span class="ph">[PRESS KIT DOWNLOAD]</span> for the mark in SVG and PNG, once the files are hosted.</p>
-      </div>
+      <div class="co reveal" id="about"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg></span><h4>About</h4><p>The security console for companies without a security team.</p>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>How we work</summary>
+          <div class="x-body"><p>Nothing is claimed that the evidence does not show, sample data is labelled sample, and anything not generally available says so. We run our own estate through the same console.</p></div></details></div>
+      <div class="co reveal" id="contact"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></span><h4>Contact</h4><p><a href="mailto:admin@clearfend.com">admin@clearfend.com</a>, read by a person.</p></div>
+      <div class="co reveal" id="careers"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-briefcase"/></svg></span><h4>Careers</h4><p>Open roles will be posted here when they become available.</p></div>
+      <div class="co reveal" id="press"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-press"/></svg></span><h4>Press</h4><p>Press enquiries go to <a href="mailto:admin@clearfend.com?subject=Press%20enquiry">admin@clearfend.com</a>.</p>
+        <details class="more"><summary><span class="plus" aria-hidden="true"><svg class="ic"><use href="#i-plus"/></svg></span>Name, logo and palette</summary>
+          <div class="x-body">
+            <div class="press-mark"><span class="pm-mark"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="0.5" y="0.5" width="63" height="63" rx="14.5" fill="#0e131e" stroke="#ffffff" stroke-opacity="0.12"/><path d="M33.2 41.2 A13 13 0 1 1 33.2 22.8" fill="none" stroke="#eaf0fa" stroke-width="7" stroke-linecap="round"/><path d="M41 44 V20 H53 M41 32 H50" fill="none" stroke="#2de1c6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="brand">Clear<span>Fend</span></span></div>
+            <p><b>Clear</b> is knowing: plain English, one honest number. <b>Fend</b> is fixing: something that hardens systems, not paperwork.</p>
+            <p>Two-tone wordmark in Sora: Clear <span class="mono">#0f1b2e</span>, Fend <span class="mono">#0f9a8a</span>; on dark, <span class="mono">#eaf0fa</span> and <span class="mono">#2de1c6</span>. Logo files are available on request at admin@clearfend.com.</p>
+            <div class="swatches" aria-label="Brand palette"><span class="sw" style="background:#0f1b2e" title="Clear, light"></span><span class="sw" style="background:#0f9a8a" title="Fend, light"></span><span class="sw" style="background:#0e131e" title="Mark ground"></span><span class="sw" style="background:#eaf0fa" title="Clear, dark"></span><span class="sw" style="background:#2de1c6" title="Fend, dark"></span></div>
+          </div></details></div>
     </div>
 
     <div class="incident reveal" id="incident">
@@ -1229,8 +1433,8 @@
 <!-- ═══════════════ FINAL CTA ═══════════════ -->
 <section class="final" id="book">
   <div class="wrap">
-    <h2>One honest number. Then the fixes that matter.</h2>
-    <p>See the Confidence Console on your own estate, read-only. Or start with a five-day assessment and come in as a design partner.</p>
+    <h2>One honest number. Then the fixes.</h2>
+    <p>See the console on your own estate, read-only.</p>
     <div class="cta-row">
       <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&amp;body=Hi%20ClearFend%2C%0A%0AWe%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0AName%3A%0ACompany%3A%0ACompany%20size%3A%0AWhat%27s%20driving%20this%3A%0A">Get a demo</a>
       <a class="btn ghost" href="#waitlist">Join the waitlist</a>
@@ -1244,17 +1448,14 @@
   <div class="wrap">
     <div class="fgrid">
       <div class="fbrand">
-        <a class="brand" href="#top" aria-label="ClearFend home">
-          <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#04120f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
-          <span><span class="brand-name">ClearFend</span><span class="brand-sub">Confidence Console</span></span>
-        </a>
-        <p>Security and compliance for companies without a security team. Read-only by default. Plain English throughout. Labelled honestly.</p>
+        <a class="brand-link" href="#top" aria-label="ClearFend home"><span class="brand" aria-hidden="true">Clear<span>Fend</span></span></a>
+        <p>Security and compliance for companies without a security team.</p>
       </div>
       <div class="fcol"><h4>Platform</h4><ul><li><a href="#console">The Confidence Console</a></li><li><a href="#fix-queue">Fix Queue</a></li><li><a href="#estate">Estate graph</a></li><li><a href="#evidence">Evidence packets</a></li><li><a href="#leadership">Leadership summary</a></li><li><a href="#connectors">Connectors</a></li></ul></div>
       <div class="fcol"><h4>Solutions</h4><ul><li><a href="#know">Know where you stand</a></li><li><a href="#fix">Fix what matters</a></li><li><a href="#prove">Prove it</a></li><li><a href="#modules">All modules</a></li><li><a href="#programs">Living programs</a></li></ul></div>
       <div class="fcol"><h4>Resources</h4><ul><li><a href="glossary.html">Glossary</a></li><li><a href="#principles">Design principles</a></li><li><a href="#trust">Trust &amp; security</a></li><li><a href="#status">Status</a></li><li><a href="#faq">FAQ</a></li><li><a href="#pricing">Pricing</a></li></ul></div>
       <div class="fcol"><h4>Customers</h4><ul><li><a href="#partners">Design partners</a></li><li><a href="#assessment">Posture assessment</a></li><li><a href="#waitlist">Waitlist</a></li><li><a href="https://dev.clearfend.com/login">Sign in</a></li></ul></div>
-      <div class="fcol"><h4>Company</h4><ul><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li><li><a href="#careers">Careers</a></li><li><a href="#press">Press kit</a></li><li><a href="#incident" data-incident>Experiencing an incident?</a></li></ul></div>
+      <div class="fcol"><h4>Company</h4><ul><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li><li><a href="#careers">Careers</a></li><li><a href="#press">Press</a></li><li><a href="#incident" data-incident>Experiencing an incident?</a></li></ul></div>
     </div>
     <div class="foot">
       <span><b>ClearFend</b> · clearfend.com · <a href="mailto:admin@clearfend.com">admin@clearfend.com</a></span>
@@ -1464,6 +1665,55 @@
         items.forEach(function(o){ if(o!==d) o.open = false; });
       });
     });
+  })();
+
+  /* ---- progressive disclosure: flip cards, popovers, the ladder, deep links ---- */
+  (function(){
+    function toggle(el, force){
+      var open = typeof force === 'boolean' ? force : el.getAttribute('aria-expanded') !== 'true';
+      el.setAttribute('aria-expanded', String(open));
+      return open;
+    }
+    document.querySelectorAll('.flip').forEach(function(b){
+      b.addEventListener('click', function(){ toggle(b); });
+    });
+
+    var pops = Array.prototype.slice.call(document.querySelectorAll('.pop-btn'));
+    function closePops(except){ pops.forEach(function(p){ if(p !== except) p.setAttribute('aria-expanded','false'); }); }
+    pops.forEach(function(p){
+      p.addEventListener('click', function(){ closePops(p); toggle(p); });
+    });
+    document.addEventListener('click', function(e){ if(!(e.target.closest && e.target.closest('.pop'))) closePops(); });
+    document.addEventListener('keydown', function(e){
+      if(e.key !== 'Escape') return;
+      var open = pops.filter(function(p){ return p.getAttribute('aria-expanded') === 'true'; });
+      if(open.length){ closePops(); if(open.indexOf(document.activeElement) === -1 && open[0].focus) open[0].focus(); }
+    });
+
+    var rungs = Array.prototype.slice.call(document.querySelectorAll('.rung-b'));
+    rungs.forEach(function(r){
+      r.addEventListener('click', function(){
+        var on = r.getAttribute('aria-expanded') !== 'true';
+        rungs.forEach(function(x){ x.setAttribute('aria-expanded','false'); document.getElementById(x.getAttribute('aria-controls')).hidden = true; });
+        if(on){ r.setAttribute('aria-expanded','true'); document.getElementById(r.getAttribute('aria-controls')).hidden = false; }
+      });
+    });
+
+    /* a deep link (#fix-queue, #m-cloud, #know) opens the thing it points at */
+    function openTarget(){
+      var id = decodeURIComponent(location.hash.slice(1));
+      var t = id && document.getElementById(id);
+      if(!t) return;
+      if(t.tagName === 'DETAILS') t.open = true;
+      else if(t.hasAttribute('data-disclose')){ var d = t.querySelector('details'); if(d) d.open = true; }
+      else if(t.classList.contains('flip-cell')){ var f = t.querySelector('.flip'); if(f) toggle(f, true); }
+    }
+    window.addEventListener('hashchange', openTarget);
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if(a && a.getAttribute('href') === location.hash) setTimeout(openTarget, 0);
+    });
+    openTarget();
   })();
 
   /* ---- forms: every submit composes an email to admin@clearfend.com ---- */
