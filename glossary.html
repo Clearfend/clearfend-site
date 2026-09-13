@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Glossary — ClearFend. Every term we use, in plain English.</title>
 <meta name="description" content="The ClearFend glossary: blast radius, crown jewel, drift, provenance, living program and every other term on the Confidence Console, explained in plain English for people without a security team.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="theme-color" content="#ffffff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,14 +51,12 @@
 
   header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
   .navbar{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
-  .brand{display:flex;align-items:center;gap:10px;color:var(--text)}
-  .brand:hover{color:var(--text);text-decoration:none}
-  .mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#2de1c6,#0a6b79);display:grid;place-items:center;flex:0 0 auto}
-  .mark svg{width:17px;height:17px}
-  .brand-name{font:700 17px/1 var(--display)}
-  .brand-sub{display:block;font:600 9.5px/1 var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:4px}
+  .brand-link{display:inline-flex;align-items:center;text-decoration:none;border-radius:6px}
+  .brand-link:hover{text-decoration:none}
+  .brand{font:600 22px/1 var(--display);letter-spacing:-.025em;color:#0f1b2e;white-space:nowrap}
+  .brand > span{color:#0f9a8a}
   .nav-right{display:flex;gap:10px;align-items:center}
-  @media (max-width:600px){.brand-sub{display:none}.nav-right .ghost{display:none}}
+  @media (max-width:600px){.nav-right .ghost{display:none}}
 
   .hero{padding:64px 0 40px;background:radial-gradient(800px 400px at 90% -20%, rgba(45,225,198,.16), transparent 60%),var(--s1)}
   .hero .lead{color:var(--muted);font-size:var(--fs-md);max-width:64ch;margin-top:16px;line-height:1.65}
@@ -115,10 +114,7 @@
 
 <header class="site">
   <div class="wrap navbar">
-    <a class="brand" href="index.html" aria-label="ClearFend home">
-      <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#04120f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
-      <span><span class="brand-name">ClearFend</span><span class="brand-sub">Confidence Console</span></span>
-    </a>
+    <a class="brand-link" href="index.html" aria-label="ClearFend home"><span class="brand" aria-hidden="true">Clear<span>Fend</span></span></a>
     <div class="nav-right">
       <a class="btn ghost" href="index.html">Back to the site</a>
       <a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&amp;body=Hi%20ClearFend%2C%0A%0AWe%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0AName%3A%0ACompany%3A%0ACompany%20size%3A%0AWhat%27s%20driving%20this%3A%0A">Get a demo</a>
