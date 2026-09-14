@@ -876,13 +876,13 @@
               <div class="cols three">
                 <div class="col-h">By module · stage shown honestly</div>
                 <a class="mi" href="#m-appsec"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span><span><span class="t">Application Security <span class="chip preview">Private preview</span></span><span class="d">Is our code safe to ship?</span></span></a>
+                <a class="mi" href="#m-sbd"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg></span><span><span class="t">Secure by Design <span class="chip preview">Private preview</span></span><span class="d">Is this project safe to launch?</span></span></a>
+                <a class="mi" href="#m-vra"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-vendor"/></svg></span><span><span class="t">Vendor Risk Assessment <span class="chip preview">Private preview</span></span><span class="d">Is this vendor safe to onboard?</span></span></a>
+                <a class="mi" href="#m-pentest"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span><span><span class="t">Pen Testing &amp; Threat Modeling <span class="chip preview">Private preview</span></span><span class="d">Can we be broken into?</span></span></a>
                 <a class="mi" href="#m-cloud"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-cloud"/></svg></span><span><span class="t">Cloud &amp; Identity <span class="chip preview">Private preview</span></span><span class="d">Is our cloud configured safely?</span></span></a>
-                <a class="mi" href="#m-tprm"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-vendor"/></svg></span><span><span class="t">Third-Party Risk <span class="chip preview">Private preview</span></span><span class="d">Are our vendors safe?</span></span></a>
                 <a class="mi" href="#m-ai"><span class="ic-box ai"><svg class="ic" aria-hidden="true"><use href="#i-ai"/></svg></span><span><span class="t">AI Estate <span class="chip preview">Private preview</span></span><span class="d">What AI is running, and is it governed?</span></span></a>
-                <a class="mi" href="#m-pentest"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg></span><span><span class="t">Pen Test <span class="chip preview">Private preview</span></span><span class="d">Can we be broken into?</span></span></a>
                 <a class="mi" href="#m-human"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-people"/></svg></span><span><span class="t">Human Risk <span class="chip preview">Private preview</span></span><span class="d">Will my team get phished?</span></span></a>
                 <a class="mi" href="#m-risk"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg></span><span><span class="t">Risk Register <span class="chip preview">Private preview</span></span><span class="d">What have we accepted, and who signed?</span></span></a>
-                <a class="mi" href="#m-threat"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span><span><span class="t">Threat Modeling <span class="chip notbuilt">Not built yet</span></span><span class="d">What would an attacker do to this design?</span></span></a>
                 <a class="mi" href="#m-triage"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg></span><span><span class="t">Triage &amp; Threat Intel <span class="chip notbuilt">Not built yet</span></span><span class="d">Is something happening right now?</span></span></a>
               </div>
               <div class="mega-foot">
@@ -900,7 +900,7 @@
               <div class="cols three">
                 <div class="col-h">Three tiers · prices published before launch</div>
                 <a class="mi" href="#tier-free"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><span><span class="t">Free</span><span class="d">Know where you stand.</span></span></a>
-                <a class="mi" href="#tier-team"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-gauge"/></svg></span><span><span class="t">Team</span><span class="d">The console, continuously.</span></span></a>
+                <a class="mi" href="#tier-team"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-gauge"/></svg></span><span><span class="t">Team</span><span class="d">The full console.</span></span></a>
                 <a class="mi" href="#tier-complete"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-pulse"/></svg></span><span><span class="t">Complete</span><span class="d">Every living program.</span></span></a>
               </div>
             </div>
@@ -1300,11 +1300,12 @@
     <div class="mgroup">
       <div class="mg-h"><span class="chip preview">Private preview</span><p>Built, off the main menu. Ask us to switch it on.</p></div>
       <div class="mods">
-        <div class="mod" id="m-appsec"><span class="ic-box" aria-hidden="true"><svg class="ic"><use href="#i-code"/></svg></span><h3>Application Security</h3><p class="q">Is our code safe to ship?</p><p class="nt">Exposed secrets and risky code patterns in a GitHub repo you point at. Dependency scanning is not built yet.</p></div>
+        <div class="mod" id="m-appsec"><span class="ic-box" aria-hidden="true"><svg class="ic"><use href="#i-code"/></svg></span><h3>Application Security</h3><p class="q">Is our code safe to ship?</p><p class="nt">15 pattern checks and secret detection on an allow-listed GitHub repo. Deterministic pattern matching, not an AI review. Dependency scanning and SBOM are not built yet.</p></div>
+        <div class="mod" id="m-sbd"><span class="ic-box" aria-hidden="true"><svg class="ic"><use href="#i-compass"/></svg></span><h3>Secure by Design</h3><p class="q">Is this project safe to launch?</p><p class="nt">For in-house projects: classify the data, review the architecture, assess against NIST CSF 2.0, and take gaps to a go-live gate with owner-approved exceptions. Vendor and partnership intake are not built yet.</p></div>
+        <div class="mod" id="m-vra"><span class="ic-box" aria-hidden="true"><svg class="ic"><use href="#i-vendor"/></svg></span><h3>Vendor Risk Assessment</h3><p class="q">Is this vendor safe to onboard?</p><p class="nt">A company baseline, AI and NIST checklists and a structured SOC 2 review, scored green, amber or red, with a self-service questionnaire link for the vendor. Document upload is not built yet.</p></div>
+        <div class="mod" id="m-pentest"><span class="ic-box" aria-hidden="true"><svg class="ic"><use href="#i-target"/></svg></span><h3>Pen Testing &amp; Threat Modeling</h3><p class="q">Can we be broken into?</p><p class="nt">A passive external web scan runs on any public target with just an acknowledgement; active checks need you to prove you own the target. Not a human red team; threat modeling is not built yet.</p></div>
         <div class="mod" id="m-cloud"><span class="ic-box" aria-hidden="true"><svg class="ic"><use href="#i-cloud"/></svg></span><h3>Cloud &amp; Identity</h3><p class="q">Is our cloud configured safely?</p><p class="nt">CIS-style checks over what you declare today.</p></div>
-        <div class="mod" id="m-tprm"><span class="ic-box" aria-hidden="true"><svg class="ic"><use href="#i-vendor"/></svg></span><h3>Third-Party Risk</h3><p class="q">Are our vendors safe?</p><p class="nt">Vendors assessed and re-assessed, with the diff.</p></div>
         <div class="mod ai" id="m-ai"><span class="ic-box ai" aria-hidden="true"><svg class="ic"><use href="#i-ai"/></svg></span><h3>AI Estate</h3><p class="q">What AI is running, and is it governed?</p><p class="nt">Apps, agents, MCP servers and the keys behind them.</p></div>
-        <div class="mod" id="m-pentest"><span class="ic-box" aria-hidden="true"><svg class="ic"><use href="#i-target"/></svg></span><h3>Pen Test</h3><p class="q">Can we be broken into?</p><p class="nt">Automated external tests on targets you prove you own. Not a human red team.</p></div>
         <div class="mod" id="m-human"><span class="ic-box" aria-hidden="true"><svg class="ic"><use href="#i-people"/></svg></span><h3>Human Risk</h3><p class="q">Will my team get phished?</p><p class="nt">Access and training per person, from the roster you declare.</p></div>
         <div class="mod" id="m-risk"><span class="ic-box" aria-hidden="true"><svg class="ic"><use href="#i-book"/></svg></span><h3>Risk Register</h3><p class="q">What have we accepted, and who signed for it?</p><p class="nt">Accepted risk with an owner, a treatment and a date.</p></div>
       </div>
@@ -1313,7 +1314,6 @@
     <div class="mgroup">
       <div class="mg-h"><span class="chip notbuilt">Not built yet</span><p>Named, because hiding the gap would be dishonest.</p></div>
       <div class="mods two">
-        <div class="mod nb" id="m-threat"><span class="ic-box" aria-hidden="true"><svg class="ic"><use href="#i-pen"/></svg></span><h3>Threat Modeling</h3><p class="q">What would an attacker do to this design?</p><p class="nt">Not built. Tell us if you want it.</p></div>
         <div class="mod nb" id="m-triage"><span class="ic-box" aria-hidden="true"><svg class="ic"><use href="#i-pulse"/></svg></span><h3>Triage &amp; Threat Intel</h3><p class="q">Is something happening right now?</p><p class="nt">Not built. No alert ingestion, queue or on-call.</p></div>
       </div>
     </div>
@@ -1357,7 +1357,7 @@
       </div>
       <div class="tier hi reveal" id="tier-team">
         <span class="t-tag">Team</span>
-        <p class="t-name">The console, continuously</p>
+        <p class="t-name">The full console</p>
         <p class="t-price">per user · published at launch</p>
         <ul class="ticks"><li>Fix Queue, Risk Register and Estate</li><li>Controls, scored net of drift</li><li>An evidence trail you can show a customer; auditor-grade signing is in build</li><li>Continuous monitoring as read-only sources land</li></ul>
       </div>
@@ -1365,7 +1365,7 @@
         <span class="t-tag">Complete</span>
         <p class="t-name">Every living program</p>
         <p class="t-price">per user · published at launch</p>
-        <ul class="ticks"><li>Everything in Team</li><li>Third-Party Risk, AI Estate, Human Risk <span class="chip preview">Private preview</span></li><li>Pen Test and Application Security <span class="chip preview">Private preview</span></li><li>Threat Modeling <span class="chip notbuilt">Not built yet</span></li></ul>
+        <ul class="ticks"><li>Everything in Team</li><li>Vendor Risk Assessment, Secure by Design, AI Estate, Human Risk <span class="chip preview">Private preview</span></li><li>Pen Testing &amp; Threat Modeling and Application Security <span class="chip preview">Private preview</span></li><li>Triage &amp; Threat Intel <span class="chip notbuilt">Not built yet</span></li></ul>
       </div>
     </div>
     <ul class="promises reveal">
@@ -1385,7 +1385,7 @@
     </div>
     <div class="faq">
       <details class="q"><summary>How new are you, really? Do you have customers?</summary><div class="a">We&rsquo;re early, and we won&rsquo;t pretend otherwise. Working software in private preview. We&rsquo;re choosing our first design partners now. That is why there are no logos, testimonials or &ldquo;trusted by&rdquo; wall here. Being early gets you the launch price locked in, direct access to the people building the product, and a real say in what ships next.</div></details>
-      <details class="q"><summary>Is this an audit, a pentest, or a certification?</summary><div class="a">No, no, and no. The console tells you where you stand and gets you ready for an auditor; it doesn&rsquo;t replace one. Controls is a readiness view with drift, not a certificate. Pen Test, in private preview, runs automated tests against targets you prove you own; it is not a human red team.</div></details>
+      <details class="q"><summary>Is this an audit, a pentest, or a certification?</summary><div class="a">No, no, and no. The console tells you where you stand and gets you ready for an auditor; it doesn&rsquo;t replace one. Controls is a readiness view with drift, not a certificate. Pen Testing &amp; Threat Modeling, in private preview, runs a passive external web scan on any public target and safe or active checks on targets you prove you own; it is not a human red team, and the threat-modeling half is not built yet.</div></details>
       <details class="q"><summary>Do you install anything? What access do you need?</summary><div class="a"><b>Read-only by default.</b> Any access you grant is time-boxed and revocable by you. We never ask for passwords and never change anything in your environment, and nothing goes on laptops. The read-only readers for Microsoft 365, Google Workspace, Okta and AWS are still being built, so today most inputs are declared, and labelled that way.</div></details>
       <details class="q"><summary>Where does the confidence number come from today?</summary><div class="a">From what you have declared and what modules can observe, and it says which. Every input is marked self-declared, observed, derived or sample. We do not show a &ldquo;live&rdquo; indicator unless a live source wrote the data. Honest and partial beats confident and wrong.</div></details>
       <details class="q"><summary>How is this different from Vanta or Drata?</summary><div class="a">They are competent products for the paperwork side of a compliance program. ClearFend starts from what an attacker can reach and treats compliance as one consequence of it: one ranked Fix Queue across controls, vendors, AI and machine identities, people, code and cloud. If checkbox automation is all you need, they&rsquo;ll do.</div></details>
