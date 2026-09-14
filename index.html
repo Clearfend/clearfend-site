@@ -21,7 +21,7 @@
 <meta name="twitter:image" content="https://clearfend.com/og.png">
 <meta name="twitter:image:alt" content="ClearFend logo and the line: Know if you're secure. Fix what matters. Prove it.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<meta name="theme-color" content="#07080b">
+<meta name="theme-color" content="#04070d">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet">
@@ -736,47 +736,50 @@
   dialog.modal{box-shadow:0 30px 90px rgba(0,0,0,.7)}
   dialog.modal::backdrop{background:rgba(2,4,9,.66)}
   @media (max-width:1023px){nav.primary{background:var(--sp-s1)}header.site.drawer-open{background:var(--sp-s1)}}
-  .sp-ground{position:fixed;inset:0;z-index:0;pointer-events:none;background:#07080b}
+  .sp-ground{position:fixed;inset:0;z-index:0;pointer-events:none;background:#04070d}
   .sp-ground::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .9s ease}
   html.sp .sp-ground,html:not(.js) .sp-ground{background:var(--sp-nebula)}
   html.sp .sp-ground::before,html:not(.js) .sp-ground::before{background:var(--sp-speckle);opacity:1}
-  html:not(.js) .sp-ground::before,html:not(.motion) .sp-ground::before{transition:none}
+  .sp-ground canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity 1.6s cubic-bezier(.22,.61,.36,1)}
+  .sp-ground.live canvas{opacity:1}
+  .sp-ground.live::before{opacity:0}
+  html:not(.js) .sp-ground::before,html:not(.motion) .sp-ground::before,html:not(.motion) .sp-ground canvas{transition:none}
   main,footer{position:relative;z-index:1}
   .util{position:relative;z-index:2}
   :root{
-  --sp-bg:#07080b; --sp-body:#07080b;
-  --sp-s0:#0b0c10; --sp-s1:#0f1015; --sp-s2:#14151b; --sp-s3:#1a1b22; --sp-s4:#22232c;
-  --sp-head:rgba(7,8,11,.86);
-  --sp-veil:rgba(7,8,11,.7); --sp-veil-alt:rgba(12,13,17,.78); --sp-veil-strong:rgba(7,8,11,.9);
-  --sp-glass:rgba(16,17,23,.82); --sp-glass-b:rgba(255,255,255,.09);
-  --sp-nebula:radial-gradient(1200px 800px at 85% 0%,rgba(255,196,140,.05),transparent 60%),radial-gradient(1000px 900px at 0% 60%,rgba(120,150,255,.05),transparent 65%),#07080b;
+  --sp-bg:#04070d; --sp-body:#04070d;
+  --sp-s0:#070b13; --sp-s1:#0b111c; --sp-s2:#0f1623; --sp-s3:#141c2b; --sp-s4:#1b2435;
+  --sp-head:rgba(4,7,13,.84);
+  --sp-veil:rgba(4,7,13,.64); --sp-veil-alt:rgba(7,11,19,.74); --sp-veil-strong:rgba(4,7,13,.88);
+  --sp-glass:rgba(11,17,28,.8); --sp-glass-b:rgba(255,255,255,.09);
+  --sp-nebula:radial-gradient(1100px 700px at 78% 8%,rgba(45,225,198,.07),transparent 60%),radial-gradient(900px 800px at 8% 70%,rgba(70,96,180,.08),transparent 65%),#04070d;
   --sp-speckle:
-  radial-gradient(1px 1px at 17% 23%,rgba(255,244,228,.4),transparent 70%) 0 0/331px 331px,
-  radial-gradient(1px 1px at 71% 58%,rgba(220,230,255,.3),transparent 70%) 0 0/331px 331px,
-  radial-gradient(1.3px 1.3px at 42% 88%,rgba(255,236,210,.36),transparent 70%) 0 0/331px 331px,
-  radial-gradient(1px 1px at 29% 47%,rgba(255,244,228,.22),transparent 70%) 0 0/467px 467px,
-  radial-gradient(2.5px 1.4px at 63% 19%,rgba(255,214,170,.16),transparent 70%) 0 0/467px 467px,
-  radial-gradient(1px 1px at 88% 76%,rgba(220,230,255,.3),transparent 70%) 0 0/571px 571px;
+  radial-gradient(1px 1px at 11% 17%,rgba(214,228,255,.55),transparent 70%) 0 0/277px 277px,
+  radial-gradient(1px 1px at 63% 41%,rgba(214,228,255,.35),transparent 70%) 0 0/277px 277px,
+  radial-gradient(1.4px 1.4px at 37% 83%,rgba(214,228,255,.5),transparent 70%) 0 0/277px 277px,
+  radial-gradient(1px 1px at 88% 67%,rgba(214,228,255,.3),transparent 70%) 0 0/277px 277px,
+  radial-gradient(1px 1px at 23% 52%,rgba(214,228,255,.28),transparent 70%) 0 0/419px 419px,
+  radial-gradient(1.2px 1.2px at 71% 12%,rgba(214,228,255,.45),transparent 70%) 0 0/419px 419px,
+  radial-gradient(1px 1px at 49% 71%,rgba(214,228,255,.32),transparent 70%) 0 0/419px 419px,
+  radial-gradient(1.6px 1.6px at 81% 33%,rgba(120,240,220,.55),transparent 70%) 0 0/613px 613px;
   }
-  .sp-ground::before{transition:none}
-  .hero,.final{position:relative;overflow:hidden;background:#06070a}
-  html:not(.js) .hero,html.sp .hero:not(.df-live){background:radial-gradient(900px 600px at 72% 30%,rgba(255,190,130,.07),transparent 62%),radial-gradient(800px 600px at 10% 90%,rgba(110,140,255,.06),transparent 60%),var(--sp-speckle),#06070a}
-  html:not(.js) .final,html.sp .final:not(.df-live){background:radial-gradient(900px 600px at 40% 50%,rgba(255,190,130,.06),transparent 62%),var(--sp-speckle),#06070a}
+  /* Signal: the sections are transparent so the one fixed field shows through; a soft veil sits behind the
+     hero copy and the final CTA copy so text and buttons keep AA contrast over the star field. */
+  .final{overflow:hidden}
   .hero > .wrap,.final > .wrap{position:relative;z-index:1}
-  canvas.df{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none;opacity:0;transition:opacity 2s ease}
-  canvas.df.on{opacity:1}
-  html:not(.motion) canvas.df{transition:none}
-  #problem{background:linear-gradient(180deg,#06070a,var(--sp-veil-alt) 200px)}
-  #faq{background:linear-gradient(180deg,var(--sp-veil-alt) calc(100% - 200px),#06070a)}
-  .hero .cframe{box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,220,180,.05)}
+  .hero-copy,.final-grid > div:first-child{position:relative}
+  .hero-copy::before,.final-grid > div:first-child::before{content:'';position:absolute;inset:-64px -84px;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(4,7,13,.82),rgba(4,7,13,.52) 55%,transparent)}
+  #problem{background:linear-gradient(180deg,rgba(7,11,19,0),var(--sp-veil-alt) 160px)}
+  #faq{background:linear-gradient(180deg,var(--sp-veil-alt) calc(100% - 180px),rgba(7,11,19,0))}
+  .hero .cframe{box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(45,225,198,.06)}
   html.sp-measure .reveal{opacity:1!important;transform:none!important;transition:none!important}
-  html{scrollbar-color:#2c313c #07080b}
+  html{scrollbar-color:#2c313c #04070d}
   input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus{-webkit-text-fill-color:var(--text);caret-color:var(--text);-webkit-box-shadow:0 0 0 1000px #151a22 inset;transition:background-color 9999s}
-  select option{background:#14151b;color:#eaf0fa}
+  select option{background:#0f1623;color:#eaf0fa}
 </style>
 </head>
 <body>
-<div class="sp-ground" id="sp-ground" aria-hidden="true"></div>
+<div class="sp-ground" id="sp-ground" data-field="hero" aria-hidden="true"><canvas></canvas></div>
 <a class="skip" href="#main">Skip to content</a>
 <!-- 24px-grid line icons, drawn for this site -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -971,7 +974,6 @@
 
 <!-- ═══════════════ HERO ═══════════════ -->
 <section class="hero" id="top">
-  <canvas class="df" data-field="hero" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="pill">Private preview</span>
@@ -1394,7 +1396,6 @@
 
 <!-- ═══════════════ FINAL CTA + design partners + incident ═══════════════ -->
 <section class="final" id="book">
-  <canvas class="df" data-field="final" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="final-grid">
       <div>
@@ -1966,6 +1967,6 @@
   })();
 })();
 </script>
-<script src="deepfield.js" defer></script>
+<script src="signal.js" defer></script>
 </body>
 </html>
