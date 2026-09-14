@@ -21,7 +21,7 @@
 <meta name="twitter:image" content="https://clearfend.com/og.png">
 <meta name="twitter:image:alt" content="ClearFend logo and the line: Know if you're secure. Fix what matters. Prove it.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#07080b">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet">
@@ -657,9 +657,126 @@
   /* reveal: only with JS and motion allowed */
   html.js.motion .reveal{opacity:0;transform:translateY(12px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
   html.js.motion .reveal.in{opacity:1;transform:none}
+
+  /* ══ SPACE BACKGROUND SYSTEM · dark remap (shared by the full-dark concepts) ══
+  Only surfaces, colour tokens and the generative ground change. Copy, structure and behaviour are untouched. */
+  :root{
+  --canvas:var(--sp-s0); --s1:var(--sp-s1); --s2:var(--sp-s2); --s3:var(--sp-s3); --s4:var(--sp-s4);
+  --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.15);
+  --text:#eaf0fa; --muted:#a9b4c6; --faint:#939fb3; --on-accent:#04120f;
+  --accent:#2de1c6; --accent-strong:#5defd3; --accent-weak:rgba(45,225,198,.12); --accent-line:rgba(45,225,198,.45); --accent-text:#5defd3;
+  --brand-tint:rgba(45,225,198,.13);
+  --ai-text:#f5c46a; --ai-tint:rgba(245,178,61,.13); --ai-border:rgba(245,178,61,.4);
+  --critical-text:#ff9aa1; --high-text:#ffbe7f; --low-text:#74e3bb; --info-text:#9dbcf6;
+  --shadow-1:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.25); --shadow-2:0 24px 60px rgba(0,0,0,.55);
+  color-scheme:dark;
+  }
+  html{background:var(--sp-bg)}
+  body{background:var(--sp-body)}
+  ::placeholder{color:#8d99ad;opacity:1}
+  ::selection{background:rgba(45,225,198,.35);color:#fff}
+  .util{background:rgba(0,0,0,.28);border-bottom-color:rgba(255,255,255,.06)}
+  header.site{background:var(--sp-head);border-bottom-color:rgba(255,255,255,.07)}
+  header.site.scrolled{box-shadow:0 10px 30px rgba(0,0,0,.45)}
+  svg.brand tspan:first-child{fill:#eaf0fa}
+  svg.brand tspan:last-child{fill:#2de1c6}
+  .mega{box-shadow:0 30px 60px rgba(0,0,0,.55)}
+  .menu-btn{background:transparent}
+  .btn.primary{box-shadow:0 0 0 1px rgba(45,225,198,.25),0 6px 22px rgba(45,225,198,.16)}
+  .btn.primary:hover{box-shadow:0 0 0 1px rgba(93,239,211,.4),0 8px 28px rgba(45,225,198,.28)}
+  .btn.ghost{background:rgba(255,255,255,.03)}
+  .chip{background:transparent}
+  .chip.live{color:#6ff0d8;border-color:rgba(45,225,198,.45);background:rgba(45,225,198,.09)}
+  .chip.preview{color:#b3caff;border-color:rgba(143,178,244,.45);background:rgba(47,107,255,.14)}
+  .chip.notbuilt{color:#b9c3d2;border-color:#5b667a;background:rgba(255,255,255,.03)}
+  .hero{background:transparent}
+  section.alt,#how,#modules,#pricing{background:var(--sp-veil)}
+  section.alt{background:var(--sp-veil-alt)}
+  .dark{background:radial-gradient(900px 480px at 80% 0%,rgba(45,225,198,.08),transparent 60%),var(--sp-veil-strong)}
+  .final{background:transparent}
+  footer{background:var(--sp-veil-strong);border-top-color:rgba(255,255,255,.07)}
+  .hero-form,.mod,.tier,details.q,.partner,.incident,.o,.g-fix,.fwline,.cframe{background:var(--sp-glass);border-color:var(--sp-glass-b)}
+  .cframe .bar{background:rgba(255,255,255,.03)}
+  .tile,.verdict,.queue{background:rgba(255,255,255,.035)}
+  .cframe{box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(45,225,198,.05)}
+  .score svg circle:first-child{stroke:#243044}
+  .score svg circle:last-child{stroke:#2de1c6}
+  .score .n{color:#5defd3}
+  .sev-critical{background:rgba(255,91,107,.15)} .sev-high{background:rgba(255,159,69,.15)} .sev-ai{background:rgba(245,178,61,.15)}
+  .tier.hi{box-shadow:0 0 0 3px rgba(45,225,198,.1),0 0 40px rgba(45,225,198,.08)}
+  .mod.nb{background:rgba(255,255,255,.02);border-color:#4d586c}
+  .mod.nb .ic-box{background:rgba(255,255,255,.06);color:#b9c3d2}
+  .mod:target{box-shadow:0 0 0 3px rgba(45,225,198,.18)}
+  .o .o-s.pass{color:#74e3bb}
+  .fcol a{text-decoration-color:rgba(169,180,198,.35)}
+  .cr{background:rgba(11,16,26,.9)}
+  .g-stage{background-color:rgba(6,10,18,.55);background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1.2px);border-color:rgba(255,255,255,.08)}
+  .g-node rect{fill:#0f1624;stroke:#3a4760}
+  .g-node .nm{fill:#eaf0fa}
+  .g-node .sb{fill:#a9b4c6}
+  .g-node.entry rect{fill:#0b111c}
+  .g-node.ai rect{stroke:#f5b23d}
+  .g-node.choke rect.halo{stroke:rgba(45,225,198,.22)}
+  .g-node.choke rect.box{stroke:#2de1c6}
+  .g-node.jewel rect.box{stroke:#f6c453;fill:#1b170c}
+  .g-tag{fill:#5defd3}
+  .g-tag.gold{fill:#f6d581}
+  .g-edge{stroke:#ff6b7a}
+  .g-edge.down{stroke:#56627a}
+  html.motion .graph:not(.go) .g-edge.down{stroke:#ff6b7a}
+  .g-cut circle{fill:#0f1624;stroke:#38d9a0}
+  .g-cut path{stroke:#38d9a0}
+  .g-jewel-ring{stroke:#f6c453}
+  html.motion .graph:not(.go) .g-jewel-ring{stroke:#ff6b7a}
+  .g-legend i{border-top-color:#ff6b7a}
+  .g-legend i.cut{border-top-color:#7d889c}
+  .g-legend i.box{border-color:#2de1c6}
+  .g-legend i.gold{border-color:#f6c453}
+  @media (max-width:520px){.mbar{background:rgba(6,9,16,.94);border-top-color:rgba(255,255,255,.1);box-shadow:0 -8px 24px rgba(0,0,0,.4)}}
+  dialog.modal{box-shadow:0 30px 90px rgba(0,0,0,.7)}
+  dialog.modal::backdrop{background:rgba(2,4,9,.66)}
+  @media (max-width:1023px){nav.primary{background:var(--sp-s1)}header.site.drawer-open{background:var(--sp-s1)}}
+  .sp-ground{position:fixed;inset:0;z-index:0;pointer-events:none;background:#07080b}
+  .sp-ground::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .9s ease}
+  html.sp .sp-ground,html:not(.js) .sp-ground{background:var(--sp-nebula)}
+  html.sp .sp-ground::before,html:not(.js) .sp-ground::before{background:var(--sp-speckle);opacity:1}
+  html:not(.js) .sp-ground::before,html:not(.motion) .sp-ground::before{transition:none}
+  main,footer{position:relative;z-index:1}
+  .util{position:relative;z-index:2}
+  :root{
+  --sp-bg:#07080b; --sp-body:#07080b;
+  --sp-s0:#0b0c10; --sp-s1:#0f1015; --sp-s2:#14151b; --sp-s3:#1a1b22; --sp-s4:#22232c;
+  --sp-head:rgba(7,8,11,.86);
+  --sp-veil:rgba(7,8,11,.7); --sp-veil-alt:rgba(12,13,17,.78); --sp-veil-strong:rgba(7,8,11,.9);
+  --sp-glass:rgba(16,17,23,.82); --sp-glass-b:rgba(255,255,255,.09);
+  --sp-nebula:radial-gradient(1200px 800px at 85% 0%,rgba(255,196,140,.05),transparent 60%),radial-gradient(1000px 900px at 0% 60%,rgba(120,150,255,.05),transparent 65%),#07080b;
+  --sp-speckle:
+  radial-gradient(1px 1px at 17% 23%,rgba(255,244,228,.4),transparent 70%) 0 0/331px 331px,
+  radial-gradient(1px 1px at 71% 58%,rgba(220,230,255,.3),transparent 70%) 0 0/331px 331px,
+  radial-gradient(1.3px 1.3px at 42% 88%,rgba(255,236,210,.36),transparent 70%) 0 0/331px 331px,
+  radial-gradient(1px 1px at 29% 47%,rgba(255,244,228,.22),transparent 70%) 0 0/467px 467px,
+  radial-gradient(2.5px 1.4px at 63% 19%,rgba(255,214,170,.16),transparent 70%) 0 0/467px 467px,
+  radial-gradient(1px 1px at 88% 76%,rgba(220,230,255,.3),transparent 70%) 0 0/571px 571px;
+  }
+  .sp-ground::before{transition:none}
+  .hero,.final{position:relative;overflow:hidden;background:#06070a}
+  html:not(.js) .hero,html.sp .hero:not(.df-live){background:radial-gradient(900px 600px at 72% 30%,rgba(255,190,130,.07),transparent 62%),radial-gradient(800px 600px at 10% 90%,rgba(110,140,255,.06),transparent 60%),var(--sp-speckle),#06070a}
+  html:not(.js) .final,html.sp .final:not(.df-live){background:radial-gradient(900px 600px at 40% 50%,rgba(255,190,130,.06),transparent 62%),var(--sp-speckle),#06070a}
+  .hero > .wrap,.final > .wrap{position:relative;z-index:1}
+  canvas.df{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none;opacity:0;transition:opacity 2s ease}
+  canvas.df.on{opacity:1}
+  html:not(.motion) canvas.df{transition:none}
+  #problem{background:linear-gradient(180deg,#06070a,var(--sp-veil-alt) 200px)}
+  #faq{background:linear-gradient(180deg,var(--sp-veil-alt) calc(100% - 200px),#06070a)}
+  .hero .cframe{box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,220,180,.05)}
+  html.sp-measure .reveal{opacity:1!important;transform:none!important;transition:none!important}
+  html{scrollbar-color:#2c313c #07080b}
+  input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus{-webkit-text-fill-color:var(--text);caret-color:var(--text);-webkit-box-shadow:0 0 0 1000px #151a22 inset;transition:background-color 9999s}
+  select option{background:#14151b;color:#eaf0fa}
 </style>
 </head>
 <body>
+<div class="sp-ground" id="sp-ground" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
 <!-- 24px-grid line icons, drawn for this site -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -854,6 +971,7 @@
 
 <!-- ═══════════════ HERO ═══════════════ -->
 <section class="hero" id="top">
+  <canvas class="df" data-field="hero" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="pill">Private preview</span>
@@ -1276,6 +1394,7 @@
 
 <!-- ═══════════════ FINAL CTA + design partners + incident ═══════════════ -->
 <section class="final" id="book">
+  <canvas class="df" data-field="final" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="final-grid">
       <div>
@@ -1847,5 +1966,6 @@
   })();
 })();
 </script>
+<script src="deepfield.js" defer></script>
 </body>
 </html>
