@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex">
 <meta name="description" content="This page isn't on clearfend.com. Go to the home page or the plain-English security glossary.">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<meta name="theme-color" content="#07080b">
+<meta name="theme-color" content="#04070d">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
@@ -112,19 +112,20 @@
   --accent:#2de1c6; --accent-strong:#5defd3; --accent-weak:rgba(45,225,198,.12); --accent-line:rgba(45,225,198,.45); --accent-text:#5defd3;
   --ai-text:#f5c46a; --ai-tint:rgba(245,178,61,.13);
   --shadow-1:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.25);
-  --sp-glass:rgba(16,17,23,.82); --sp-glass-b:rgba(255,255,255,.09); --sp-veil:rgba(7,8,11,.72); --sp-veil-strong:rgba(7,8,11,.9);
-  --sp-nebula:radial-gradient(1200px 800px at 85% 0%,rgba(255,196,140,.05),transparent 60%),radial-gradient(1000px 900px at 0% 60%,rgba(120,150,255,.05),transparent 65%),#07080b;
+  --sp-glass:rgba(16,17,23,.82); --sp-glass-b:rgba(255,255,255,.09); --sp-veil:rgba(4,7,13,.72); --sp-veil-strong:rgba(4,7,13,.9);
+  --sp-nebula:radial-gradient(1100px 700px at 78% 8%,rgba(45,225,198,.07),transparent 60%),radial-gradient(900px 800px at 8% 70%,rgba(70,96,180,.08),transparent 65%),#04070d;
   --sp-speckle:
-  radial-gradient(1px 1px at 17% 23%,rgba(255,244,228,.4),transparent 70%) 0 0/331px 331px,
-  radial-gradient(1px 1px at 71% 58%,rgba(220,230,255,.3),transparent 70%) 0 0/331px 331px,
-  radial-gradient(1.3px 1.3px at 42% 88%,rgba(255,236,210,.36),transparent 70%) 0 0/331px 331px,
-  radial-gradient(1px 1px at 29% 47%,rgba(255,244,228,.22),transparent 70%) 0 0/467px 467px,
-  radial-gradient(2.5px 1.4px at 63% 19%,rgba(255,214,170,.16),transparent 70%) 0 0/467px 467px,
-  radial-gradient(1px 1px at 88% 76%,rgba(220,230,255,.3),transparent 70%) 0 0/571px 571px;
+  radial-gradient(1px 1px at 11% 17%,rgba(214,228,255,.5),transparent 70%) 0 0/277px 277px,
+  radial-gradient(1px 1px at 63% 41%,rgba(214,228,255,.32),transparent 70%) 0 0/277px 277px,
+  radial-gradient(1.4px 1.4px at 37% 83%,rgba(214,228,255,.45),transparent 70%) 0 0/277px 277px,
+  radial-gradient(1px 1px at 88% 67%,rgba(214,228,255,.28),transparent 70%) 0 0/277px 277px,
+  radial-gradient(1px 1px at 23% 52%,rgba(214,228,255,.26),transparent 70%) 0 0/419px 419px,
+  radial-gradient(1.2px 1.2px at 71% 12%,rgba(214,228,255,.4),transparent 70%) 0 0/419px 419px,
+  radial-gradient(1.4px 1.4px at 49% 71%,rgba(120,240,220,.42),transparent 70%) 0 0/613px 613px;
   color-scheme:dark;
   }
-  html{background:#07080b;scrollbar-color:#2c313c #07080b}
-  body{background:#07080b}
+  html{background:#04070d;scrollbar-color:#2c313c #04070d}
+  body{background:#04070d}
   ::placeholder{color:#8d99ad;opacity:1}
   ::selection{background:rgba(45,225,198,.35);color:#fff}
   input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus{-webkit-text-fill-color:var(--text);caret-color:var(--text);-webkit-box-shadow:0 0 0 1000px #151a22 inset;transition:background-color 9999s}
@@ -132,28 +133,27 @@
   .btn.primary{box-shadow:0 0 0 1px rgba(45,225,198,.25),0 6px 22px rgba(45,225,198,.16)}
   .btn.ghost{background:rgba(255,255,255,.03)}
   .util{background:rgba(0,0,0,.28);border-bottom-color:rgba(255,255,255,.06)}
-  header.site{background:rgba(7,8,11,.86);border-bottom-color:rgba(255,255,255,.07)}
+  header.site{background:rgba(4,7,13,.86);border-bottom-color:rgba(255,255,255,.07)}
   svg.brand tspan:first-child{fill:#eaf0fa}
   svg.brand tspan:last-child{fill:#2de1c6}
   .menu-btn{background:transparent}
   @media (max-width:1023px){html.js nav.sub{background:var(--s1);box-shadow:0 24px 48px rgba(0,0,0,.55)}}
   footer{background:var(--sp-veil-strong);border-top-color:rgba(255,255,255,.07)}
   .fgrid ul a{text-decoration-color:rgba(169,180,198,.35)}
-  .sp-ground{position:fixed;inset:0;z-index:0;pointer-events:none;background:#07080b}
+  .sp-ground{position:fixed;inset:0;z-index:0;pointer-events:none;background:#04070d}
   .sp-ground::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .9s ease}
   html.sp .sp-ground,html:not(.js) .sp-ground{background:var(--sp-nebula)}
   html.sp .sp-ground::before,html:not(.js) .sp-ground::before{background:var(--sp-speckle);opacity:1}
+  .sp-ground canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity 1.6s cubic-bezier(.22,.61,.36,1)}
+  .sp-ground.live canvas{opacity:1}
+  .sp-ground.live::before{opacity:0}
   html:not(.js) .sp-ground::before{transition:none}
-  @media (prefers-reduced-motion:reduce){.sp-ground::before{transition:none}}
+  @media (prefers-reduced-motion:reduce){.sp-ground::before,.sp-ground canvas{transition:none}}
   main,footer{position:relative;z-index:1}
   .util{position:relative;z-index:2}
-  .hero,.nf{position:relative;overflow:hidden;background:#06070a}
-  html:not(.js) .hero,html:not(.js) .nf,html.sp .hero:not(.df-live),html.sp .nf:not(.df-live){background:radial-gradient(900px 600px at 72% 30%,rgba(255,190,130,.06),transparent 62%),radial-gradient(800px 600px at 10% 90%,rgba(110,140,255,.05),transparent 60%),var(--sp-speckle),#06070a}
+  .hero,.nf{position:relative;background:transparent}
   .hero > .wrap,.nf > .wrap{position:relative;z-index:1}
-  canvas.df{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none;opacity:0;transition:opacity 2s ease}
-  canvas.df.on{opacity:1}
-  @media (prefers-reduced-motion:reduce){canvas.df{transition:none}}
-  .terms-wrap{background:linear-gradient(180deg,#06070a,var(--sp-veil) 160px)}
+  .terms-wrap{background:linear-gradient(180deg,rgba(7,11,19,0),var(--sp-veil) 200px)}
   .search{background:var(--sp-glass);border-color:var(--border-strong)}
   .term{background:var(--sp-glass);border-color:var(--sp-glass-b)}
   .term:target{box-shadow:0 0 0 3px rgba(45,225,198,.18)}
@@ -161,7 +161,7 @@
 </style>
 </head>
 <body>
-<div class="sp-ground" id="sp-ground" aria-hidden="true"></div>
+<div class="sp-ground" id="sp-ground" data-field="calm" aria-hidden="true"><canvas></canvas></div>
 <a class="skip" href="#main">Skip to content</a>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-login" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M13 4h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></symbol>
@@ -190,7 +190,6 @@
 </header>
 <main id="main">
   <section class="nf">
-    <canvas class="df" data-field="calm" aria-hidden="true"></canvas>
     <div class="wrap">
       <p class="code">404 · NOT FOUND</p>
       <h1>This page isn&rsquo;t here.</h1>
@@ -224,6 +223,6 @@
   document.addEventListener('click', function(e){ if(!e.target.closest('#siteHeader')) set(false); });
 })();
 </script>
-<script src="/deepfield.js" defer></script>
+<script src="/signal.js" defer></script>
 </body>
 </html>
