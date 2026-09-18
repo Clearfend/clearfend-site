@@ -238,6 +238,7 @@
   .hero-err:empty{display:none}
   html:not(.js) .hero-form,html.js .nojs-only{display:none}
   @media (max-width:520px){.hero-form{flex-direction:column;padding:8px}.hero-form .btn{width:100%}}
+  .hero-alt{margin:12px 0 0;font-size:14px;color:var(--muted)}
   .ticks-inline{display:flex;gap:8px 20px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
   .ticks-inline li{display:inline-flex;align-items:center;gap:8px;font:500 14px/1.3 var(--font);color:var(--muted)}
   .ticks-inline .ic{width:16px;height:16px;color:var(--accent);stroke-width:2.4}
@@ -980,13 +981,14 @@
       <span class="pill">Private preview</span>
       <h1>Know if you&rsquo;re secure. Fix what matters. Prove it.</h1>
       <p class="lead">For 25–500-person companies without a security team: one honest security number, the fixes that move it, and the proof.</p>
-      <form class="hero-form" id="hero-form" novalidate aria-label="Request a demo">
+      <form class="hero-form" id="hero-form" novalidate aria-label="Join the waitlist">
         <label for="hero-email" class="sr">Work email</label>
         <input id="hero-email" name="email" type="email" required autocomplete="email" placeholder="Work email" aria-describedby="hero-email-err">
-        <button class="btn primary" type="submit">Get a demo</button>
+        <button class="btn primary" type="submit">Join the waitlist</button>
       </form>
       <p class="hero-err" id="hero-email-err" role="alert"></p>
-      <p class="nojs-only"><a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&amp;body=Hi%20ClearFend%2C%0A%0AWe%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0AName%3A%0ACompany%3A%0ACompany%20size%3A%0AWhat%27s%20driving%20this%3A%0A">Get a demo</a></p>
+      <p class="nojs-only"><a class="btn primary" href="mailto:admin@clearfend.com?subject=ClearFend%20waitlist&amp;body=Please%20add%20me%20to%20the%20ClearFend%20waitlist.%0A%0AWork%20email%3A%0ACompany%3A%0ACompany%20size%3A%0AWhen%20looking%20to%20start%3A%0A">Join the waitlist</a></p>
+      <p class="hero-alt">Prefer a live walkthrough? <a class="txt-link" data-contact="demo" href="mailto:admin@clearfend.com?subject=ClearFend%20demo%20request&amp;body=Hi%20ClearFend%2C%0A%0AWe%27d%20like%20a%20demo%20of%20the%20Confidence%20Console.%0A%0AName%3A%0ACompany%3A%0ACompany%20size%3A%0AWhat%27s%20driving%20this%3A%0A">Get a demo</a></p>
       <ul class="ticks-inline" aria-label="How it works with your systems">
         <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Read-only</li>
         <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Nothing installed</li>
@@ -1535,6 +1537,14 @@
           <option>We need to govern our AI and agents</option>
           <option>We just want the honest number</option>
         </select></div>
+      <div class="fld"><label for="cm-timeline">When are you looking to get started?</label>
+        <select id="cm-timeline" name="timeline">
+          <option>As soon as possible</option>
+          <option selected>Within a month</option>
+          <option>1&ndash;3 months</option>
+          <option>3+ months</option>
+          <option>Just exploring for now</option>
+        </select></div>
       <div class="m-actions"><p class="form-note"><span class="req" aria-hidden="true">*</span> Required.</p><button class="btn primary" type="submit">Compose email</button></div>
     </form>
   </div>
@@ -1829,6 +1839,7 @@
       text = 'Hi ClearFend,\n\n' + md.intro + '\n\n' +
         'Work email: ' + email.value.trim() + '\n' +
         'Company size: ' + $('cm-size').value + '\n' +
+        'When looking to start: ' + $('cm-timeline').value + '\n' +
         'What\'s driving this: ' + (trig || 'Not specified') + '\n';
       var href = CF.compose(subject, text);
       $('contact-composed').textContent = 'To: ' + CF.TO + '\nSubject: ' + subject + '\n\n' + text;
@@ -1873,7 +1884,7 @@
         e.preventDefault();
         var v = he.value.trim();
         if(!setErr(he, $('hero-email-err'), !v ? 'Enter your work email.' : (EMAIL_RE.test(v) ? '' : 'That email address doesn\'t look right.'))){ he.focus(); return; }
-        open('demo', hf.querySelector('button'), v, true);
+        open('waitlist', hf.querySelector('button'), v, false);
       });
       he.addEventListener('input', function(){ if(he.getAttribute('aria-invalid')) setErr(he, $('hero-email-err'), ''); });
     }
