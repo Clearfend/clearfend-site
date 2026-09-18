@@ -635,6 +635,7 @@
   .confirm{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
   .confirm[hidden]{display:none}
   .confirm-msg{font-size:var(--fs-base);color:var(--text);line-height:1.55}
+  .confirm-msg .muted{display:block;margin-top:8px;color:var(--muted);font-size:var(--fs-sm)}
   .confirm-msg:focus{outline:none}
   .ok-big{width:44px;height:44px;border-radius:12px;background:rgba(34,165,101,.14);color:var(--low-text);display:grid;place-items:center}
   .copy-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
@@ -1522,7 +1523,7 @@
     <button class="m-close" type="button" data-close aria-label="Close"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
   </div>
   <div class="m-body" data-view="form">
-    <p class="m-intro" id="cm-intro">This composes an email to admin@clearfend.com. Nothing is sent until you press send in your mail app.</p>
+    <p class="m-intro" id="cm-intro">Tell us where to reach you and we’ll add you to the list — no inbox opens.</p>
     <form id="contact-form" novalidate>
       <div class="fld"><label for="cm-email">Work email <span class="req" aria-hidden="true">*</span></label><input id="cm-email" name="email" type="email" autocomplete="email" required aria-describedby="cm-email-err"><p class="err" id="cm-email-err"></p></div>
       <div class="fld"><label for="cm-size">Company size</label>
@@ -1550,7 +1551,7 @@
           <option>3+ months</option>
           <option>Just exploring for now</option>
         </select></div>
-      <div class="m-actions"><p class="form-note"><span class="req" aria-hidden="true">*</span> Required.</p><button class="btn primary" type="submit">Compose email</button></div>
+      <div class="m-actions"><p class="form-note"><span class="req" aria-hidden="true">*</span> Required.</p><button class="btn primary" id="cm-submit" type="submit">Join the waitlist</button></div>
     </form>
   </div>
   <div class="m-body confirm" data-view="done" hidden>
@@ -1762,6 +1763,7 @@
   /* ---- composing email ---- */
   var CF = window.ClearFend = window.ClearFend || {};
   CF.TO = 'admin@clearfend.com';
+  CF.SUBSCRIBE_URL = 'https://func-clearfend-waitlist.azurewebsites.net/api/subscribe';
   CF.compose = function(subject, body){ return 'mailto:' + CF.TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body); };
   CF.openMailto = function(href){ CF.lastMailto = href; try { window.location.href = href; } catch(err) {} };
   CF.copy = function(text, statusEl){
@@ -1830,9 +1832,9 @@
     var modal = makeModal(dlg);
     var formView = dlg.querySelector('[data-view="form"]'), doneView = dlg.querySelector('[data-view="done"]');
     var MODES = {
-      demo: { title:'Get a demo', subject:'ClearFend demo request', intro:'We\'d like a demo of the Confidence Console.' },
-      waitlist: { title:'Join the waitlist', subject:'ClearFend waitlist', intro:'Please add me to the ClearFend waitlist.' },
-      assessment: { title:'Scope an assessment', subject:'ClearFend posture assessment request', intro:'We\'d like to scope a read-only posture assessment.' }
+      demo: { title:'Get a demo', subject:'ClearFend demo request', intro:'We\'d like a demo of the Confidence Console.', cta:'Request a demo', lead:'Tell us where to reach you and we\'ll set up a demo \u2014 no inbox opens.', done:'Thanks \u2014 you\'re on our list. We\'ll reach out to set up your demo.' },
+      waitlist: { title:'Join the waitlist', subject:'ClearFend waitlist', intro:'Please add me to the ClearFend waitlist.', cta:'Join the waitlist', lead:'Tell us where to reach you and we\'ll add you to the list \u2014 no inbox opens.', done:'You\'re on the waitlist \u2014 we\'ll be in touch as spots open in the private preview.' },
+      assessment: { title:'Scope an assessment', subject:'ClearFend posture assessment request', intro:'We\'d like to scope a read-only posture assessment.', cta:'Request an assessment', lead:'Tell us where to reach you and we\'ll scope a read-only assessment \u2014 no inbox opens.', done:'Thanks \u2014 you\'re on our list. We\'ll reach out to scope your assessment.' }
     };
     var mode = 'demo', text = '', subject = '';
     var email = $('cm-email');
@@ -1855,20 +1857,38 @@
     function open(m, from, prefillEmail, skipToDone){
       mode = MODES[m] ? m : 'demo';
       $('cm-title').textContent = MODES[mode].title;
+      var sub = $('cm-submit'); if(sub) sub.textContent = MODES[mode].cta || 'Submit';
+      var intro = $('cm-intro'); if(intro && MODES[mode].lead) intro.textContent = MODES[mode].lead;
       setErr(email, $('cm-email-err'), '');
       if(prefillEmail) email.value = prefillEmail;
       modal.open(from);
       if(skipToDone){ var href = compose(); showView('done'); doneView.querySelector('.confirm-msg').focus(); CF.openMailto(href); }
       else { showView('form'); email.focus(); }
     }
+    var composedPre = $('contact-composed'), copyRow = doneView.querySelector('.copy-row');
+    function finishCaptured(){
+      composedPre.hidden = true; if(copyRow) copyRow.hidden = true;
+      doneView.querySelector('.confirm-msg').innerHTML = (MODES[mode].done || 'You\'re on our list.') + ' <span class="muted">Prefer email? <a href="mailto:' + CF.TO + '">' + CF.TO + '</a></span>';
+      showView('done'); doneView.querySelector('.confirm-msg').focus();
+    }
+    function finishMailtoFallback(href){
+      composedPre.hidden = false; if(copyRow) copyRow.hidden = false;
+      doneView.querySelector('.confirm-msg').textContent = 'Your email app should have opened with this request. If it didn\u2019t, copy the text and send it to ' + CF.TO + '.';
+      showView('done'); doneView.querySelector('.confirm-msg').focus();
+      CF.openMailto(href);
+    }
     form.addEventListener('submit', function(e){
       e.preventDefault();
       var v = email.value.trim();
       if(!setErr(email, $('cm-email-err'), !v ? 'Enter your work email.' : (EMAIL_RE.test(v) ? '' : 'That email address doesn\'t look right.'))){ email.focus(); return; }
-      var href = compose();
-      showView('done');
-      doneView.querySelector('.confirm-msg').focus();
-      CF.openMailto(href);
+      var href = compose(); // prepares the mailto text as a fallback + copy source
+      var btn = form.querySelector('button[type="submit"]'); var label = btn ? btn.textContent : '';
+      if(btn){ btn.disabled = true; btn.textContent = 'Submitting\u2026'; }
+      var payload = { email: v, company: '', companySize: $('cm-size').value, timeline: $('cm-timeline').value, driver: ($('cm-trigger').value || ''), source: 'clearfend.com/' + mode, website: '' };
+      fetch(CF.SUBSCRIBE_URL, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(payload) })
+        .then(function(r){ if(!r.ok) throw new Error('bad status'); return r.json(); })
+        .then(function(d){ if(!d || d.ok !== true) throw new Error('not ok'); if(btn){ btn.disabled=false; btn.textContent=label; } finishCaptured(); })
+        .catch(function(){ if(btn){ btn.disabled=false; btn.textContent=label; } finishMailtoFallback(href); });
     });
     email.addEventListener('input', function(){ if(email.getAttribute('aria-invalid')) setErr(email, $('cm-email-err'), ''); });
     doneView.querySelector('[data-copy]').addEventListener('click', function(){
